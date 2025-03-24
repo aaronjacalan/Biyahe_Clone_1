@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ProfileActivity">
+
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
+            android:src="@drawable/background2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_editProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/jb_mono_xtrabold"
+            android:text="EDIT PROFILE"
+            android:textAllCaps="true"
+            android:textColor="@color/colorFontLight"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/CircleImageIcon"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="-50dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="3dp"
+            app:strokeWidth="4dp"
+            app:strokeColor="@color/white"
+            android:src="@drawable/icon_user"
+            android:scaleType="centerCrop"
+            android:background="@android:color/white"
+            app:shapeAppearanceOverlay="@style/CircleShape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backgroundImage" />
+
+        <EditText
+            android:id="@+id/UID_EditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/jb_mono"
+            android:maxLength="35"
+            android:hint="UID"
+            android:textAlignment="center"
+            android:paddingVertical="15dp"
+            android:textColor="@color/colorFontDark"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CircleImageIcon" />
+
+        <EditText
+            android:id="@+id/UsernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/jb_mono"
+            android:hint="Username"
+            android:maxLength="35"
+            android:textAlignment="center"
+            android:paddingVertical="15dp"
+            android:textColor="@color/colorFontDark"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/UID_EditText" />
+
+        <EditText
+            android:id="@+id/ShortDescriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/jb_mono"
+            android:hint="Short Description"
+            android:maxLength="300"
+            android:textAlignment="center"
+            android:paddingVertical="15dp"
+            android:textColor="@color/colorFontDark"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/UsernameEditText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ShortDescriptionText">
+
+            <Button
+                android:id="@+id/editProfile_saveButton"
+                android:layout_width="175dp"
+                android:layout_height="69dp"
+                android:backgroundTint="@color/colorButtons"
+                android:text="SAVE"
+                android:fontFamily="@font/jb_mono_xtrabold"
+                android:textColor="@color/colorFontLight"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/editProfile_cancelButton"
+                android:layout_width="175dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="20dp"
+                android:background="@android:color/transparent"
+                android:text="CANCEL"
+                android:fontFamily="@font/jb_mono_xtrabold"
+                android:textColor="@color/colorFontDark"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
