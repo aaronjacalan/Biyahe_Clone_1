@@ -35,7 +35,7 @@ class LoginActivity : Activity() {
 
             Log.e("LoginActivity", "Login Button is clicked")
             toast("Welcome Back,   $username")
-            val intent = Intent(this, SettingsActivity::class.java)
+            val intent = Intent(this, LandingActivity::class.java)
             startActivity(intent)
         }
 
