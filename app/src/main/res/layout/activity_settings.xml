@@ -19,35 +19,29 @@
             android:layout_height="wrap_content"
             tools:context=".SettingsActivity">
 
-            <LinearLayout
-                android:id="@+id/settingsHeader"
+            <TextView
+                android:id="@+id/text_Settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp"
-                app:layout_constraintTop_toTopOf="parent">
+                android:fontFamily="@font/jb_mono_xtrabold"
+                android:text="SETTINGS"
+                android:textAlignment="center"
+                android:textColor="@color/colorFontDark"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginTop="50dp"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/settingsGoBack"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:layout_marginStart="25dp"
-                    android:rotation="180"
-                    android:src="@drawable/icon_backarrow" />
-
-                <TextView
-                    android:id="@+id/text_Settings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/jb_mono_xtrabold"
-                    android:text="SETTINGS"
-                    android:paddingLeft="75dp"
-                    android:textColor="@color/colorFontDark"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/settingsGoBack"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:rotation="180"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/icon_backarrow"
+                app:layout_constraintBottom_toBottomOf="@+id/text_Settings"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_Settings" />
 
             <TextView
                 android:id="@+id/text_accountSettings"
@@ -61,7 +55,7 @@
                 android:textColor="@color/colorFontDark"
                 android:textSize="11dp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/settingsHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/text_Settings" />
 
             <LinearLayout
                 android:id="@+id/accountSettingsFrame"

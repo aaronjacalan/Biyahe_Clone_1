@@ -10,7 +10,10 @@ import android.widget.TextView
 import com.android.biyahe.R
 import com.android.biyahe.data.Accounts
 
-class AccountAdapter(private val context: Context, private val accountList: List<Accounts>): BaseAdapter() {
+class AccountAdapter(private val context: Context,
+                     private val accountList: List<Accounts>,
+                     private val onClick: (Accounts) -> Unit
+                    ): BaseAdapter() {
     override fun getCount(): Int = accountList.size
     override fun getItem(position: Int): Any = accountList[position]
     override fun getItemId(position: Int): Long = position.toLong()
@@ -27,6 +30,8 @@ class AccountAdapter(private val context: Context, private val accountList: List
         accountIcon.setImageResource(account.iconResId)
         accountName.text = account.name
         accountLink.text = account.link
+
+        view.setOnClickListener { onClick(account) }
 
         return view
     }

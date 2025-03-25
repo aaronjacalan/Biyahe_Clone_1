@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.TextView
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
+import com.android.biyahe.utils.toast
 
 class ProfileActivity : Activity() {
 
@@ -44,7 +45,9 @@ class ProfileActivity : Activity() {
         }
 
         val accounts = AccountsList.listOfAccounts
-        val adapter = AccountAdapter(this, accounts)
+        val adapter = AccountAdapter(this, accounts, onClick = { accounts ->
+            toast("${accounts.name} Was Clicked")
+        })
         listViewLinkedAccounts.adapter = adapter
 
         setListViewHeightBasedOnChildren(listViewLinkedAccounts)
@@ -52,7 +55,7 @@ class ProfileActivity : Activity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == Activity.RESULT_OK) loadProfileData()
+        if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == RESULT_OK) loadProfileData()
     }
 
     private fun loadProfileData() {

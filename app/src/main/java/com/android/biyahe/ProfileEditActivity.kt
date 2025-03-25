@@ -76,7 +76,9 @@ class ProfileEditActivity : Activity() {
         }
 
         val accounts = AccountsList.listOfAccounts
-        val adapter = AccountAdapter(this, accounts)
+        val adapter = AccountAdapter(this, accounts, onClick = { accounts ->
+            toast("${accounts.name} Was Clicked");
+        })
         listViewLinkedAccountsEdit.adapter = adapter
 
         setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)

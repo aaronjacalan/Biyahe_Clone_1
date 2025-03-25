@@ -141,7 +141,7 @@
                 android:id="@+id/editProfile_saveButton"
                 android:layout_width="175dp"
                 android:layout_height="69dp"
-                android:backgroundTint="@color/colorButtons"
+                android:backgroundTint="@color/colorPrimary"
                 android:fontFamily="@font/jb_mono_xtrabold"
                 android:text="SAVE"
                 android:textColor="@color/colorFontLight"
