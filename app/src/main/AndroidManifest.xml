@@ -15,7 +15,10 @@
         android:theme="@style/Theme.BIYAHE"
         tools:targetApi="31">
         <activity
-            android:name=".utils.DeveloperActivity"
+            android:name=".BookmarkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DeveloperActivity"
             android:exported="false" />
         <activity
             android:name=".LandingActivity"

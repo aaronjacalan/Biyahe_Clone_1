@@ -1,4 +1,4 @@
-package com.android.biyahe.utils
+package com.android.biyahe
 
 import android.app.Activity
 import android.os.Bundle
