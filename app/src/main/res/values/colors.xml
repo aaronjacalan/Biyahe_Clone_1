@@ -5,4 +5,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFFF0000</color>
     <color name="yellowgreen">#FFa6ff00</color>
+    <color name="forgot_blue">#0000FF</color>
+    <color name="blue_theme">#006994</color>
 </resources>
