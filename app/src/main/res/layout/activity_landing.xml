@@ -153,7 +153,7 @@
             android:layout_weight="1"
             android:background="@color/blue_theme"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_home" />
+            android:src="@drawable/icon_current_home" />
 
         <ImageButton
             android:id="@+id/btn_route"

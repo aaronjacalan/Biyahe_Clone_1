@@ -7,4 +7,6 @@
     <color name="yellowgreen">#FFa6ff00</color>
     <color name="forgot_blue">#0000FF</color>
     <color name="blue_theme">#006994</color>
+    <color name="dev_text">#fefae0</color>
+    <color name="dev_solid">#bc6c25</color>
 </resources>
