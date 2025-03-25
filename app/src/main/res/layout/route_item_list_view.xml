@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Route"
+        android:fontFamily="@font/jb_mono_xtrabold"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="20sp"

@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BOOKMARKS"
+        android:fontFamily="@font/jb_mono_xtrabold"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/blue_theme"
