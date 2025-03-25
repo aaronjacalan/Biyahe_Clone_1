@@ -9,7 +9,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class SettingsActivity : Activity() {
 
@@ -17,7 +19,7 @@ class SettingsActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val buttonEditProfile = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.gotoMyAccount)
+        val buttonEditProfile = findViewById<ConstraintLayout>(R.id.gotoMyAccount)
         buttonEditProfile.setOnClickListener {
             Log.e("HELLO", "To Register Button is clicked")
             startActivity(Intent(this, ProfileActivity::class.java))
@@ -27,6 +29,17 @@ class SettingsActivity : Activity() {
         buttonLogout.setOnClickListener {
             Log.e("HELLO", "To Register Button is clicked")
             showLogoutDialog()
+        }
+
+        val goBack = findViewById<ImageView>(R.id.settingsGoBack)
+        goBack.setOnClickListener {
+            Log.e("Settings", "Go Back")
+            finish()
+        }
+
+        val developerPage = findViewById<ConstraintLayout>(R.id.moreSettings_DeveloperPage)
+        developerPage.setOnClickListener {
+            //to Dev Page
         }
 
         val languageSpinner: Spinner = findViewById(R.id.language_spinner)
