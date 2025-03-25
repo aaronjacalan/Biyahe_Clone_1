@@ -73,6 +73,5 @@ class LandingActivity : Activity() {
             startActivity(Intent(this, BookmarkActivity::class.java))
         }
 
-
     }
 }
