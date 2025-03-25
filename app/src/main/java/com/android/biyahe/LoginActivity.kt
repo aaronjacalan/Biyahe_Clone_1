@@ -8,7 +8,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Toast
 import com.android.biyahe.utils.isInvalid
 import com.android.biyahe.utils.toast
 
@@ -35,8 +34,7 @@ class LoginActivity : Activity() {
 
             Log.e("LoginActivity", "Login Button is clicked")
             toast("Welcome Back,   $username")
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LandingActivity::class.java))
         }
 
         // To be decided if functionalities are to be added
