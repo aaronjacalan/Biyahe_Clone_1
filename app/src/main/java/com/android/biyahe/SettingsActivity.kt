@@ -39,7 +39,8 @@ class SettingsActivity : Activity() {
 
         val developerPage = findViewById<ConstraintLayout>(R.id.moreSettings_DeveloperPage)
         developerPage.setOnClickListener {
-            //to Dev Page
+            Log.e("Settings", "Go Back")
+            startActivity(Intent(this, DeveloperActivity::class.java))
         }
 
         val languageSpinner: Spinner = findViewById(R.id.language_spinner)

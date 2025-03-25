@@ -40,6 +40,7 @@
         android:text="ABOUT THE DEVELOPERS"
         android:textFontWeight="5000"
         android:textSize="25sp"
+        android:textColor="@color/blue_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_space2" />
