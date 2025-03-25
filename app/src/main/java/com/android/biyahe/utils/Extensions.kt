@@ -5,7 +5,7 @@ import android.widget.EditText
 import android.widget.Toast
 
 fun Activity.toast(msg: String) {
-    Toast.makeText(this, msg, android.widget.Toast.LENGTH_LONG).show()
+    Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 }
 
 fun EditText.isInvalid(): Boolean {

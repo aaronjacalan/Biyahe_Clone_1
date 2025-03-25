@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/backgroundImage"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY"
             android:src="@drawable/background2"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/jb_mono"
             android:maxLength="35"
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/jb_mono"
             android:hint="Username"
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/jb_mono"
             android:hint="Short Description"
@@ -115,23 +115,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/UsernameEditText" />
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/listViewLinkedAccountsEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/corner_radius_small"
+            android:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/ShortDescriptionText" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ShortDescriptionText">
+            app:layout_constraintTop_toBottomOf="@+id/listViewLinkedAccountsEdit">
 
             <Button
                 android:id="@+id/editProfile_saveButton"
                 android:layout_width="175dp"
                 android:layout_height="69dp"
                 android:backgroundTint="@color/colorButtons"
-                android:text="SAVE"
                 android:fontFamily="@font/jb_mono_xtrabold"
+                android:text="SAVE"
                 android:textColor="@color/colorFontLight"
                 android:textSize="16sp" />
 
@@ -141,8 +153,8 @@
                 android:layout_height="69dp"
                 android:layout_marginStart="20dp"
                 android:background="@android:color/transparent"
-                android:text="CANCEL"
                 android:fontFamily="@font/jb_mono_xtrabold"
+                android:text="CANCEL"
                 android:textColor="@color/colorFontDark"
                 android:textSize="16sp" />
 

@@ -39,7 +39,7 @@ class SettingsActivity : Activity() {
 
         val developerPage = findViewById<ConstraintLayout>(R.id.moreSettings_DeveloperPage)
         developerPage.setOnClickListener {
-            Log.e("Settings", "Go Back")
+            Log.e("HELLO", "To Developer Page Button is clicked")
             startActivity(Intent(this, DeveloperActivity::class.java))
         }
 

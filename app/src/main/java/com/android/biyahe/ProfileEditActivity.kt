@@ -3,27 +3,33 @@ package com.android.biyahe
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ListView
+import com.android.biyahe.helper.AccountAdapter
+import com.android.biyahe.data.Accounts
+import com.android.biyahe.data.AccountsList
 import com.android.biyahe.utils.isInvalid
 import com.android.biyahe.utils.toast
 
 class ProfileEditActivity : Activity() {
 
-    private lateinit var UID: EditText
+    private lateinit var uid: EditText
     private lateinit var username: EditText
     private lateinit var shortDesc: EditText
+    private lateinit var listViewLinkedAccountsEdit: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_edit)
 
-        UID = findViewById(R.id.UID_EditText)
+        uid = findViewById(R.id.UID_EditText)
         username = findViewById(R.id.UsernameEditText)
         shortDesc = findViewById(R.id.ShortDescriptionText)
+        listViewLinkedAccountsEdit = findViewById(R.id.listViewLinkedAccountsEdit)
 
         loadProfileData()
 
@@ -48,7 +54,7 @@ class ProfileEditActivity : Activity() {
         val buttonSaveChanges = findViewById<Button>(R.id.editProfile_saveButton)
         buttonSaveChanges.setOnClickListener {
 
-            if (UID.isInvalid() ||
+            if (uid.isInvalid() ||
                 username.isInvalid() ||
                 shortDesc.isInvalid()) {
 
@@ -68,24 +74,51 @@ class ProfileEditActivity : Activity() {
                     .show()
             }
         }
+
+        val accounts = AccountsList.listOfAccounts
+        val adapter = AccountAdapter(this, accounts)
+        listViewLinkedAccountsEdit.adapter = adapter
+
+        setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)
+
+    }
+
+    private fun setListViewHeightBasedOnChildren(listView: ListView) {
+        val listAdapter = listView.adapter ?: return
+
+        var totalHeight = 0
+        for (i in 0 until listAdapter.count) {
+            val listItem = listAdapter.getView(i, null, listView)
+            listItem.measure(
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            )
+            totalHeight += listItem.measuredHeight
+        }
+
+        val params = listView.layoutParams
+        params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))
+        listView.layoutParams = params
+        listView.requestLayout()
     }
 
     private fun saveUserChanges() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
-            putString("UID", UID.text.toString())
+            putString("UID", uid.text.toString())
             putString("username", username.text.toString())
             putString("shortDesc", shortDesc.text.toString())
             apply()
         }
 
         toast("Changes saved successfully")
+        setResult(RESULT_OK)
         finish()
     }
 
     private fun loadProfileData() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
-        UID.setText(sharedPref.getString("UID", ""))
+        uid.setText(sharedPref.getString("UID", ""))
         username.setText(sharedPref.getString("username", ""))
         shortDesc.setText(sharedPref.getString("shortDesc", ""))
     }
