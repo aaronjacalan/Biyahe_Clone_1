@@ -76,4 +76,7 @@ class LandingActivity : Activity() {
 
     }
 
+    override fun onBackPressed() {
+        ExitDialog.show(this)
+    }
 }

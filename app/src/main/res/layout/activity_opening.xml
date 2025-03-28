@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_fade"
+    android:padding="25dp"
+    tools:context=".OpeningActivity">
+
+    <TextView
+        android:id="@+id/tv_welcomeHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:text="WELCOME TO BIYAHE 👋🏽"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_openingText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:lineSpacingExtra="5dp"
+        android:text="Tanang ruta, \ntanang sakyanan, \nnaa sa imong kamot!"
+        android:textAllCaps="true"
+        android:textColor="@color/colorFontLight"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_getStarted"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <Button
+        android:id="@+id/btn_getStarted"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:text="Get Started"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="25dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
