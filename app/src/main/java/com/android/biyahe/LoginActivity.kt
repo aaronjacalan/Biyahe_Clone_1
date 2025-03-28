@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import com.android.biyahe.utils.isInvalid
 import com.android.biyahe.utils.toast
 
@@ -51,6 +52,12 @@ class LoginActivity : Activity() {
         val btnFacebook= findViewById<ImageButton>(R.id.login_facebook)
         btnFacebook.setOnClickListener {
 
+        }
+
+        val gotoRegister = findViewById<TextView>(R.id.tv_gotoRegister)
+        gotoRegister.setOnClickListener {
+            toast("Going to Register")
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }

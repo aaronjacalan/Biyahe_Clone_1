@@ -180,32 +180,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/login_progress"
-        android:layout_width="0dp"
-        android:layout_height="8dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_space"
-        app:layout_constraintEnd_toStartOf="@+id/login_currentprogress"
-        app:layout_constraintStart_toStartOf="@+id/login_google"
-        app:layout_constraintWidth_percent="0.4" />
-
-    <View
-        android:id="@+id/login_currentprogress"
-        android:layout_width="84dp"
-        android:layout_height="8dp"
-        android:layout_marginEnd="5dp"
-        android:background="@color/blue_theme"
-        app:layout_constraintEnd_toEndOf="@+id/login_facebook"
-        app:layout_constraintStart_toEndOf="@+id/login_progress"
-        app:layout_constraintTop_toTopOf="@id/login_progress"
-        app:layout_constraintWidth_percent="0.1" />
-
-    <Space
-        android:id="@+id/bottom_space"
+    <TextView
+        android:id="@+id/tv_gotoRegister"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.085"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:textAllCaps="true"
+        android:text="Don't have an Account Yet? SIGN UP"
+        android:textAlignment="center"
+        android:textColor="@color/colorFontDark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
