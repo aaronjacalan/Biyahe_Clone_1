@@ -21,7 +21,7 @@
         android:id="@+id/tv_registerHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/jb_mono_xtrabold"
         android:text="REGISTER ACCOUNT"
         android:textAlignment="center"
@@ -43,24 +43,37 @@
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@+id/tv_registerHeading" />
 
+    <TextView
+        android:id="@+id/tv_uid_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="10sp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@+id/et_enterUID" />
+
     <EditText
         android:id="@+id/et_enterUsername"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/login_text_border"
         android:fontFamily="@font/jb_mono_xtrabold"
         android:hint="USERNAME"
         android:inputType="text"
         android:textAlignment="center"
+        android:textAllCaps="true"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/et_enterUID" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_uid_error" />
 
     <EditText
         android:id="@+id/et_enterPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="17dp"
         android:background="@drawable/login_text_border"
         android:fontFamily="@font/jb_mono_xtrabold"
         android:hint="PASSWORD"
@@ -69,18 +82,44 @@
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@+id/et_enterUsername" />
 
+    <TextView
+        android:id="@+id/tv_password_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="10sp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:paddingHorizontal="5dp"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@+id/et_enterPassword" />
+
     <EditText
         android:id="@+id/et_confirmPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/login_text_border"
         android:fontFamily="@font/jb_mono_xtrabold"
         android:hint="CONFIRM PASSWORD"
         android:inputType="textPassword"
         android:textAlignment="center"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/et_enterPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_password_error" />
+
+    <TextView
+        android:id="@+id/tv_confirm_password_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="10sp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:paddingHorizontal="5dp"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@+id/et_confirmPassword" />
 
     <Button
         android:id="@+id/btn_register"
@@ -95,7 +134,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_confirmPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_confirm_password_error" />
 
     <TextView
         android:id="@+id/lineSeparator"
@@ -121,11 +160,11 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@drawable/corner_radius_small"
-            android:backgroundTint="@color/colorAccent">
+            android:backgroundTint="@color/colorAccentDark">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/icon_facebook"
+                android:src="@drawable/icon_facebook_transparent"
                 android:padding="16dp"
                 android:scaleType="fitCenter" />
         </FrameLayout>
@@ -137,7 +176,7 @@
             android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/corner_radius_small"
-            android:backgroundTint="@color/colorAccent">
+            android:backgroundTint="@color/colorAccentDark">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -152,7 +191,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@drawable/corner_radius_small"
-            android:backgroundTint="@color/colorAccent">
+            android:backgroundTint="@color/colorAccentDark">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -49,8 +49,8 @@
             android:layout_weight="1"
             android:layout_marginEnd="10dp"
             android:paddingVertical="25dp"
-            android:textColor="@color/colorAccent"
-            android:backgroundTint="@color/white"
+            android:textColor="@color/colorAccentDark"
+            android:backgroundTint="@color/colorAccentLight"
             android:textSize="13sp"
             android:textStyle="bold"
             android:text="Cancel" />
@@ -65,7 +65,7 @@
             android:layout_marginStart="10dp"
             android:backgroundTint="@color/colorButtons"
             android:text="Exit"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorAccentLight"
             android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>

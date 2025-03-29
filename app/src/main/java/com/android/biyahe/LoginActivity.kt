@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import com.android.biyahe.utils.isInvalid
+import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
 
 class LoginActivity : Activity() {
@@ -28,7 +28,7 @@ class LoginActivity : Activity() {
         val btn_login = findViewById<Button>(R.id.btn_login)
         btn_login.setOnClickListener {
             // Temporary
-            if(et_username.isInvalid() || et_password.isInvalid()) {
+            if(et_username.isEmpty() || et_password.isEmpty()) {
                 toast("Please register an account first!")
                 return@setOnClickListener
             }
@@ -58,6 +58,7 @@ class LoginActivity : Activity() {
         gotoRegister.setOnClickListener {
             toast("Going to Register")
             startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
         }
     }
 }

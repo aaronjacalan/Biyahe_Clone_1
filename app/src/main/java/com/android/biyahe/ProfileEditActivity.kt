@@ -10,9 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import com.android.biyahe.helper.AccountAdapter
-import com.android.biyahe.data.Accounts
 import com.android.biyahe.data.AccountsList
-import com.android.biyahe.utils.isInvalid
+import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
 
 class ProfileEditActivity : Activity() {
@@ -54,9 +53,9 @@ class ProfileEditActivity : Activity() {
         val buttonSaveChanges = findViewById<Button>(R.id.editProfile_saveButton)
         buttonSaveChanges.setOnClickListener {
 
-            if (uid.isInvalid() ||
-                username.isInvalid() ||
-                shortDesc.isInvalid()) {
+            if (uid.isEmpty() ||
+                username.isEmpty() ||
+                shortDesc.isEmpty()) {
 
                 toast("Please fill out all fields")
             } else {
