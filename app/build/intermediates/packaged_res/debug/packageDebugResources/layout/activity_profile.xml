@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ProfileActivity">
+
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
+            android:src="@drawable/background2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/viewProfile_goBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:rotationY="180"
+            android:tint="@color/colorIcons"
+            android:src="@drawable/icon_backarrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseAppTint" />
+
+        <ImageView
+            android:id="@+id/viewProfile_Edit"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="20dp"
+            android:rotationY="180"
+            android:tint="@color/colorIcons"
+            android:src="@drawable/icon_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseAppTint" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/CircleImageIcon"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="-50dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="3dp"
+            app:strokeWidth="4dp"
+            app:strokeColor="@color/white"
+            android:src="@drawable/icon_user"
+            android:scaleType="centerCrop"
+            android:background="@android:color/white"
+            app:shapeAppearanceOverlay="@style/CircleShape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backgroundImage" />
+
+        <TextView
+            android:id="@+id/text_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/jb_mono_xtrabold"
+            android:text="temp"
+            android:textAlignment="center"
+            android:textColor="@color/colorFontDark"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CircleImageIcon" />
+
+        <TextView
+            android:id="@+id/UIDTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/jb_mono_sbold_italic"
+            android:text="temp"
+            android:textAlignment="center"
+            android:textSize="11dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_username" />
+
+        <TextView
+            android:id="@+id/text_shortDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/colorFontDark"
+            android:fontFamily="@font/jb_mono"
+            android:text="temp"
+            android:textAlignment="center"
+            android:justificationMode="inter_word"
+            android:textSize="11dp"
+            app:layout_constraintTop_toBottomOf="@+id/UIDTextView" />
+
+        <TextView
+            android:id="@+id/text_LinkedAccounts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="45dp"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/colorFontDark"
+            android:fontFamily="@font/jb_mono_xtrabold"
+            android:text="Linked Accounts"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textAllCaps="true"
+            android:letterSpacing=".02"
+            app:layout_constraintTop_toBottomOf="@+id/text_shortDescription" />
+
+        <LinearLayout
+            android:id="@+id/LinkedAccountsFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/corner_radius_small"
+            android:backgroundTint="@color/colorPrimary"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LinkedAccounts"
+            tools:layout_editor_absoluteX="40dp">
+
+            <ListView
+                android:id="@+id/ListViewLinkedAccounts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/white"
+                android:dividerHeight="0.3dp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

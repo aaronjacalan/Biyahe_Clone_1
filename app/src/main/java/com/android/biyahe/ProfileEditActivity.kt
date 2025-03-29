@@ -74,9 +74,18 @@ class ProfileEditActivity : Activity() {
             }
         }
 
+        val addNewAccount = findViewById<Button>(R.id.editProfile_addAccountButton)
+        addNewAccount.setOnClickListener {
+            AddAccountDialog.show(this, object : AddAccountDialog.OnAccountAddedListener {
+                override fun onAccountAdded(accountName: String, accountLink: String) {
+                    addLinkedAccountToUser(accountName, accountLink)
+                }
+            })
+        }
+
         val accounts = AccountsList.listOfAccounts
         val adapter = AccountAdapter(this, accounts, onClick = { accounts ->
-            toast("${accounts.name} Was Clicked");
+            toast("${accounts.name} Was Clicked")
         })
         listViewLinkedAccountsEdit.adapter = adapter
 
@@ -101,6 +110,10 @@ class ProfileEditActivity : Activity() {
         params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))
         listView.layoutParams = params
         listView.requestLayout()
+    }
+
+    private fun addLinkedAccountToUser(accountName: String, accountLink: String) {
+
     }
 
     private fun saveUserChanges() {

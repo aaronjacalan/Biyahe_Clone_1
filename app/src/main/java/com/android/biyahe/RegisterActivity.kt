@@ -24,6 +24,7 @@ class RegisterActivity : Activity() {
     private lateinit var password: EditText
     private lateinit var confirmPass: EditText
     private lateinit var uidErrorText: TextView
+    private lateinit var usernameErrorText: TextView
     private lateinit var passwordErrorText: TextView
     private lateinit var confirmPasswordErrorText: TextView
     private lateinit var buttonRegister: Button
@@ -44,6 +45,7 @@ class RegisterActivity : Activity() {
         confirmPass = findViewById(R.id.et_confirmPassword)
 
         uidErrorText = findViewById(R.id.tv_uid_error)
+        usernameErrorText = findViewById(R.id.tv_username_error)
         passwordErrorText = findViewById(R.id.tv_password_error)
         confirmPasswordErrorText = findViewById(R.id.tv_confirm_password_error)
 
@@ -77,7 +79,14 @@ class RegisterActivity : Activity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                // Username validation without error text
+                when {
+                    username.isEmpty() -> {
+                        usernameErrorText.text = "USERNAME CANNOT BE EMPTY"
+                        usernameErrorText.visibility = View.VISIBLE
+                    } else -> {
+                        usernameErrorText.visibility = View.INVISIBLE
+                    }
+                }
                 updateRegisterButtonState()
             }
         })
