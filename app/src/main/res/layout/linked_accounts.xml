@@ -11,6 +11,7 @@
         android:id="@+id/accountIcon"
         android:layout_width="23dp"
         android:layout_height="23dp"
+        android:scaleType="fitXY"
         android:layout_gravity="center_vertical" />
 
     <LinearLayout

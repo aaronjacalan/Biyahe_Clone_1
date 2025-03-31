@@ -13,4 +13,8 @@ object AccountsList {
         Accounts("Test","Test",R.drawable.background1)
     )
 
+    fun addAccount(name: String, link: String, iconResId: Int = R.drawable.placeholder) {
+        listOfAccounts.add(Accounts(name, link, iconResId))
+    }
+
 }

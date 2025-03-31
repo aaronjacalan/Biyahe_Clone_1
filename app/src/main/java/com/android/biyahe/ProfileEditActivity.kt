@@ -20,6 +20,7 @@ class ProfileEditActivity : Activity() {
     private lateinit var username: EditText
     private lateinit var shortDesc: EditText
     private lateinit var listViewLinkedAccountsEdit: ListView
+    private lateinit var accountAdapter: AccountAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,21 +77,29 @@ class ProfileEditActivity : Activity() {
 
         val addNewAccount = findViewById<Button>(R.id.editProfile_addAccountButton)
         addNewAccount.setOnClickListener {
-            AddAccountDialog.show(this, object : AddAccountDialog.OnAccountAddedListener {
-                override fun onAccountAdded(accountName: String, accountLink: String) {
-                    addLinkedAccountToUser(accountName, accountLink)
-                }
-            })
+            AddAccountDialog.show(this) {
+                // This code will be executed after adding an account
+                // Update the adapter with the new list
+                refreshAccountsList()
+            }
         }
 
+        setupAccountsList()
+    }
+
+    private fun setupAccountsList() {
         val accounts = AccountsList.listOfAccounts
-        val adapter = AccountAdapter(this, accounts, onClick = { accounts ->
-            toast("${accounts.name} Was Clicked")
+        accountAdapter = AccountAdapter(this, accounts, onClick = { account ->
+            toast("${account.name} Was Clicked")
         })
-        listViewLinkedAccountsEdit.adapter = adapter
+        listViewLinkedAccountsEdit.adapter = accountAdapter
 
         setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)
+    }
 
+    private fun refreshAccountsList() {
+        accountAdapter.notifyDataSetChanged()
+        setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)
     }
 
     private fun setListViewHeightBasedOnChildren(listView: ListView) {
@@ -110,10 +119,6 @@ class ProfileEditActivity : Activity() {
         params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))
         listView.layoutParams = params
         listView.requestLayout()
-    }
-
-    private fun addLinkedAccountToUser(accountName: String, accountLink: String) {
-
     }
 
     private fun saveUserChanges() {

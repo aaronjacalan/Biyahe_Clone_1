@@ -66,17 +66,41 @@
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@+id/icon_container" />
 
+    <TextView
+        android:id="@+id/tv_AccountName_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="10sp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountName" />
+
     <EditText
         android:id="@+id/et_enterAccountLink"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/login_text_border"
         android:fontFamily="@font/jb_mono_xtrabold"
         android:hint="LINK TO ACCOUNT"
         android:textAlignment="center"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountName" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_AccountName_error" />
+
+    <TextView
+        android:id="@+id/tv_AccountLink_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="10sp"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountLink" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,7 +108,7 @@
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountLink">
+        app:layout_constraintTop_toBottomOf="@+id/tv_AccountLink_error">
 
         <Button
             android:fontFamily="@font/jb_mono_xtrabold"

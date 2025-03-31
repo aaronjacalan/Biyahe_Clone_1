@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.graphics.Color
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
@@ -19,6 +21,7 @@ class ProfileActivity : Activity() {
     private lateinit var usernameTextView: TextView
     private lateinit var shortDescTextView: TextView
     private lateinit var listViewLinkedAccounts: ListView
+    private lateinit var accountAdapter: AccountAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +33,16 @@ class ProfileActivity : Activity() {
         listViewLinkedAccounts = findViewById(R.id.ListViewLinkedAccounts)
         loadProfileData()
 
+        val imageView = findViewById<ImageView>(R.id.backgroundImage)
+        imageView.setColorFilter(Color.argb(120, 0, 0, 0))
+
         val buttonGoback = findViewById<ImageView>(R.id.viewProfile_goBack)
         buttonGoback.setOnClickListener {
             Log.e("ProfileActivity", "Go Back")
             finish()
         }
 
-        val buttonEditprofile = findViewById<ImageView>(R.id.viewProfile_Edit)
+        val buttonEditprofile = findViewById<Button>(R.id.tv_editProfile)
         buttonEditprofile.setOnClickListener {
             Log.e("ProfileActivity", "Goto Edit Profile")
 
@@ -44,18 +50,26 @@ class ProfileActivity : Activity() {
             startActivityForResult(intent, REQUEST_CODE_EDIT_PROFILE)
         }
 
+        setupAccountsList()
+    }
+
+    private fun setupAccountsList() {
         val accounts = AccountsList.listOfAccounts
-        val adapter = AccountAdapter(this, accounts, onClick = { accounts ->
-            toast("${accounts.name} Was Clicked")
+        accountAdapter = AccountAdapter(this, accounts, onClick = { account ->
+            toast("${account.name} Was Clicked")
         })
-        listViewLinkedAccounts.adapter = adapter
+        listViewLinkedAccounts.adapter = accountAdapter
 
         setListViewHeightBasedOnChildren(listViewLinkedAccounts)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == RESULT_OK) loadProfileData()
+        if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == RESULT_OK) {
+            loadProfileData()
+            // Refresh the account list as it may have been modified in ProfileEditActivity
+            setupAccountsList()
+        }
     }
 
     private fun loadProfileData() {
