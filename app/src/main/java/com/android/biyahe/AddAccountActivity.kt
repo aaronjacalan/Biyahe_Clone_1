@@ -3,6 +3,9 @@ package com.android.biyahe
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -26,6 +29,52 @@ object AddAccountDialog {
         val accountNameError = dialogView.findViewById<TextView>(R.id.tv_AccountName_error)
         val accountLinkError = dialogView.findViewById<TextView>(R.id.tv_AccountLink_error)
 
+        var accountNameEdited = false
+        var accountLinkEdited = false
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val accountName = accountNameInput.text.toString().trim()
+                val accountLink = accountLinkInput.text.toString().trim()
+
+                if (s === accountNameInput.editableText) {
+                    accountNameEdited = true
+                    if (accountNameEdited && accountName.isEmpty()) {
+                        accountNameError.text = "Please enter an account name"
+                        accountNameError.visibility = View.INVISIBLE
+                    } else {
+                        accountNameError.visibility = View.INVISIBLE
+                    }
+                } else if (s === accountLinkInput.editableText) {
+                    accountLinkEdited = true
+                    if (accountLinkEdited) {
+                        if (accountLink.isEmpty()) {
+                            accountLinkError.text = "Please enter an account link"
+                            accountLinkError.visibility = View.VISIBLE
+                        } else if (!Patterns.WEB_URL.matcher(accountLink).matches()) {
+                            accountLinkError.text = "Please enter a valid URL"
+                            accountLinkError.visibility = View.VISIBLE
+                        } else {
+                            accountLinkError.visibility = View.INVISIBLE
+                        }
+                    }
+                }
+
+                addLinkButton.isEnabled = accountName.isNotEmpty() &&
+                        accountLink.isNotEmpty() &&
+                        Patterns.WEB_URL.matcher(accountLink).matches()
+            }
+        }
+
+        accountNameInput.addTextChangedListener(textWatcher)
+        accountLinkInput.addTextChangedListener(textWatcher)
+
+        accountNameError.visibility = View.INVISIBLE
+        accountLinkError.visibility = View.INVISIBLE
+        addLinkButton.isEnabled = false
+
         addLinkButton.setOnClickListener {
             val accountName = accountNameInput.text.toString().trim()
             val accountLink = accountLinkInput.text.toString().trim()
@@ -42,10 +91,14 @@ object AddAccountDialog {
                 return@setOnClickListener
             }
 
+            if (!Patterns.WEB_URL.matcher(accountLink).matches()) {
+                accountLinkError.text = "Please enter a valid URL"
+                accountLinkError.visibility = View.VISIBLE
+                return@setOnClickListener
+            }
+
             AccountsList.addAccount(accountName, accountLink)
             alertDialog.dismiss()
-
-            // Call the callback to notify that an account was added
             onAccountAdded()
         }
 

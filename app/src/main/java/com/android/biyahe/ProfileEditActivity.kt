@@ -4,11 +4,14 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
 import com.android.biyahe.utils.isEmpty
@@ -21,6 +24,8 @@ class ProfileEditActivity : Activity() {
     private lateinit var shortDesc: EditText
     private lateinit var listViewLinkedAccountsEdit: ListView
     private lateinit var accountAdapter: AccountAdapter
+    private lateinit var usernameError: TextView
+    private lateinit var shortDescriptionError: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,42 @@ class ProfileEditActivity : Activity() {
         username = findViewById(R.id.UsernameEditText)
         shortDesc = findViewById(R.id.ShortDescriptionText)
         listViewLinkedAccountsEdit = findViewById(R.id.listViewLinkedAccountsEdit)
+        usernameError = findViewById(R.id.tv_usernameError)
+        shortDescriptionError = findViewById(R.id.tv_shortDescriptionError)
+
+        usernameError.visibility = View.VISIBLE
+        shortDescriptionError.visibility = View.VISIBLE
+
+        resetErrorMessages()
+
+        username.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (s.isNullOrEmpty()) {
+                    usernameError.text = "USERNAME CANNOT BE EMPTY"
+                    usernameError.visibility = View.VISIBLE
+                } else if (s.length < 5) {
+                    usernameError.text = "USERNAME MUST BE AT LEAST 5 CHARACTERS"
+                    usernameError.visibility = View.VISIBLE
+                } else {
+                    usernameError.visibility = View.INVISIBLE
+                }
+            }
+        })
+
+        shortDesc.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (s.isNullOrEmpty()) {
+                    shortDescriptionError.text = "DESCRIPTION CANNOT BE EMPTY"
+                    shortDescriptionError.visibility = View.VISIBLE
+                } else {
+                    shortDescriptionError.visibility = View.INVISIBLE
+                }
+            }
+        })
 
         loadProfileData()
 
@@ -53,13 +94,7 @@ class ProfileEditActivity : Activity() {
 
         val buttonSaveChanges = findViewById<Button>(R.id.editProfile_saveButton)
         buttonSaveChanges.setOnClickListener {
-
-            if (uid.isEmpty() ||
-                username.isEmpty() ||
-                shortDesc.isEmpty()) {
-
-                toast("Please fill out all fields")
-            } else {
+            if (validateInputFields()) {
                 AlertDialog.Builder(this)
                     .setTitle("Confirm Changes")
                     .setMessage("Do you want to proceed with these changes?")
@@ -78,13 +113,35 @@ class ProfileEditActivity : Activity() {
         val addNewAccount = findViewById<Button>(R.id.editProfile_addAccountButton)
         addNewAccount.setOnClickListener {
             AddAccountDialog.show(this) {
-                // This code will be executed after adding an account
-                // Update the adapter with the new list
                 refreshAccountsList()
             }
         }
 
         setupAccountsList()
+    }
+
+    private fun resetErrorMessages() {
+        usernameError.text = ""
+        shortDescriptionError.text = ""
+    }
+
+    private fun validateInputFields(): Boolean {
+        var isValid = true
+
+        if (username.isEmpty()) {
+            usernameError.text = "USERNAME CANNOT BE EMPTY"
+            isValid = false
+        } else if (username.text.toString().length < 5) {
+            usernameError.text = "USERNAME MUST BE AT LEAST 5 CHARACTERS"
+            isValid = false
+        }
+
+        if (shortDesc.isEmpty()) {
+            shortDescriptionError.text = "DESCRIPTION CANNOT BE EMPTY"
+            isValid = false
+        }
+
+        return isValid
     }
 
     private fun setupAccountsList() {

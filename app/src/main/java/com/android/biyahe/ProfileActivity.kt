@@ -67,7 +67,6 @@ class ProfileActivity : Activity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == RESULT_OK) {
             loadProfileData()
-            // Refresh the account list as it may have been modified in ProfileEditActivity
             setupAccountsList()
         }
     }

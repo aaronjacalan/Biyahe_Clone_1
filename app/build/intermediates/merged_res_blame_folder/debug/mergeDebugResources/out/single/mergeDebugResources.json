@@ -8,20 +8,16 @@
         "source": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-main-61:\\layout\\linked_accounts.xml"
     },
     {
-        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\layout_activity_settings.xml.flat",
-        "source": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-main-61:\\layout\\activity_settings.xml"
-    },
-    {
         "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\drawable_content_bar.xml.flat",
         "source": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-main-61:\\drawable\\content_bar.xml"
     },
     {
-        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\drawable_icon_settings.png.flat",
-        "source": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-main-61:\\drawable\\icon_settings.png"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\layout_activity_settings.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-main-61:\\layout\\activity_settings.xml"
     },
     {
-        "merged": "com.android.biyahe.app-debug-59:/layout_activity_profile.xml.flat",
-        "source": "com.android.biyahe.app-main-61:/layout/activity_profile.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\drawable_icon_settings.png.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-main-61:\\drawable\\icon_settings.png"
     },
     {
         "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\drawable_icon_bell.png.flat",
@@ -166,6 +162,10 @@
     {
         "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\drawable_background3.jpg.flat",
         "source": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-main-61:\\drawable\\background3.jpg"
+    },
+    {
+        "merged": "com.android.biyahe.app-debug-59:/layout_activity_profile_edit.xml.flat",
+        "source": "com.android.biyahe.app-main-61:/layout/activity_profile_edit.xml"
     },
     {
         "merged": "C:\\Users\\User\\.gradle\\daemon\\8.4\\com.android.biyahe.app-debug-59:\\drawable_icon_user_settings.png.flat",

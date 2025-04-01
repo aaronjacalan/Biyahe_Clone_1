@@ -3755,7 +3755,6 @@ int id text_notifications_RouteNotif 0x7f0a0234
 int id text_notifications_TrafficAlerts 0x7f0a0235
 int id text_notifications_fareUpdates 0x7f0a0236
 int id text_shortDescription 0x7f0a0237
-int id text_shortDescriptionHeader 0x7f0a0238
 int id text_username 0x7f0a0239
 int id textinput_counter 0x7f0a023a
 int id textinput_error 0x7f0a023b
@@ -3799,9 +3798,11 @@ int id tv_password 0x7f0a0260
 int id tv_password_error 0x7f0a0261
 int id tv_registerHeading 0x7f0a0262
 int id tv_route_code 0x7f0a0263
+int id tv_shortDescriptionError 0x7f0a0283
 int id tv_title 0x7f0a0264
 int id tv_uid_error 0x7f0a0265
 int id tv_username 0x7f0a0266
+int id tv_usernameError 0x7f0a0284
 int id tv_username_error 0x7f0a0267
 int id tv_welcomeHeader 0x7f0a0268
 int id unchecked 0x7f0a0269
