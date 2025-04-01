@@ -186,13 +186,17 @@ id text_notifications_RouteNotif
 id text_notifications_TrafficAlerts
 id text_notifications_fareUpdates
 id text_shortDescription
+id text_shortDescriptionHeader
 id text_username
 id top_space
 id top_space2
 id top_space3
 id tvLogoutMessage
+id tv_AccountLink_error
+id tv_AccountName_error
 id tv_addLinkedAccount
 id tv_confirm_password_error
+id tv_editProfile
 id tv_exitMessage
 id tv_gotoLogin
 id tv_gotoRegister
@@ -206,7 +210,6 @@ id tv_uid_error
 id tv_username
 id tv_username_error
 id tv_welcomeHeader
-id viewProfile_Edit
 id viewProfile_goBack
 layout activity_bookmark
 layout activity_developer
