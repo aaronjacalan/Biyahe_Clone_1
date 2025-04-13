@@ -55,20 +55,20 @@ class LoginActivity : Activity() {
         }
 
         // To be decided if functionalities are to be added
-        val btnGoogle = findViewById<ImageButton>(R.id.login_google)
-        btnGoogle.setOnClickListener {
-
-        }
-
-        val btnOutlook = findViewById<ImageButton>(R.id.login_outlook)
-        btnOutlook.setOnClickListener {
-
-        }
-
-        val btnFacebook= findViewById<ImageButton>(R.id.login_facebook)
-        btnFacebook.setOnClickListener {
-
-        }
+//        val btnGoogle = findViewById<ImageButton>(R.id.login_google)
+//        btnGoogle.setOnClickListener {
+//
+//        }
+//
+//        val btnOutlook = findViewById<ImageButton>(R.id.login_outlook)
+//        btnOutlook.setOnClickListener {
+//
+//        }
+//
+//        val btnFacebook= findViewById<ImageButton>(R.id.login_facebook)
+//        btnFacebook.setOnClickListener {
+//
+//        }
 
         val gotoRegister = findViewById<TextView>(R.id.tv_gotoRegister)
         gotoRegister.setOnClickListener {
