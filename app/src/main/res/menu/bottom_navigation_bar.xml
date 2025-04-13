@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ic_home"
+        android:title="Home"
+        android:icon="@drawable/icon_home_test"
+        />
+    <item
+        android:id="@+id/ic_route"
+        android:title="Route"
+        android:icon="@drawable/icon_route_test"
+        />
+    <item
+        android:id="@+id/ic_bookmark"
+        android:title="Bookmark"
+        android:icon="@drawable/icon_bookmark_test"
+        />
+    <item
+        android:id="@+id/ic_profile"
+        android:title="Profile"
+        android:icon="@drawable/icon_profile_test"
+        />
+</menu>

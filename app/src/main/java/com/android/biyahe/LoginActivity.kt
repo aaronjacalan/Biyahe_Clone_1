@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import com.android.biyahe.temp.NavigationActivity
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
 
@@ -35,7 +36,7 @@ class LoginActivity : Activity() {
 
             Log.e("LoginActivity", "Login Button is clicked")
             toast("Welcome Back, $username")
-            startActivity(Intent(this, LandingActivity::class.java))
+            startActivity(Intent(this, NavigationActivity::class.java))
         }
 
         // To be decided if functionalities are to be added

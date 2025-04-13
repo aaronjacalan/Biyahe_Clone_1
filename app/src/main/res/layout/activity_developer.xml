@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp"
+                android:padding="35dp"
                 android:background="@drawable/dev_background">
 
                 <ImageView
@@ -156,7 +156,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp"
+                android:padding="35dp"
                 android:background="@drawable/dev_background">
 
                 <ImageView
