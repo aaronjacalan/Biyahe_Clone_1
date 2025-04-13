@@ -13,13 +13,12 @@ import com.android.biyahe.databinding.ActivityNavigationBinding
 
 class NavigationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityNavigationBinding;
+    private lateinit var binding: ActivityNavigationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_navigation)
 
-        binding = ActivityNavigationBinding.inflate(layoutInflater);
+        binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         switchFragment(LandingFragment())
 
