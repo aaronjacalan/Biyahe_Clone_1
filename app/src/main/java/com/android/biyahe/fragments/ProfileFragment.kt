@@ -1,4 +1,4 @@
-package com.android.biyahe.temp
+package com.android.biyahe.fragments
 
 import android.app.Activity
 import android.content.Context
@@ -14,12 +14,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import com.android.biyahe.ProfileActivity
 import com.android.biyahe.ProfileEditActivity
 import com.android.biyahe.R
 import com.android.biyahe.data.AccountsList
 import com.android.biyahe.helper.AccountAdapter
-import com.android.biyahe.utils.toast
 
 /**
  * A simple [Fragment] subclass.
@@ -59,7 +57,7 @@ class ProfileFragment : Fragment() {
             Log.e("ProfileActivity", "Goto Edit Profile")
 
             val intent = Intent(requireContext(), ProfileEditActivity::class.java)
-            startActivityForResult(intent, ProfileFragment.REQUEST_CODE_EDIT_PROFILE)
+            startActivityForResult(intent, REQUEST_CODE_EDIT_PROFILE)
         }
 
         setupAccountsList()

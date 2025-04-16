@@ -1,4 +1,4 @@
-package com.android.biyahe.temp
+package com.android.biyahe.fragments
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,15 +1,12 @@
-package com.android.biyahe.temp
+package com.android.biyahe
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.android.biyahe.R
 import com.android.biyahe.databinding.ActivityNavigationBinding
+import com.android.biyahe.fragments.BookmarkFragment
+import com.android.biyahe.fragments.LandingFragment
+import com.android.biyahe.fragments.ProfileFragment
 
 class NavigationActivity : AppCompatActivity() {
 

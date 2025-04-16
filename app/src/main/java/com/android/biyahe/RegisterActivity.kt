@@ -152,14 +152,14 @@ class RegisterActivity : Activity() {
 
         buttonRegister.setOnClickListener {
             saveUserChanges(uid.text.toString(), username.text.toString())
-            startActivity(Intent(this, LandingActivity::class.java))
+            startActivity(Intent(this, NavigationActivity::class.java))
             finish()
         }
 
         val btnFacebook = findViewById<FrameLayout>(R.id.btn_facebook)
         btnFacebook.setOnClickListener {
             toast("FB is CLICKED")
-            startActivity(Intent(this, LandingActivity::class.java))
+            startActivity(Intent(this, NavigationActivity::class.java))
             finish()
         }
 
