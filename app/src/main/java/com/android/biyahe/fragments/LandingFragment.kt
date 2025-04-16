@@ -12,6 +12,7 @@ import android.widget.ListView
 import com.android.biyahe.R
 import com.android.biyahe.SettingsActivity
 import com.android.biyahe.data.RouteDataManager
+import com.android.biyahe.databinding.FragmentLandingBinding
 import com.android.biyahe.helper.RouteCustomListViewAdapter
 
 class LandingFragment : Fragment() {
@@ -59,6 +60,8 @@ class LandingFragment : Fragment() {
 //            }
 //            true
 //        }
+
+
 
         val btn_settings = view.findViewById<ImageView>(R.id.btn_settings)
         btn_settings.setOnClickListener {

@@ -7,6 +7,7 @@ import com.android.biyahe.databinding.ActivityNavigationBinding
 import com.android.biyahe.fragments.BookmarkFragment
 import com.android.biyahe.fragments.LandingFragment
 import com.android.biyahe.fragments.ProfileFragment
+import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -17,25 +18,31 @@ class NavigationActivity : AppCompatActivity() {
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        switchFragment(LandingFragment())
 
-        binding.navBar.setOnItemSelectedListener {item ->
-            when(item.itemId) {
-                R.id.ic_home -> {
-                    switchFragment(LandingFragment())
-                }
-                R.id.ic_bookmark -> {
-                    switchFragment(BookmarkFragment())
-                }
-                R.id.ic_route -> {
+        binding.navBar.add(
+            CurvedBottomNavigation.Model(1, "", R.drawable.icon_home)
+        )
+        binding.navBar.add(
+            CurvedBottomNavigation.Model(2, "", R.drawable.icon_route)
+        )
+        binding.navBar.add(
+            CurvedBottomNavigation.Model(3, "", R.drawable.icon_bookmark)
+        )
+        binding.navBar.add(
+            CurvedBottomNavigation.Model(4, "", R.drawable.icon_profile)
+        )
 
-                }
-                R.id.ic_profile -> {
-                    switchFragment(ProfileFragment())
-                }
+        binding.navBar.setOnClickMenuListener {
+            when(it.id) {
+                1 -> { switchFragment(LandingFragment()) }
+                2 -> {  }
+                3 -> { switchFragment(BookmarkFragment()) }
+                4 -> { switchFragment(ProfileFragment()) }
             }
-            true
         }
+
+        switchFragment(LandingFragment())
+        binding.navBar.show(1)
 
     }
 

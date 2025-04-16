@@ -14,14 +14,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/nav_bar"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
         android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_theme"
+        app:cbn_background="@color/colorButtons"
+        app:cbn_fabColor="@color/colorButtons"
+        app:cbn_iconColor="@color/colorButtons"
+        app:cbn_height="76dp"
+        app:cbn_icon_size="24dp"
+        app:cbn_curve_radius="28dp"
+        app:cbn_selected_icon_size="48dp"
+        app:cbn_selectedIconColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_bar"
-        app:labelVisibilityMode="unlabeled"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
