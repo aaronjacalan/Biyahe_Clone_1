@@ -77,19 +77,20 @@ class ProfileEditActivity : Activity() {
         val buttonCancelEdit = findViewById<Button>(R.id.editProfile_cancelButton)
         buttonCancelEdit.setOnClickListener {
             Log.i("ProfileEditActivity", "Cancel Edit Profile")
+            ExitEditProfile.show(this)
 
-            AlertDialog.Builder(this)
-                .setTitle("Cancel Changes")
-                .setMessage("Are you sure you want to cancel editing?")
-                .setPositiveButton("Yes") { dialog, _ ->
-                    dialog.dismiss()
-                    finish()
-                }
-                .setNegativeButton("No") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
+//            AlertDialog.Builder(this)
+//                .setTitle("Cancel Changes")
+//                .setMessage("Are you sure you want to cancel editing?")
+//                .setPositiveButton("Yes") { dialog, _ ->
+//                    dialog.dismiss()
+//                    finish()
+//                }
+//                .setNegativeButton("No") { dialog, _ ->
+//                    dialog.dismiss()
+//                }
+//                .create()
+//                .show()
         }
 
         val buttonSaveChanges = findViewById<Button>(R.id.editProfile_saveButton)

@@ -45,4 +45,5 @@ class NavigationActivity : AppCompatActivity() {
             commit()
         }
     }
+
 }

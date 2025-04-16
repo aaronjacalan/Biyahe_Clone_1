@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.isInvalidUID
 import com.android.biyahe.utils.getPasswordValidationError
@@ -28,14 +30,24 @@ class RegisterActivity : Activity() {
     private lateinit var passwordErrorText: TextView
     private lateinit var confirmPasswordErrorText: TextView
     private lateinit var buttonRegister: Button
+    private var backgroundId: Int = R.drawable.background_grainy1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        backgroundId = intent.getIntExtra("BACKGROUND_ID", R.drawable.background_grainy1)
+
         initializeViews()
+        setupBackground()
         setupTextWatchers()
         setupClickListeners()
+    }
+
+    private fun setupBackground() {
+        val layout = findViewById<ConstraintLayout>(R.id.main)
+        val backgroundImage = ContextCompat.getDrawable(this, backgroundId)
+        layout.background = backgroundImage
     }
 
     private fun initializeViews() {
@@ -83,7 +95,8 @@ class RegisterActivity : Activity() {
                     username.isEmpty() -> {
                         usernameErrorText.text = "USERNAME CANNOT BE EMPTY"
                         usernameErrorText.visibility = View.VISIBLE
-                    } else -> {
+                    }
+                    else -> {
                         usernameErrorText.visibility = View.INVISIBLE
                     }
                 }
@@ -146,31 +159,52 @@ class RegisterActivity : Activity() {
         val gotoLogin = findViewById<TextView>(R.id.tv_gotoLogin)
         gotoLogin.setOnClickListener {
             toast("Going to Login")
-            startActivity(Intent(this, LoginActivity::class.java))
+            // Pass the same background to the login activity
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
             finish()
         }
 
         buttonRegister.setOnClickListener {
             saveUserChanges(uid.text.toString(), username.text.toString())
-            startActivity(Intent(this, NavigationActivity::class.java))
+            // Pass the background ID to the navigation activity too
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
             finish()
         }
 
         val btnFacebook = findViewById<FrameLayout>(R.id.btn_facebook)
         btnFacebook.setOnClickListener {
             toast("FB is CLICKED")
-            startActivity(Intent(this, NavigationActivity::class.java))
+            // Pass the background ID to the navigation activity
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
             finish()
         }
 
         val btnGoogle = findViewById<FrameLayout>(R.id.btn_google)
         btnGoogle.setOnClickListener {
             toast("Google is CLICKED")
+            // You might want to navigate to NavigationActivity here too
+            // with the background ID, similar to the Facebook button
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
+            finish()
         }
 
         val btnOutlook = findViewById<FrameLayout>(R.id.btn_outlook)
         btnOutlook.setOnClickListener {
             toast("Outlook is CLICKED")
+            // You might want to navigate to NavigationActivity here too
+            // with the background ID, similar to the Facebook button
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
+            finish()
         }
     }
 
