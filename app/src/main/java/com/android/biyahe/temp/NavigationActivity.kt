@@ -23,7 +23,6 @@ class NavigationActivity : AppCompatActivity() {
         switchFragment(LandingFragment())
 
         binding.navBar.setOnItemSelectedListener {item ->
-
             when(item.itemId) {
                 R.id.ic_home -> {
                     switchFragment(LandingFragment())
@@ -31,11 +30,13 @@ class NavigationActivity : AppCompatActivity() {
                 R.id.ic_bookmark -> {
                     switchFragment(BookmarkFragment())
                 }
+                R.id.ic_route -> {
+
+                }
                 R.id.ic_profile -> {
                     switchFragment(ProfileFragment())
                 }
             }
-
             true
         }
 
