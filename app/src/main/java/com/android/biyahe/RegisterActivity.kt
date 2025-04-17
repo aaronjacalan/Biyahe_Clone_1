@@ -1,6 +1,5 @@
 package com.android.biyahe
 
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -8,9 +7,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.WindowManager
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -34,18 +30,11 @@ class RegisterActivity : Activity() {
     private lateinit var passwordErrorText: TextView
     private lateinit var confirmPasswordErrorText: TextView
     private lateinit var buttonRegister: Button
-    private lateinit var cardLogin: FrameLayout
     private var backgroundId: Int = R.drawable.background_grainy1
-
-    companion object {
-        private const val ANIMATION_DURATION = 500L // Animation duration in ms
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         backgroundId = intent.getIntExtra("BACKGROUND_ID", R.drawable.background_grainy1)
 
@@ -53,7 +42,6 @@ class RegisterActivity : Activity() {
         setupBackground()
         setupTextWatchers()
         setupClickListeners()
-        animateCardLoginIn()
     }
 
     private fun setupBackground() {
@@ -74,48 +62,6 @@ class RegisterActivity : Activity() {
         confirmPasswordErrorText = findViewById(R.id.tv_confirm_password_error)
 
         buttonRegister = findViewById(R.id.btn_register)
-        cardLogin = findViewById(R.id.card_login)
-
-        // Initially set the card login to be slightly below and invisible for animation
-        cardLogin.translationY = 100f
-        cardLogin.alpha = 0f
-    }
-
-    private fun animateCardLoginIn() {
-        // Animate translation (float up)
-        ObjectAnimator.ofFloat(cardLogin, "translationY", 100f, 0f).apply {
-            duration = ANIMATION_DURATION
-            interpolator = DecelerateInterpolator()
-            start()
-        }
-
-        // Animate fade in
-        ObjectAnimator.ofFloat(cardLogin, "alpha", 0f, 1f).apply {
-            duration = ANIMATION_DURATION - 100
-            start()
-        }
-    }
-
-    private fun animateCardLoginOut(onAnimationEnd: () -> Unit) {
-        // Animate translation (float down)
-        ObjectAnimator.ofFloat(cardLogin, "translationY", 0f, 100f).apply {
-            duration = ANIMATION_DURATION
-            interpolator = AccelerateInterpolator()
-            start()
-        }
-
-        // Animate fade out
-        ObjectAnimator.ofFloat(cardLogin, "alpha", 1f, 0f).apply {
-            duration = ANIMATION_DURATION - 100
-            start()
-
-            // When animation ends, execute the callback
-            addUpdateListener { animator ->
-                if (animator.animatedFraction >= 1.0f) {
-                    onAnimationEnd()
-                }
-            }
-        }
     }
 
     private fun setupTextWatchers() {
@@ -213,64 +159,52 @@ class RegisterActivity : Activity() {
         val gotoLogin = findViewById<TextView>(R.id.tv_gotoLogin)
         gotoLogin.setOnClickListener {
             toast("Going to Login")
-            // Animate the card out before navigating
-            animateCardLoginOut {
-                // Pass the same background to the login activity
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.putExtra("BACKGROUND_ID", backgroundId)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
-                finish()
-            }
+            // Pass the same background to the login activity
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
+            finish()
         }
 
         buttonRegister.setOnClickListener {
             saveUserChanges(uid.text.toString(), username.text.toString())
-            // Animate the card out before navigating
-            animateCardLoginOut {
-                // Pass the background ID to the navigation activity too
-                val intent = Intent(this, NavigationActivity::class.java)
-                intent.putExtra("BACKGROUND_ID", backgroundId)
-                startActivity(intent)
-                finish()
-            }
+            // Pass the background ID to the navigation activity too
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
+            finish()
         }
 
         val btnFacebook = findViewById<FrameLayout>(R.id.btn_facebook)
         btnFacebook.setOnClickListener {
             toast("FB is CLICKED")
-            // Animate the card out before navigating
-            animateCardLoginOut {
-                // Pass the background ID to the navigation activity
-                val intent = Intent(this, NavigationActivity::class.java)
-                intent.putExtra("BACKGROUND_ID", backgroundId)
-                startActivity(intent)
-                finish()
-            }
+            // Pass the background ID to the navigation activity
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
+            finish()
         }
 
         val btnGoogle = findViewById<FrameLayout>(R.id.btn_google)
         btnGoogle.setOnClickListener {
             toast("Google is CLICKED")
-            // Animate the card out before navigating
-            animateCardLoginOut {
-                val intent = Intent(this, NavigationActivity::class.java)
-                intent.putExtra("BACKGROUND_ID", backgroundId)
-                startActivity(intent)
-                finish()
-            }
+            // You might want to navigate to NavigationActivity here too
+            // with the background ID, similar to the Facebook button
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
+            finish()
         }
 
         val btnOutlook = findViewById<FrameLayout>(R.id.btn_outlook)
         btnOutlook.setOnClickListener {
             toast("Outlook is CLICKED")
-            // Animate the card out before navigating
-            animateCardLoginOut {
-                val intent = Intent(this, NavigationActivity::class.java)
-                intent.putExtra("BACKGROUND_ID", backgroundId)
-                startActivity(intent)
-                finish()
-            }
+            // You might want to navigate to NavigationActivity here too
+            // with the background ID, similar to the Facebook button
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("BACKGROUND_ID", backgroundId)
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -284,11 +218,5 @@ class RegisterActivity : Activity() {
 
         toast("User registered successfully")
         setResult(RESULT_OK)
-    }
-
-    override fun onBackPressed() {
-        animateCardLoginOut {
-            super.onBackPressed()
-        }
     }
 }

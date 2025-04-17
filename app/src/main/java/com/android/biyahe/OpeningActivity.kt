@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnticipateOvershootInterpolator
 import android.view.animation.DecelerateInterpolator
@@ -23,8 +22,6 @@ class OpeningActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opening)
-
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         val headerText = findViewById<TextView>(R.id.tv_openingHeader)
         val textLine1 = findViewById<TextView>(R.id.tv_openingText1)
@@ -58,7 +55,7 @@ class OpeningActivity : Activity() {
                 val intent = Intent(this, RegisterActivity::class.java)
                 intent.putExtra("BACKGROUND_ID", randomBackground)
                 startActivity(intent)
-                overridePendingTransition(0, 0)  // Added this line to remove slide animation
+                overridePendingTransition(R.xml.slide_in_right, R.xml.slide_out_left)
                 finish()
             }
         }
@@ -234,7 +231,10 @@ class OpeningActivity : Activity() {
             interpolator = AnticipateOvershootInterpolator()
         }
 
-        // Removed headerFadeOut and headerSlideOut animations
+        val headerFadeOut = ObjectAnimator.ofFloat(headerText, "alpha", 1f, 0f).apply {
+            duration = 300
+            startDelay = 0
+        }
 
         val line1FadeOut = ObjectAnimator.ofFloat(textLine1, "alpha", 1f, 0f).apply {
             duration = 300
@@ -274,7 +274,7 @@ class OpeningActivity : Activity() {
 
         val exitAnimSet = AnimatorSet().apply {
             playTogether(
-                // Removed headerFadeOut from this list
+                headerFadeOut,
                 line1FadeOut, line1SlideOut,
                 line2FadeOut, line2SlideOut,
                 line3FadeOut, line3SlideOut,
@@ -288,4 +288,5 @@ class OpeningActivity : Activity() {
             start()
         }
     }
+
 }
