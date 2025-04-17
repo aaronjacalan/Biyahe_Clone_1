@@ -10,8 +10,8 @@ import android.widget.TextView
 import com.android.biyahe.R
 import com.android.biyahe.data.Route
 
-class RouteCustomListViewAdapter(private val context : Context,
-                                 var routeList : List<Route>) : BaseAdapter() {
+class RouteAdapter(private val context : Context,
+                   var routeList : List<Route>) : BaseAdapter() {
     override fun getCount(): Int = routeList.size
 
     override fun getItem(position: Int): Any = routeList[position]
@@ -20,14 +20,14 @@ class RouteCustomListViewAdapter(private val context : Context,
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(context)
-            .inflate(R.layout.route_item_list_view, parent, false)
+            .inflate(R.layout.list_view_route, parent, false)
 
         val iv_route = view.findViewById<ImageView>(R.id.iv_route)
         val tv_route_code = view.findViewById<TextView>(R.id.tv_route_code)
 
         val route = routeList[position]
         iv_route.setImageResource(route.photoResource)
-        tv_route_code.setText("${route.jeepney_code} - ${route.destination}")
+        tv_route_code.setText("${route.jeepney_code} ${route.destination}")
         return view
     }
 }

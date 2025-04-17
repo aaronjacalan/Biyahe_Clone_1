@@ -10,7 +10,7 @@ import android.widget.ListView
 import com.android.biyahe.R
 import com.android.biyahe.data.Route
 import com.android.biyahe.data.RouteDataManager
-import com.android.biyahe.helper.RouteCustomListViewAdapter
+import com.android.biyahe.helper.RouteAdapter
 import com.android.biyahe.utils.toast
 
 /**
@@ -25,7 +25,7 @@ class BookmarkFragment : Fragment() {
         val route_bookmarks = view.findViewById<ListView>(R.id.lv_route_bookmarks)
         val routeList = RouteDataManager.bookmarked
 
-        val arrayAdapter = RouteCustomListViewAdapter(requireContext(), routeList)
+        val arrayAdapter = RouteAdapter(requireContext(), routeList)
         arrayAdapter.routeList = routeList
         route_bookmarks.adapter = arrayAdapter
 
