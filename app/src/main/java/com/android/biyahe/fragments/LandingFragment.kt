@@ -12,7 +12,8 @@ import android.widget.ListView
 import com.android.biyahe.R
 import com.android.biyahe.SettingsActivity
 import com.android.biyahe.data.RouteDataManager
-import com.android.biyahe.helper.RouteAdapter
+import com.android.biyahe.databinding.FragmentLandingBinding
+import com.android.biyahe.helper.RouteCustomListViewAdapter
 
 class LandingFragment : Fragment() {
 
@@ -32,7 +33,7 @@ class LandingFragment : Fragment() {
         // To check if already bookmarked
         val bookmarked = RouteDataManager.bookmarked
 
-        val arrayAdapter = RouteAdapter(requireContext(), routeList)
+        val arrayAdapter = RouteCustomListViewAdapter(requireContext(), routeList)
         arrayAdapter.routeList = routeList
         routes.adapter = arrayAdapter
 
@@ -59,6 +60,8 @@ class LandingFragment : Fragment() {
 //            }
 //            true
 //        }
+
+
 
         val btn_settings = view.findViewById<ImageView>(R.id.btn_settings)
         btn_settings.setOnClickListener {
