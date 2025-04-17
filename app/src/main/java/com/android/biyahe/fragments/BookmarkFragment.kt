@@ -1,6 +1,5 @@
 package com.android.biyahe.fragments
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import com.android.biyahe.R
-import com.android.biyahe.data.Route
 import com.android.biyahe.data.RouteDataManager
-import com.android.biyahe.helper.RouteCustomListViewAdapter
-import com.android.biyahe.utils.toast
+import com.android.biyahe.helper.RouteAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -25,7 +22,7 @@ class BookmarkFragment : Fragment() {
         val route_bookmarks = view.findViewById<ListView>(R.id.lv_route_bookmarks)
         val routeList = RouteDataManager.bookmarked
 
-        val arrayAdapter = RouteCustomListViewAdapter(requireContext(), routeList)
+        val arrayAdapter = RouteAdapter(requireContext(), routeList)
         arrayAdapter.routeList = routeList
         route_bookmarks.adapter = arrayAdapter
 
