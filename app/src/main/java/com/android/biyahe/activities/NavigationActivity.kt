@@ -1,8 +1,10 @@
-package com.android.biyahe
+package com.android.biyahe.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.android.biyahe.R
 import com.android.biyahe.databinding.ActivityNavigationBinding
 import com.android.biyahe.fragments.BookmarkFragment
 import com.android.biyahe.fragments.LandingFragment
@@ -23,21 +25,17 @@ class NavigationActivity : AppCompatActivity() {
             CurvedBottomNavigation.Model(1, "", R.drawable.icon_home)
         )
         binding.navBar.add(
-            CurvedBottomNavigation.Model(2, "", R.drawable.icon_route)
+            CurvedBottomNavigation.Model(2, "", R.drawable.icon_bookmark)
         )
         binding.navBar.add(
-            CurvedBottomNavigation.Model(3, "", R.drawable.icon_bookmark)
-        )
-        binding.navBar.add(
-            CurvedBottomNavigation.Model(4, "", R.drawable.icon_profile)
+            CurvedBottomNavigation.Model(3, "", R.drawable.icon_profile)
         )
 
         binding.navBar.setOnClickMenuListener {
             when(it.id) {
                 1 -> { switchFragment(LandingFragment()) }
-                2 -> {  }
-                3 -> { switchFragment(BookmarkFragment()) }
-                4 -> { switchFragment(ProfileFragment()) }
+                2 -> { switchFragment(BookmarkFragment()) }
+                3 -> { switchFragment(ProfileFragment()) }
             }
         }
 
@@ -46,11 +44,14 @@ class NavigationActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("ResourceType")
     private fun switchFragment(fragment : Fragment) {
-        supportFragmentManager.beginTransaction()?.apply {
-            replace(R.id.fl_fragment, fragment)
-            commit()
-        }
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.fade_depth_in,
+                R.anim.slide_out_down
+            )
+            .replace(R.id.fl_fragment, fragment)
+            .commit()
     }
-
 }

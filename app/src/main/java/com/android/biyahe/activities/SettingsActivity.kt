@@ -1,4 +1,4 @@
-package com.android.biyahe
+package com.android.biyahe.activities
 
 import android.app.Activity
 import android.content.Context
@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.biyahe.R
 
 class SettingsActivity : Activity() {
 

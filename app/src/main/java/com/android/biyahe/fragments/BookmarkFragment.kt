@@ -25,7 +25,7 @@ class BookmarkFragment : Fragment() {
         val route_bookmarks = view.findViewById<ListView>(R.id.lv_route_bookmarks)
         val routeList = RouteDataManager.bookmarked
 
-        val arrayAdapter = RouteAdapter(requireContext(), routeList)
+        val arrayAdapter = RouteAdapter(requireContext(), routeList, routeList)
         arrayAdapter.routeList = routeList
         route_bookmarks.adapter = arrayAdapter
 
@@ -51,6 +51,9 @@ class BookmarkFragment : Fragment() {
 //
 //            true
 //        }
+
+
+
     }
 
     override fun onCreateView(

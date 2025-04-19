@@ -10,9 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListView
 import com.android.biyahe.R
-import com.android.biyahe.SettingsActivity
+import com.android.biyahe.activities.SettingsActivity
 import com.android.biyahe.data.RouteDataManager
-import com.android.biyahe.databinding.FragmentLandingBinding
 import com.android.biyahe.helper.RouteAdapter
 
 class LandingFragment : Fragment() {
@@ -33,7 +32,7 @@ class LandingFragment : Fragment() {
         // To check if already bookmarked
         val bookmarked = RouteDataManager.bookmarked
 
-        val arrayAdapter = RouteAdapter(requireContext(), routeList)
+        val arrayAdapter = RouteAdapter(requireContext(), routeList, bookmarked)
         arrayAdapter.routeList = routeList
         routes.adapter = arrayAdapter
 
