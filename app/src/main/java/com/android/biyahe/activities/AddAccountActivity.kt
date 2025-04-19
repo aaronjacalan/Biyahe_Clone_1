@@ -1,4 +1,4 @@
-package com.android.biyahe
+package com.android.biyahe.activities
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.android.biyahe.R
 import com.android.biyahe.data.AccountsList
 
 object AddAccountDialog {

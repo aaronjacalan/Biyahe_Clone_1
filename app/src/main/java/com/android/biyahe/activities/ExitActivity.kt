@@ -1,4 +1,4 @@
-package com.android.biyahe
+package com.android.biyahe.activities
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.android.biyahe.R
 
 object ExitDialog {
     fun show(context: Context) {

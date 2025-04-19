@@ -1,4 +1,4 @@
-package com.android.biyahe
+package com.android.biyahe.activities
 
 import android.app.Activity
 import android.content.Context
@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import com.android.biyahe.R
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
 import com.android.biyahe.utils.toast

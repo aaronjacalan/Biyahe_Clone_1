@@ -1,4 +1,4 @@
-package com.android.biyahe
+package com.android.biyahe.activities
 
 import android.animation.ObjectAnimator
 import android.app.Activity
@@ -19,6 +19,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.android.biyahe.R
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
 

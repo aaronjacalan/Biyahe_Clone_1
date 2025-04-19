@@ -1,19 +1,17 @@
-package com.android.biyahe
+package com.android.biyahe.activities
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.android.biyahe.R
 
-object ExitEditProfile {
+object LogoutDialog {
     fun show(context: Context) {
-        val activity = context as? Activity
-
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_format, null)
         val alertDialog = AlertDialog.Builder(context).create()
 
@@ -22,14 +20,20 @@ object ExitEditProfile {
         val yesButton = dialogView.findViewById<Button>(R.id.btnYes)
         val noButton = dialogView.findViewById<Button>(R.id.btnNo)
 
-        image.visibility = View.GONE
-        textMessage.text = "Do you want to cancel Editing?"
-        yesButton.text = "LEAVE"
-        noButton.text = "CANCEL"
+        image.setImageResource(R.drawable.placeholder)
+        textMessage.text = "Are you sure you want to logout?"
 
         yesButton.setOnClickListener {
+            context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply()
+
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            context.startActivity(intent)
+
             alertDialog.dismiss()
-            activity?.finish()
         }
 
         noButton.setOnClickListener {

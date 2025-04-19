@@ -14,7 +14,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import com.android.biyahe.ProfileEditActivity
+import com.android.biyahe.activities.ProfileEditActivity
 import com.android.biyahe.R
 import com.android.biyahe.data.AccountsList
 import com.android.biyahe.helper.AccountAdapter
