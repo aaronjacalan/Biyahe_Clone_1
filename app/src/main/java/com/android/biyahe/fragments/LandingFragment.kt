@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListView
 import com.android.biyahe.R
+import com.android.biyahe.activities.RouteActivity
 import com.android.biyahe.activities.SettingsActivity
 import com.android.biyahe.data.RouteDataManager
 import com.android.biyahe.helper.RouteAdapter
@@ -32,8 +33,15 @@ class LandingFragment : Fragment() {
         // To check if already bookmarked
         val bookmarked = RouteDataManager.bookmarked
 
-        val arrayAdapter = RouteAdapter(requireContext(), routeList, bookmarked)
-        arrayAdapter.routeList = routeList
+        val arrayAdapter = RouteAdapter(
+            requireContext(),
+            routeList,
+            bookmarked,
+            onClick = { it ->
+                startActivity(Intent(requireContext(), RouteActivity::class.java).apply {
+                    putExtra("route", it)
+                })
+            })
         routes.adapter = arrayAdapter
 
         // Temporary Operation on adding route to bookmarks
@@ -59,12 +67,6 @@ class LandingFragment : Fragment() {
 //            }
 //            true
 //        }
-
-        val btn_settings = view.findViewById<ImageView>(R.id.btn_settings)
-        btn_settings.setOnClickListener {
-            Log.e("Landing Activity", "Proceeding to Settings")
-            startActivity(Intent(requireContext(), SettingsActivity::class.java))
-        }
     }
 
 }

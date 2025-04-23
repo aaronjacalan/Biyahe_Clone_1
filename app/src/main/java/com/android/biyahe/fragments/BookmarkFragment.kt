@@ -1,6 +1,7 @@
 package com.android.biyahe.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,16 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import com.android.biyahe.R
+import com.android.biyahe.activities.RouteActivity
 import com.android.biyahe.data.Route
 import com.android.biyahe.data.RouteDataManager
 import com.android.biyahe.helper.RouteAdapter
 import com.android.biyahe.utils.toast
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BookmarkFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BookmarkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,8 +22,15 @@ class BookmarkFragment : Fragment() {
         val route_bookmarks = view.findViewById<ListView>(R.id.lv_route_bookmarks)
         val routeList = RouteDataManager.bookmarked
 
-        val arrayAdapter = RouteAdapter(requireContext(), routeList, routeList)
-        arrayAdapter.routeList = routeList
+        val arrayAdapter = RouteAdapter(
+            requireContext(),
+            routeList,
+            routeList,
+            onClick = { it ->
+                startActivity(Intent(requireContext(), RouteActivity::class.java).apply {
+                    putExtra("route", it)
+                })
+            })
         route_bookmarks.adapter = arrayAdapter
 
         // Temporary Operation on delete-ing

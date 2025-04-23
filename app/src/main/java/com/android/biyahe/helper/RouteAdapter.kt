@@ -11,9 +11,12 @@ import android.widget.TextView
 import com.android.biyahe.R
 import com.android.biyahe.data.Route
 
-class RouteAdapter(private val context : Context,
-                   var routeList : List<Route>,
-                   val bookmarkList : MutableList<Route>) : BaseAdapter() {
+class RouteAdapter(
+    private val context : Context,
+    var routeList : List<Route>,
+    private val bookmarkList : MutableList<Route>,
+    private val onClick : (Route) -> Unit
+    ) : BaseAdapter() {
     override fun getCount(): Int = routeList.size
 
     override fun getItem(position: Int): Any = routeList[position]
@@ -40,9 +43,15 @@ class RouteAdapter(private val context : Context,
         ib_bookmark.setOnClickListener {
             if (isBookmarked) {
                 removeItem(route)
+
             } else {
                 addItem(route)
+
             }
+        }
+
+        view.setOnClickListener {
+            onClick(route)
         }
 
         return view

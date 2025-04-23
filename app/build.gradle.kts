@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -74,7 +75,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation("androidx.recyclerview:recyclerview:1.4.0")
-    implementation ("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
+    implementation("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
     implementation ("com.google.android.material:material:1.9.0")
     implementation ("androidx.activity:activity-ktx:1.7.2")
     implementation ("jp.wasabeef:blurry:4.0.1")
