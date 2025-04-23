@@ -1,229 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="@drawable/background_grainy2">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <com.android.biyahe.utils.ParallaxScrollView
+        android:id="@+id/parallaxScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".activities.ProfileActivity">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="16dp">
 
-        <ImageView
-            android:id="@+id/backgroundImage"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="Profile background image"
-            android:scaleType="fitXY"
-            android:src="@drawable/background2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_editProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:text="EDIT PROFILE"
-            android:textAllCaps="true"
-            android:textColor="@color/colorFontLight"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <!-- Parallax header elements -->
+            <FrameLayout
+                android:id="@+id/headerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/CircleImageIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="100dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/white"
-            android:padding="3dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/backgroundImage"
-            app:shapeAppearanceOverlay="@style/CircleShape"
-            app:strokeColor="@color/white"
-            app:strokeWidth="4dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/headerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/UID_EditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="25dp"
-            android:fontFamily="@font/jb_mono"
-            android:background="@drawable/login_text_border"
-            android:hint="UID"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:enabled="false"
-            android:paddingVertical="15dp"
-            android:textAlignment="center"
-            android:textColor="@color/colorFontDark"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backgroundImage" />
+                    <ImageView
+                        android:id="@+id/editProfile_saveChanges"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/circle_button"
+                        android:padding="6dp"
+                        android:src="@drawable/icon_checkmark"
+                        android:tint="@color/colorAccentDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UseAppTint" />
 
-        <EditText
-            android:id="@+id/UsernameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="17dp"
-            android:fontFamily="@font/jb_mono"
-            android:hint="Username"
-            android:background="@drawable/login_text_border"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:maxLength="35"
-            android:paddingVertical="15dp"
-            android:textAlignment="center"
-            android:textColor="@color/colorFontDark"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/UID_EditText" />
+                    <ImageView
+                        android:id="@+id/editProfile_goBack"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="45dp"
+                        android:background="@drawable/circle_button"
+                        android:contentDescription="Go back"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="2dp"
+                        android:rotation="180"
+                        android:rotationY="180"
+                        android:src="@drawable/icon_prev_arrow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/colorAccentDark" />
 
-        <TextView
-            android:id="@+id/tv_usernameError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FF0000"
-            android:textSize="10sp"
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:visibility="invisible"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            app:layout_constraintTop_toBottomOf="@+id/UsernameEditText" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/CircleImageIcon"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="100dp"
+                        android:background="@android:color/white"
+                        android:padding="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon_user"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/CircleShape"
+                        app:strokeColor="@color/colorBackground"
+                        app:strokeWidth="2dp" />
 
-        <EditText
-            android:id="@+id/ShortDescriptionText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="7dp"
-            android:paddingHorizontal="10dp"
-            android:lineSpacingExtra="5dp"
-            android:justificationMode="inter_word"
-            android:fontFamily="@font/jb_mono"
-            android:hint="Short Description"
-            android:background="@drawable/login_text_border"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            android:maxLength="300"
-            android:paddingVertical="16dp"
-            android:textAlignment="center"
-            android:textColor="@color/colorFontDark"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_usernameError" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
-        <TextView
-            android:id="@+id/tv_shortDescriptionError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FF0000"
-            android:textSize="10sp"
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:visibility="invisible"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            app:layout_constraintTop_toBottomOf="@+id/ShortDescriptionText" />
-
-        <ListView
-            android:id="@+id/listViewLinkedAccountsEdit"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/corner_radius_small"
-            android:backgroundTint="@color/colorPrimary"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shortDescriptionError" />
-
-        <Button
-            android:id="@+id/editProfile_addAccountButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/corner_radius_small"
-            android:backgroundTint="@color/colorSecondary"
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:paddingVertical="15dp"
-            android:text="ADD ACCOUNT"
-            android:textColor="@color/colorAccentDark"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listViewLinkedAccountsEdit" />
-
-        <LinearLayout
-            android:id="@+id/saveOrCancelChanges"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfile_addAccountButton">
-
-            <Button
-                android:id="@+id/editProfile_cancelButton"
-                android:layout_width="0dp"
+            <!-- Content area -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/jb_mono_xtrabold"
-                android:paddingVertical="25dp"
-                android:text="Cancel"
-                android:textColor="@color/colorAccentDark"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:layout_below="@id/headerContainer"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/top_rounded_bg"
+                android:backgroundTint="@color/colorBackground"
+                android:minHeight="690dp"
+                android:paddingBottom="30dp">
 
-            <Button
-                android:id="@+id/editProfile_saveButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/colorButtons"
-                android:fontFamily="@font/jb_mono_xtrabold"
-                android:paddingVertical="25dp"
-                android:text="SAVE"
-                android:textColor="@color/colorFontLight"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_editProfileHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:text="Edit Profile"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="32sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+                <!-- USER ID -->
+                <TextView
+                    android:id="@+id/tv_uidHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:text="uid"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_editProfileHeader" />
+
+                <EditText
+                    android:id="@+id/et_enterUID"
+                    android:layout_width="match_parent"
+                    android:layout_height="69dp"
+                    android:layout_marginHorizontal="30dp"
+                    android:background="@drawable/login_text_border"
+                    android:fontFamily="@font/tt_interphases_pro_demibold"
+                    android:enabled="false"
+                    android:hint="user_id"
+                    android:textColor="@color/grey"
+                    android:inputType="text"
+                    android:maxLength="35"
+                    android:textAlignment="center"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_uidHeader" />
+
+
+                <!-- USERNAME -->
+                <TextView
+                    android:id="@+id/tv_usernameHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:text="username"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_enterUID" />
+
+                <EditText
+                    android:id="@+id/et_enterUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="69dp"
+                    android:layout_marginHorizontal="30dp"
+                    android:background="@drawable/login_text_border"
+                    android:fontFamily="@font/tt_interphases_pro_demibold"
+                    android:hint="username"
+                    android:inputType="text"
+                    android:textColor="@color/colorFontDark"
+                    android:maxLength="35"
+                    android:textAlignment="center"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_usernameHeader" />
+
+                <TextView
+                    android:id="@+id/tv_username_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorButtons"
+                    android:textSize="8sp"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="@font/tt_interphases_pro_demibold"
+                    android:visibility="invisible"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    app:layout_constraintTop_toBottomOf="@id/et_enterUsername"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+                <!-- SHORT DESCRIPTION -->
+                <TextView
+                    android:id="@+id/tv_enterShortDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:text="short description"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_username_error" />
+
+                <EditText
+                    android:id="@+id/et_enterShortDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="30dp"
+                    android:paddingHorizontal="25dp"
+                    android:paddingVertical="25dp"
+                    android:lineSpacingExtra="5dp"
+                    android:justificationMode="inter_word"
+                    android:textColor="@color/colorFontDark"
+                    android:fontFamily="@font/tt_interphases_pro_demibold"
+                    android:hint="Short Description"
+                    android:background="@drawable/login_text_border"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLength="500"
+                    android:textAlignment="center"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_enterShortDescription" />
+
+
+                <!-- LINKED ACCOUNTS -->
+                <TextView
+                    android:id="@+id/tv_linkedAccounts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:text="linked accounts"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_enterShortDescription" />
+
+                <ListView
+                    android:id="@+id/listViewLinkedAccountsEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/corner_radius_small"
+                    android:backgroundTint="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_linkedAccounts" />
+
+                <Button
+                    android:id="@+id/editProfile_addAccountButton"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/colorButtons"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:text="ADD ACCOUNT"
+                    android:textColor="@color/colorFontLight"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/listViewLinkedAccountsEdit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+    </com.android.biyahe.utils.ParallaxScrollView>
+</FrameLayout>

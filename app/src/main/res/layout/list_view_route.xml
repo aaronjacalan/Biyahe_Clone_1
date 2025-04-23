@@ -19,7 +19,7 @@
         android:id="@+id/tv_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/list_code_background"
+        android:background="@drawable/list_route_background"
         app:layout_constraintWidth_percent="0.65"
         app:layout_constraintBottom_toBottomOf="@id/tv_route_code"
         app:layout_constraintTop_toTopOf="@id/tv_route_code"

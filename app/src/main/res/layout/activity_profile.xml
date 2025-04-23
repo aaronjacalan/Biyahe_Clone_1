@@ -1,162 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground" >
+    android:background="@drawable/background_grainy2">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <com.android.biyahe.utils.ParallaxScrollView
+        android:id="@+id/parallaxScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".activities.ProfileActivity">
-
-        <ImageView
-            android:id="@+id/backgroundImage"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="fitXY"
-            android:src="@drawable/background2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/viewProfile_goBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:rotationY="180"
-            android:src="@drawable/icon_backarrow"
-            android:tint="@color/colorIcons"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseAppTint" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/CircleImageIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="69dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/white"
-            android:padding="3dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/backgroundImage"
-            app:shapeAppearanceOverlay="@style/CircleShape"
-            app:strokeColor="@color/white"
-            app:strokeWidth="4dp" />
-
-        <TextView
-            android:id="@+id/text_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:text="temp"
-            android:textAlignment="center"
-            android:textColor="@color/colorFontLight"
-            android:textSize="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CircleImageIcon" />
-
-        <TextView
-            android:id="@+id/UIDTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="1dp"
-            android:fontFamily="@font/jb_mono_sbold_italic"
-            android:text="temp"
-            android:textColor="@color/colorFontLight"
-            android:textAlignment="center"
-            android:textSize="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_username" />
-
-
-        <TextView
-            android:id="@+id/text_shortDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/jb_mono"
-            android:justificationMode="inter_word"
-            android:text="temp"
-            android:textAlignment="center"
-            android:textColor="@color/colorFontDark"
-            android:textSize="11dp"
-            app:layout_constraintTop_toBottomOf="@+id/backgroundImage" />
-
-        <TextView
-            android:id="@+id/text_LinkedAccounts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="45dp"
-            android:layout_marginTop="69dp"
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:letterSpacing=".02"
-            android:text="Linked Accounts"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/colorFontDark"
-            android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/text_shortDescription" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="16dp">
 
         <LinearLayout
-            android:id="@+id/LinkedAccountsFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/corner_radius_small"
-            android:backgroundTint="@color/colorPrimary"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/text_LinkedAccounts"
-            tools:layout_editor_absoluteX="40dp">
+            android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/ListViewLinkedAccounts"
+            <!-- Profile Header Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="305dp">
+
+                <!-- Navigation Controls -->
+                <ImageView
+                    android:id="@+id/viewProfile_goBack"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="45dp"
+                    android:background="@drawable/circle_button"
+                    android:contentDescription="Go back"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="2dp"
+                    android:rotation="180"
+                    android:rotationY="180"
+                    android:src="@drawable/icon_prev_arrow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorAccentDark" />
+
+                <ImageView
+                    android:id="@+id/viewProfile_editProfile"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/circle_button"
+                    android:padding="9dp"
+                    android:src="@drawable/icon_edit"
+                    android:tint="@color/colorAccentDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseAppTint" />
+
+                <!-- Profile Image -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/CircleImageIcon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:background="@android:color/white"
+                    android:padding="3dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_user"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewProfile_goBack"
+                    app:shapeAppearanceOverlay="@style/CircleShape"
+                    app:strokeColor="@color/colorBackground"
+                    app:strokeWidth="2dp" />
+
+                <!-- User Information -->
+                <TextView
+                    android:id="@+id/text_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:text="Username"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorFontLight"
+                    android:textSize="32sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/CircleImageIcon" />
+
+                <TextView
+                    android:id="@+id/UIDTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:fontFamily="@font/tt_interphases_pro_condensed_extrabold_italic"
+                    android:text="helldivers"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccentLight"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_username" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Content Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@android:color/white"
-                android:dividerHeight="0.3dp" />
+                android:background="@drawable/top_rounded_bg"
+                android:backgroundTint="@color/colorBackground"
+                android:minHeight="500dp"
+                android:paddingBottom="30dp">
+
+                <TextView
+                    android:id="@+id/txtAboutHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:letterSpacing=".02"
+                    android:text="About User"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="32sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_shortDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="3dp"
+                    android:fontFamily="@font/tt_interphases_pro_medium"
+                    android:justificationMode="inter_word"
+                    android:text="temp"
+                    android:textColor="@color/colorFontDark"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAboutHeader"/>
+
+                <!-- Linked Accounts Section -->
+                <TextView
+                    android:id="@+id/txtLinkedAccountsHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/tt_interphases_pro_black"
+                    android:letterSpacing=".02"
+                    android:text="Linked Accounts"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="32sp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_shortDescription" />
+
+                <ListView
+                    android:id="@+id/ListViewLinkedAccounts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/corner_radius_small"
+                    android:backgroundTint="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLinkedAccountsHeader" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/tv_editProfile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/corner_radius_small"
-            android:backgroundTint="@color/colorSecondary"
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:paddingVertical="15dp"
-            android:text="EDIT ACCOUNT"
-            android:textColor="@color/colorAccentDark"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LinkedAccountsFrame" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </com.android.biyahe.utils.ParallaxScrollView>
+</FrameLayout>

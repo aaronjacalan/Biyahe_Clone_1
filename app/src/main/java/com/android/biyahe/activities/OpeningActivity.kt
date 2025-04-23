@@ -25,7 +25,10 @@ class OpeningActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opening)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         val headerText = findViewById<TextView>(R.id.tv_openingHeader)
         val textLine1 = findViewById<TextView>(R.id.tv_openingText1)
@@ -56,10 +59,10 @@ class OpeningActivity : Activity() {
 
         button.setOnClickListener {
             startExitAnimations {
-                val intent = Intent(this, RegisterActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 intent.putExtra("BACKGROUND_ID", randomBackground)
                 startActivity(intent)
-                overridePendingTransition(0, 0)  // Added this line to remove slide animation
+                overridePendingTransition(0, 0)
                 finish()
             }
         }

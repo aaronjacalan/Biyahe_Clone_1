@@ -1,50 +1,72 @@
 package com.android.biyahe.activities
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.android.biyahe.R
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
+import com.google.android.material.imageview.ShapeableImageView
 
 class ProfileEditActivity : Activity() {
 
-    private lateinit var uid: EditText
-    private lateinit var username: EditText
-    private lateinit var shortDesc: EditText
+    private lateinit var UIDTextView: EditText
+    private lateinit var usernameTextView: EditText
+    private lateinit var shortDescTextView: EditText
     private lateinit var listViewLinkedAccountsEdit: ListView
     private lateinit var accountAdapter: AccountAdapter
     private lateinit var usernameError: TextView
-    private lateinit var shortDescriptionError: TextView
+    private lateinit var userIcon: ShapeableImageView
+
+    private val PICK_IMAGE_REQUEST = 1001
+    private val READ_EXTERNAL_STORAGE_PERMISSION_CODE = 1002
+
+    private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_edit)
 
-        uid = findViewById(R.id.UID_EditText)
-        username = findViewById(R.id.UsernameEditText)
-        shortDesc = findViewById(R.id.ShortDescriptionText)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
+        UIDTextView = findViewById(R.id.et_enterUID)
+        usernameTextView = findViewById(R.id.et_enterUsername)
+        shortDescTextView = findViewById(R.id.et_enterShortDescription)
         listViewLinkedAccountsEdit = findViewById(R.id.listViewLinkedAccountsEdit)
-        usernameError = findViewById(R.id.tv_usernameError)
-        shortDescriptionError = findViewById(R.id.tv_shortDescriptionError)
+        usernameError = findViewById(R.id.tv_username_error)
+        userIcon = findViewById(R.id.CircleImageIcon)
 
         usernameError.visibility = View.VISIBLE
-        shortDescriptionError.visibility = View.VISIBLE
 
         resetErrorMessages()
 
-        username.addTextChangedListener(object : TextWatcher {
+        usernameTextView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
@@ -60,22 +82,13 @@ class ProfileEditActivity : Activity() {
             }
         })
 
-        shortDesc.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
-                    shortDescriptionError.text = "DESCRIPTION CANNOT BE EMPTY"
-                    shortDescriptionError.visibility = View.VISIBLE
-                } else {
-                    shortDescriptionError.visibility = View.INVISIBLE
-                }
-            }
-        })
-
         loadProfileData()
 
-        val buttonCancelEdit = findViewById<Button>(R.id.editProfile_cancelButton)
+        userIcon.setOnClickListener {
+            checkPermissionAndOpenGallery()
+        }
+
+        val buttonCancelEdit = findViewById<ImageView>(R.id.editProfile_goBack)
         buttonCancelEdit.setOnClickListener {
             Log.i("ProfileEditActivity", "Cancel Edit Profile")
             ExitEditProfile.show(this)
@@ -94,21 +107,10 @@ class ProfileEditActivity : Activity() {
 //                .show()
         }
 
-        val buttonSaveChanges = findViewById<Button>(R.id.editProfile_saveButton)
+        val buttonSaveChanges = findViewById<ImageView>(R.id.editProfile_saveChanges)
         buttonSaveChanges.setOnClickListener {
             if (validateInputFields()) {
-                AlertDialog.Builder(this)
-                    .setTitle("Confirm Changes")
-                    .setMessage("Do you want to proceed with these changes?")
-                    .setPositiveButton("Yes") { dialog, _ ->
-                        saveUserChanges()
-                        dialog.dismiss()
-                    }
-                    .setNegativeButton("No") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
+                saveUserChanges()
             }
         }
 
@@ -122,24 +124,86 @@ class ProfileEditActivity : Activity() {
         setupAccountsList()
     }
 
+    private fun checkPermissionAndOpenGallery() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            openGallery()
+        } else {
+            when {
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
+                    openGallery()
+                }
+                ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE ) -> {
+                    AlertDialog.Builder(this)
+                        .setTitle("Permission Required")
+                        .setMessage("Storage permission is required to select an image from gallery")
+                        .setPositiveButton("Grant") { _, _ ->
+                            requestStoragePermission()
+                        }
+                        .setNegativeButton("Cancel") { dialog, _ ->
+                            dialog.dismiss()
+                            toast("Cannot access gallery without permission")
+                        }
+                        .create()
+                        .show()
+                }
+                else -> {
+                    requestStoragePermission()
+                }
+            }
+        }
+    }
+
+    private fun requestStoragePermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            READ_EXTERNAL_STORAGE_PERMISSION_CODE
+        )
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
+            selectedImageUri = data.data
+            userIcon.setImageURI(selectedImageUri)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            READ_EXTERNAL_STORAGE_PERMISSION_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    openGallery()
+                } else {
+                    toast("Permission denied. Cannot access gallery.")
+                }
+                return
+            }
+        }
+    }
+
     private fun resetErrorMessages() {
         usernameError.text = ""
-        shortDescriptionError.text = ""
     }
 
     private fun validateInputFields(): Boolean {
         var isValid = true
 
-        if (username.isEmpty()) {
+        if (usernameTextView.isEmpty()) {
             usernameError.text = "USERNAME CANNOT BE EMPTY"
             isValid = false
-        } else if (username.text.toString().length < 5) {
+        } else if (usernameTextView.text.toString().length < 5) {
             usernameError.text = "USERNAME MUST BE AT LEAST 5 CHARACTERS"
-            isValid = false
-        }
-
-        if (shortDesc.isEmpty()) {
-            shortDescriptionError.text = "DESCRIPTION CANNOT BE EMPTY"
             isValid = false
         }
 
@@ -183,12 +247,16 @@ class ProfileEditActivity : Activity() {
     private fun saveUserChanges() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
-            putString("UID", uid.text.toString())
-            putString("username", username.text.toString())
-            putString("shortDesc", shortDesc.text.toString())
+            putString("UID", UIDTextView.text.toString())
+            putString("username", usernameTextView.text.toString())
+            putString("shortDesc", shortDescTextView.text.toString())
+
+            selectedImageUri?.let {
+                putString("profileImageUri", it.toString())
+            }
+
             apply()
         }
-
         toast("Changes saved successfully")
         setResult(RESULT_OK)
         finish()
@@ -196,8 +264,28 @@ class ProfileEditActivity : Activity() {
 
     private fun loadProfileData() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
-        uid.setText(sharedPref.getString("UID", ""))
-        username.setText(sharedPref.getString("username", ""))
-        shortDesc.setText(sharedPref.getString("shortDesc", ""))
+
+        val uidValue = sharedPref.getString("UID", "") ?: ""
+        val usernameValue = sharedPref.getString("username", "") ?: ""
+        val shortDescValue = sharedPref.getString("shortDesc", "") ?: ""
+
+        UIDTextView.setText(uidValue)
+        usernameTextView.setText(usernameValue)
+        shortDescTextView.setText(shortDescValue)
+
+        val savedImageUri = sharedPref.getString("profileImageUri", null)
+        if (!savedImageUri.isNullOrEmpty()) {
+            try {
+                val uri = Uri.parse(savedImageUri)
+                userIcon.setImageURI(uri)
+                selectedImageUri = uri
+            } catch (e: Exception) {
+                Log.e("ProfileEditActivity", "Failed to load saved profile image: ${e.message}")
+                userIcon.setImageResource(R.drawable.icon_user)
+            }
+        } else {
+            userIcon.setImageResource(R.drawable.icon_user)
+        }
     }
+
 }

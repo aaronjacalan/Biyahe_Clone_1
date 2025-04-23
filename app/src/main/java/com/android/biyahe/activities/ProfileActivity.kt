@@ -3,11 +3,11 @@ package com.android.biyahe.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.graphics.Color
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
@@ -15,6 +15,7 @@ import com.android.biyahe.R
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
 import com.android.biyahe.utils.toast
+import com.google.android.material.imageview.ShapeableImageView
 
 class ProfileActivity : Activity() {
 
@@ -23,19 +24,24 @@ class ProfileActivity : Activity() {
     private lateinit var shortDescTextView: TextView
     private lateinit var listViewLinkedAccounts: ListView
     private lateinit var accountAdapter: AccountAdapter
+    private lateinit var userIcon: ShapeableImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
         UIDTextView = findViewById(R.id.UIDTextView)
         usernameTextView = findViewById(R.id.text_username)
         shortDescTextView = findViewById(R.id.text_shortDescription)
         listViewLinkedAccounts = findViewById(R.id.ListViewLinkedAccounts)
-        loadProfileData()
+        userIcon = findViewById(R.id.CircleImageIcon)
 
-        val imageView = findViewById<ImageView>(R.id.backgroundImage)
-        imageView.setColorFilter(Color.argb(120, 0, 0, 0))
+        loadProfileData()
 
         val buttonGoback = findViewById<ImageView>(R.id.viewProfile_goBack)
         buttonGoback.setOnClickListener {
@@ -43,7 +49,7 @@ class ProfileActivity : Activity() {
             finish()
         }
 
-        val buttonEditprofile = findViewById<Button>(R.id.tv_editProfile)
+        val buttonEditprofile = findViewById<ImageView>(R.id.viewProfile_editProfile)
         buttonEditprofile.setOnClickListener {
             Log.e("ProfileActivity", "Goto Edit Profile")
 
@@ -74,9 +80,26 @@ class ProfileActivity : Activity() {
 
     private fun loadProfileData() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
-        UIDTextView.text = sharedPref.getString("UID", "")
-        usernameTextView.text = sharedPref.getString("username", "")
-        shortDescTextView.text = sharedPref.getString("shortDesc", "")
+
+        val userID = sharedPref.getString("UID", "")
+        val username = sharedPref.getString("username", "")
+        val shortDesc = sharedPref.getString("shortDesc", "")
+
+        UIDTextView.text = userID
+        usernameTextView.text = username
+        shortDescTextView.text = shortDesc
+
+        val savedImageUri = sharedPref.getString("profileImageUri", null)
+        if (savedImageUri != null) {
+            try {
+                userIcon.setImageURI(Uri.parse(savedImageUri))
+            } catch (e: Exception) {
+                Log.e("ProfileActivity", "Failed to load saved profile image: ${e.message}")
+                userIcon.setImageResource(R.drawable.icon_user)
+            }
+        } else {
+            userIcon.setImageResource(R.drawable.icon_user)
+        }
     }
 
     private fun setListViewHeightBasedOnChildren(listView: ListView) {

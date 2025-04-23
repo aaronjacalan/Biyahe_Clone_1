@@ -75,4 +75,7 @@ dependencies {
 
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation ("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
+    implementation ("com.google.android.material:material:1.9.0")
+    implementation ("androidx.activity:activity-ktx:1.7.2")
+    implementation ("jp.wasabeef:blurry:4.0.1")
 }

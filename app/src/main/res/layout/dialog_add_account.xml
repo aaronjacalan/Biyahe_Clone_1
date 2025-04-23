@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/corner_radius_large"
+    android:backgroundTint="@android:color/transparent"
+    android:orientation="vertical"
     android:padding="25dp">
+
+    <ImageView
+        android:id="@+id/editProfile_saveChanges"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/circle_button"
+        android:padding="6dp"
+        android:src="@drawable/icon_prev_arrow"
+        android:tint="@color/colorAccentDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseAppTint" />
 
     <TextView
         android:id="@+id/tv_addLinkedAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/jb_mono_xtrabold"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/tt_interphases_pro_black"
         android:text="NEW LINKED ACCOUNT"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorFontDark"
         android:textSize="23sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfile_saveChanges" />
 
     <LinearLayout
         android:id="@+id/icon_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
         android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/tv_addLinkedAccount">
 
         <ImageView
@@ -41,11 +56,11 @@
             android:id="@+id/btn_changeIcon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:layout_marginStart="30dp"
             android:backgroundTint="@color/colorPrimary"
-            android:fontFamily="@font/jb_mono_xtrabold"
+            android:fontFamily="@font/tt_interphases_pro_extrabold"
             android:paddingVertical="15dp"
             android:text="Change Icon"
             android:textColor="@color/colorFontLight"
@@ -57,10 +72,10 @@
     <EditText
         android:id="@+id/et_enterAccountName"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="69dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/login_text_border"
-        android:fontFamily="@font/jb_mono_xtrabold"
+        android:fontFamily="@font/tt_interphases_pro_demibold"
         android:hint="ACCOUNT NAME"
         android:textAlignment="center"
         android:textSize="12sp"
@@ -70,73 +85,55 @@
         android:id="@+id/tv_AccountName_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FF0000"
-        android:textSize="10sp"
         android:fontFamily="@font/jb_mono_xtrabold"
-        android:visibility="invisible"
         android:textAlignment="center"
         android:textAllCaps="true"
+        android:textColor="#FF0000"
+        android:textSize="8sp"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/et_enterAccountName" />
 
     <EditText
         android:id="@+id/et_enterAccountLink"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="69dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/login_text_border"
-        android:fontFamily="@font/jb_mono_xtrabold"
+        android:fontFamily="@font/tt_interphases_pro_demibold"
         android:hint="LINK TO ACCOUNT"
         android:textAlignment="center"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_AccountName_error" />
 
     <TextView
         android:id="@+id/tv_AccountLink_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FF0000"
-        android:textSize="10sp"
         android:fontFamily="@font/jb_mono_xtrabold"
-        android:visibility="invisible"
         android:textAlignment="center"
         android:textAllCaps="true"
+        android:textColor="#FF0000"
+        android:textSize="8sp"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/et_enterAccountLink" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnYes"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/tv_AccountLink_error">
-
-        <Button
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:id="@+id/btnNo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="10dp"
-            android:paddingVertical="20dp"
-            android:textColor="@color/colorFontDark"
-            android:backgroundTint="@color/colorAccentLight"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="Cancel" />
-
-        <Button
-            android:fontFamily="@font/jb_mono_xtrabold"
-            android:id="@+id/btnYes"
-            android:layout_width="0dp"
-            android:paddingVertical="20dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:backgroundTint="@color/colorSecondary"
-            android:text="ADD LINK"
-            android:textColor="@color/colorFontDark"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorSecondary"
+        android:fontFamily="@font/jb_mono_xtrabold"
+        android:paddingVertical="20dp"
+        android:text="ADD LINK"
+        android:textColor="@color/colorFontDark"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_AccountLink_error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

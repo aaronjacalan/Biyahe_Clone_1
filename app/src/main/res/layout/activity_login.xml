@@ -21,11 +21,14 @@
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_login"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="300dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/colorBackground"
         app:layout_constraintTop_toBottomOf="@id/tv_openingHeader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +36,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/top_rounded_bg"
-            android:backgroundTint="@color/colorBackground">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_loginTitle"
@@ -46,7 +47,7 @@
                 android:fontFamily="@font/tt_interphases_pro_extrabold"
                 android:text="Login"
                 android:textColor="@color/colorSecondary"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -60,7 +61,7 @@
                 android:fontFamily="@font/tt_interphases_pro_black"
                 android:text="Welcome Back"
                 android:textColor="@color/colorPrimary"
-                android:textSize="30sp"
+                android:textSize="32sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_loginTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -69,7 +70,7 @@
                 android:id="@+id/et_enterUsername"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="35dp"
                 android:maxLength="35"
                 android:layout_marginHorizontal="25dp"
                 android:background="@drawable/login_text_border"
@@ -87,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorButtons"
-                android:textSize="9sp"
+                android:textSize="8sp"
                 android:layout_marginTop="1dp"
                 android:fontFamily="@font/tt_interphases_pro_demibold"
                 android:visibility="invisible"
@@ -101,13 +102,13 @@
                 android:id="@+id/et_enterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:maxLength="69"
                 android:layout_marginHorizontal="25dp"
                 android:background="@drawable/login_text_border"
                 android:fontFamily="@font/tt_interphases_pro_extrabold"
                 android:hint="Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:textAlignment="center"
                 android:textSize="11sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_username_error"
@@ -119,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FF0000"
-                android:textSize="9sp"
+                android:textSize="8sp"
                 android:layout_marginTop="1dp"
                 android:fontFamily="@font/tt_interphases_pro_demibold"
                 android:visibility="invisible"
@@ -133,7 +134,7 @@
                 android:id="@+id/btn_loginToApp"
                 android:layout_width="match_parent"
                 android:layout_height="69dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginHorizontal="25dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/colorButtons"
@@ -157,11 +158,11 @@
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="11sp"
-                android:layout_marginBottom="35dp"
+                android:layout_marginBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
