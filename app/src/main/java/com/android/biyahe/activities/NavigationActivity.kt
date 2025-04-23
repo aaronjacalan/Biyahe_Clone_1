@@ -2,6 +2,7 @@ package com.android.biyahe.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.android.biyahe.R
@@ -18,6 +19,11 @@ class NavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)

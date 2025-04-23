@@ -10,4 +10,5 @@
     <color name="dev_text">#fefae0</color>
     <color name="dev_solid">#bc6c25</color>
     <color name="text_error">#ff0000</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

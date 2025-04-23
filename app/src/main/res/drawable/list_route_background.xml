@@ -6,7 +6,8 @@
         android:color="@color/white"/>
 
     <corners
-        android:radius="16dp"/>
+        android:topLeftRadius="16dp"
+        android:bottomRightRadius="16dp"/>
 
     <stroke
         android:color="#E8E8E8"

@@ -32,32 +32,6 @@ class BookmarkFragment : Fragment() {
                 })
             })
         route_bookmarks.adapter = arrayAdapter
-
-        // Temporary Operation on delete-ing
-//        route_bookmarks.setOnItemLongClickListener { _, _, position, _ ->
-//
-//            val alertBuilder = AlertDialog.Builder(this)
-//            alertBuilder.setTitle("Remove Route")
-//            alertBuilder.setMessage("Do you wish to remove Route: ${routeList[position].jeepney_code} from bookmarks?")
-//
-//            alertBuilder.setPositiveButton("Yes") { dialog, _ ->
-//                val temp : Route = routeList[position]
-//                RouteDataManager.bookmarked.remove(routeList[position])
-//                toast("${temp.jeepney_code} is removed from bookmarks!")
-//                arrayAdapter.notifyDataSetChanged()
-//            }
-//            alertBuilder.setNegativeButton("No") { dialog, _ ->
-//                dialog.dismiss()
-//            }
-//
-//            val alertDialog = alertBuilder.create()
-//            alertDialog.show()
-//
-//            true
-//        }
-
-
-
     }
 
     override fun onCreateView(

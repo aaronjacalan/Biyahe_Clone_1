@@ -1,9 +1,14 @@
 package com.android.biyahe.helper
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.BaseAdapter
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -29,6 +34,7 @@ class RouteAdapter(
 
         val iv_route = view.findViewById<ImageView>(R.id.iv_route)
         val tv_route_code = view.findViewById<TextView>(R.id.tv_route_code)
+        val v_bookmark = view.findViewById<View>(R.id.v_bookmark)
         val ib_bookmark = view.findViewById<ImageButton>(R.id.ib_bookmark)
 
         val route = routeList[position]
@@ -40,15 +46,18 @@ class RouteAdapter(
             if (isBookmarked) R.drawable.icon_star else R.drawable.icon_star_not
         )
 
-        ib_bookmark.setOnClickListener {
+        val bookmarkListener = View.OnClickListener {
             if (isBookmarked) {
-                removeItem(route)
-
+                animateBookmark(ib_bookmark)
+                bookmarkList.remove(route)
             } else {
-                addItem(route)
-
+                animateBookmark(ib_bookmark)
+                bookmarkList.add(route)
             }
+            notifyDataSetChanged()
         }
+        v_bookmark.setOnClickListener(bookmarkListener)
+        ib_bookmark.setOnClickListener(bookmarkListener)
 
         view.setOnClickListener {
             onClick(route)
@@ -57,15 +66,34 @@ class RouteAdapter(
         return view
     }
 
-    private fun addItem(route : Route) {
-        bookmarkList.add(route)
-        notifyDataSetChanged()
+    private fun animateBookmark(view: View) {
+        // Scale up and down animation
+        val scaleUpX = ObjectAnimator.ofFloat(view, "scaleX", 1f, 3f)
+        val scaleUpY = ObjectAnimator.ofFloat(view, "scaleY", 1f, 3f)
+        val scaleDownX = ObjectAnimator.ofFloat(view, "scaleX", 3f, 1f)
+        val scaleDownY = ObjectAnimator.ofFloat(view, "scaleY", 3f, 1f)
+
+        // Rotation animation for "magical" effect
+        val rotate = ObjectAnimator.ofFloat(view, "rotation", 0f, 360f)
+
+        // Alpha fade-in and fade-out
+        val fadeOut = ObjectAnimator.ofFloat(view, "alpha", 1f, 0.5f)
+        val fadeIn = ObjectAnimator.ofFloat(view, "alpha", 0.5f, 1f)
+
+        scaleUpX.duration = 150
+        scaleUpY.duration = 150
+        scaleDownX.duration = 150
+        scaleDownY.duration = 150
+        rotate.duration = 300
+        fadeOut.duration = 150
+        fadeIn.duration = 150
+
+        // Combine animations into a set
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(scaleUpX, scaleUpY, rotate, fadeOut)
+        animatorSet.play(scaleDownX).with(scaleDownY).with(fadeIn).after(scaleUpX)
+        animatorSet.interpolator = DecelerateInterpolator()
+
+        animatorSet.start()
     }
-    private fun removeItem(route : Route) {
-        bookmarkList.remove(route)
-        notifyDataSetChanged()
-    }
-
-
-
 }
