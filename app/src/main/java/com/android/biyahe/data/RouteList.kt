@@ -26,7 +26,8 @@ object RouteDataManager {
                     Destination("University of San Jose Recoletos"),
                     Destination("Sikatuna St"),
                     Destination("Colon Obelisk")
-                )),
+                ),
+                R.drawable.route_09c),
 
             Route("10H", "Bulacao - SM", R.drawable.profile_10h,
                 listOf(

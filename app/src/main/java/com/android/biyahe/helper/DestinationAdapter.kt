@@ -8,78 +8,95 @@ import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.android.biyahe.R
 import com.android.biyahe.data.Destination
 import com.android.biyahe.data.Route
 
 class DestinationAdapter(
-    private val context : Context,
-    private var route : Route,
-    private var destinations : List<Destination>
-    ) : BaseExpandableListAdapter() {
-    override fun getGroupCount(): Int = 1
+    private val context: Context,
+    private val route: Route
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun getChildrenCount(groupPosition: Int): Int = route.destinations.size
+    private var isExpanded = false
 
-    override fun getGroup(groupPosition: Int): Any = route
-
-    override fun getChild(groupPosition: Int, childPosition: Int): Any = route.destinations[childPosition]
-
-    override fun getGroupId(groupPosition: Int): Long = groupPosition.toLong()
-
-    override fun getChildId(groupPosition: Int, childPosition: Int): Long = childPosition.toLong()
-
-    override fun hasStableIds(): Boolean = false
-
-    override fun getGroupView(
-        groupPosition: Int,
-        isExpanded: Boolean,
-        convertView: View?,
-        parent: ViewGroup?
-    ): View {
-        val groupTitle : String = "Destinations"
-        val view = convertView ?: LayoutInflater.from(context)
-            .inflate(android.R.layout.simple_expandable_list_item_1, parent, false)
-        view.findViewById<TextView>(android.R.id.text1).text = groupTitle
-        return view
+    companion object {
+        private const val VIEW_TYPE_GROUP = 0
+        const val VIEW_TYPE_CHILD = 1
     }
 
-    override fun getChildView(
-        groupPosition: Int,
-        childPosition: Int,
-        isLastChild: Boolean,
-        convertView: View?,
-        parent: ViewGroup?
-    ): View {
-        val destination = destinations[childPosition]
-        val view = convertView ?: LayoutInflater.from(context)
-            .inflate(R.layout.expandable_list_view_destination, parent, false)
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) VIEW_TYPE_GROUP else VIEW_TYPE_CHILD
+    }
 
-        val level = view.findViewById<ImageView>(R.id.iv_destination_level)
-        if(childPosition == 0) {
-            level.setImageResource(R.drawable.icon_end_node)
-            level.rotation = 90f
-        } else if(childPosition == destinations.size-1) {
-            level.setImageResource(R.drawable.icon_end_node)
-            level.rotation = -90f
+    override fun getItemCount(): Int {
+        return if (isExpanded) {
+            1 + route.destinations.size
         } else {
-            level.setImageResource(R.drawable.icon_mid_node)
+            1 // Only group visible
         }
-
-        val title = view.findViewById<TextView>(R.id.tv_destination)
-        title.setText(destination.title)
-
-        val icon = view.findViewById<ImageView>(R.id.iv_destination_icon)
-        icon.setImageResource(
-            if(destination.type.equals("School")) {
-                R.drawable.icon_star
-            } else {
-                R.drawable.icon_star_not
-            }
-        )
-
-        return view
     }
 
-    override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean = true
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_TYPE_GROUP) {
+            val view = LayoutInflater.from(context)
+                .inflate(R.layout.destination_header, parent, false)
+            GroupViewHolder(view)
+        } else {
+            val view = LayoutInflater.from(context)
+                .inflate(R.layout.expandable_list_view_destination, parent, false)
+            ChildViewHolder(view)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is GroupViewHolder) {
+            holder.bind()
+        } else if (holder is ChildViewHolder) {
+            holder.bind(route.destinations[position - 1]) // subtract 1 because position 0 = group
+        }
+    }
+
+    inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val title: TextView = itemView.findViewById(R.id.tv_title)
+
+        fun bind() {
+            title.text = "Destinations"
+            itemView.setOnClickListener {
+                isExpanded = !isExpanded
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    inner class ChildViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val level: ImageView = itemView.findViewById(R.id.iv_destination_level)
+        private val title: TextView = itemView.findViewById(R.id.tv_destination)
+        private val icon: ImageView = itemView.findViewById(R.id.iv_destination_icon)
+
+        fun bind(destination: Destination) {
+            val position = bindingAdapterPosition - 1 // child index
+
+            if (position == 0) {
+                level.setImageResource(R.drawable.icon_end_node)
+                level.rotation = 90f
+            } else if (position == route.destinations.size - 1) {
+                level.setImageResource(R.drawable.icon_end_node)
+                level.rotation = -90f
+            } else {
+                level.setImageResource(R.drawable.icon_mid_node)
+                level.rotation = 0f
+            }
+
+            title.text = destination.title
+
+            icon.setImageResource(
+                if (destination.type == "School") {
+                    R.drawable.icon_star
+                } else {
+                    R.drawable.icon_star_not
+                }
+            )
+        }
+    }
 }
