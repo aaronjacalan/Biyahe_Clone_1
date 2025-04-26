@@ -4,30 +4,19 @@
     android:id="@+id/main" android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".LandingActivity">
 
-    <EditText
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/landing_search_bar"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/login_text_border"
-        android:hint="Search..."
-        android:paddingStart="41.5dp"
-        android:paddingEnd="5dp"
+        app:queryHint="Search..."
         android:inputType="text"
+        app:iconifiedByDefault="false"
         app:layout_constraintVertical_bias="0.05"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/lv_routes"
         app:layout_constraintRight_toRightOf="@id/lv_routes"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/landing_magnify"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:src="@drawable/icon_search"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10.5dp"
-        app:layout_constraintStart_toStartOf="@+id/landing_search_bar"
-        app:layout_constraintTop_toTopOf="@+id/landing_search_bar" />
 
     <TextView
         android:id="@+id/tv_title"

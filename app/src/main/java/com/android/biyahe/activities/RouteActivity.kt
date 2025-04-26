@@ -24,7 +24,7 @@ class RouteActivity : AppCompatActivity() {
 
         val route = intent.getParcelableExtra<Route>("route")!!
 
-        binding.tvRouteCode.setText(route.jeepney_code)
+        binding.tvRouteCode.setText(route.code)
         binding.btnBack.setOnClickListener {
             finish()
         }

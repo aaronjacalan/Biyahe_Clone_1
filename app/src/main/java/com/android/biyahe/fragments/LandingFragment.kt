@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListView
+import androidx.appcompat.widget.SearchView
 import com.android.biyahe.R
 import com.android.biyahe.activities.RouteActivity
 import com.android.biyahe.activities.SettingsActivity
@@ -44,29 +45,23 @@ class LandingFragment : Fragment() {
             })
         routes.adapter = arrayAdapter
 
-        // Temporary Operation on adding route to bookmarks
-//        routes.setOnItemLongClickListener { _, _, position, _ ->
-//            if(bookmarked.contains(routeList[position])) {
-//                toast("${routeList[position].jeepney_code} is already bookmarked!")
-//            } else {
-//                val alertBuilder = AlertDialog.Builder(requireContext())
-//                alertBuilder.setTitle("Add Route")
-//                alertBuilder.setMessage("Do you wish to bookmark Route: ${routeList[position].jeepney_code}?")
-//
-//                alertBuilder.setPositiveButton("Yes") { dialog, _ ->
-//                    RouteDataManager.bookmarked.add(routeList[position])
-//                    toast("${routeList[position].jeepney_code} is bookmarked!")
-//                }
-//                alertBuilder.setNegativeButton("No") { dialog, _ ->
-//                    dialog.dismiss()
-//                }
-//
-//                val alertDialog = alertBuilder.create()
-//                alertDialog.show()
-//
-//            }
-//            true
-//        }
+        // Search Functionality
+        val search_bar = view.findViewById<SearchView>(R.id.landing_search_bar)
+        search_bar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                val filteredList = routeList.filter { route ->
+                    val code_match = route.code.contains(query ?: "", ignoreCase = true)
+                    val destination_match = route.destinations.any { destination ->
+                        destination.title.lowercase().contains(query ?: "", ignoreCase = true)
+                    }
+                    code_match|| destination_match
+                }
+                arrayAdapter.updateList(filteredList)
+                return true
+            }
+        })
     }
 
 }

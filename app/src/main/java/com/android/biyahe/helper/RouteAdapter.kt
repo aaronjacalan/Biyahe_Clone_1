@@ -38,8 +38,8 @@ class RouteAdapter(
         val ib_bookmark = view.findViewById<ImageButton>(R.id.ib_bookmark)
 
         val route = routeList[position]
-        iv_route.setImageResource(route.photoResource)
-        tv_route_code.setText("${route.jeepney_code} ${route.destination}")
+        iv_route.setImageResource(route.photo_resource)
+        tv_route_code.setText("${route.code} ${route.summary}")
 
         val isBookmarked = bookmarkList.contains(route)
         ib_bookmark.setImageResource(
@@ -95,5 +95,10 @@ class RouteAdapter(
         animatorSet.interpolator = DecelerateInterpolator()
 
         animatorSet.start()
+    }
+
+    fun updateList(filteredList: List<Route>) {
+        routeList = filteredList
+        notifyDataSetChanged()
     }
 }
