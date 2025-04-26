@@ -10,5 +10,6 @@ data class Route (
     var code : String = "",
     var summary : String = "",
     var photo_resource : Int = R.drawable.ic_launcher_foreground,
-    var destinations : List<Destination>
+    var destinations : List<Destination>,
+    var route_resource : Int = R.drawable.ic_launcher_foreground
 ) : Parcelable

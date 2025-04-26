@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.RouteActivity">
 
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/pv_route_display"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cv_destinations"/>
+
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="35dp"
@@ -18,41 +26,50 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_route_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ROUTE CODE HERE"
-        android:fontFamily="@font/tt_interphases_pro_extrabold"
-        android:textSize="28dp"
-        android:textColor="@color/colorSecondary"
-        app:layout_constraintTop_toTopOf="@id/btn_back"
-        app:layout_constraintBottom_toBottomOf="@id/btn_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/pv_route_display"
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_destinations"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_route_code"
+        app:cardBackgroundColor="@color/colorBackground"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintHeight_percent="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.15"
-        app:layout_constraintWidth_percent="0.9"
-        app:layout_constraintDimensionRatio="1:1"/>
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <ExpandableListView
-        android:id="@+id/lv_route_destinations"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scrollbars="none"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toStartOf="@id/pv_route_display"
-        app:layout_constraintEnd_toEndOf="@id/pv_route_display"
-        app:layout_constraintTop_toBottomOf="@id/pv_route_display"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:background="@drawable/top_rounded_bg">
+
+            <TextView
+                android:id="@+id/tv_route_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ROUTE CODE HERE"
+                android:fontFamily="@font/tt_interphases_pro_extrabold"
+                android:textSize="28dp"
+                android:textColor="@color/colorSecondary"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lv_route_destinations"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scrollbars="none"
+                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintHeight_percent="0.8"
+                app:layout_constraintTop_toBottomOf="@id/tv_route_code"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
