@@ -29,7 +29,7 @@ class RouteActivity : AppCompatActivity() {
         val route = intent.getParcelableExtra<Route>("route")!!
 
         binding.tvRouteCode.setText(route.code)
-//        binding.pvRouteDisplay.setImageResource(route.route_resource)
+        binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -43,6 +43,13 @@ class RouteActivity : AppCompatActivity() {
         binding.lvRouteDestinations.addItemDecoration(DestinationItemDecoration(adapter))
 
         binding.btnChangeRoute.setOnClickListener{
+            if(isTo) {
+                isTo = false
+                binding.pvRouteDisplay.setImageResource(route.routeBack_resource)
+            } else {
+                isTo = true
+                binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
+            }
             adapter.updateData()
         }
 
