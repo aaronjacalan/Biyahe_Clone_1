@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Destination (
     var title : String = "",
-    var type : String = ""
+    var type : Int
 ) : Parcelable

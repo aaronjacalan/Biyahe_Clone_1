@@ -18,6 +18,7 @@ import com.android.biyahe.helper.DestinationItemDecoration
 class RouteActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityRouteBinding
+    private var isTo : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,7 @@ class RouteActivity : AppCompatActivity() {
         val route = intent.getParcelableExtra<Route>("route")!!
 
         binding.tvRouteCode.setText(route.code)
-        binding.pvRouteDisplay.setImageResource(route.route_resource)
+//        binding.pvRouteDisplay.setImageResource(route.route_resource)
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -36,11 +37,14 @@ class RouteActivity : AppCompatActivity() {
         val adapter = DestinationAdapter(
                 this,
                 route
-//                route.destinations
             )
         binding.lvRouteDestinations.setAdapter(adapter)
         binding.lvRouteDestinations.layoutManager = LinearLayoutManager(this)
         binding.lvRouteDestinations.addItemDecoration(DestinationItemDecoration(adapter))
+
+        binding.btnChangeRoute.setOnClickListener{
+            adapter.updateData()
+        }
 
     }
 }
