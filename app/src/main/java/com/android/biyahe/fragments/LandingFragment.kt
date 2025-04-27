@@ -53,10 +53,13 @@ class LandingFragment : Fragment() {
             override fun onQueryTextChange(query: String?): Boolean {
                 val filteredList = routeList.filter { route ->
                     val code_match = route.code.contains(query ?: "", ignoreCase = true)
-                    val destination_match = route.destinations.any { destination ->
+                    val destinationTo_match = route.destinations_to.any { destination ->
                         destination.title.lowercase().contains(query ?: "", ignoreCase = true)
                     }
-                    code_match|| destination_match
+                    val destinationBack_match = route.destinations_back.any { destination ->
+                        destination.title.lowercase().contains(query ?: "", ignoreCase = true)
+                    }
+                    code_match|| destinationTo_match|| destinationBack_match
                 }
                 arrayAdapter.updateList(filteredList)
                 return true

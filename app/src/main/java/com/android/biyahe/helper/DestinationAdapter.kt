@@ -19,6 +19,7 @@ class DestinationAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var isExpanded = false
+    private var isTo = true;
 
     companion object {
         private const val VIEW_TYPE_GROUP = 0
@@ -31,7 +32,7 @@ class DestinationAdapter(
 
     override fun getItemCount(): Int {
         return if (isExpanded) {
-            1 + route.destinations.size
+            1 + (if(isTo) route.destinations_to.size else route.destinations_back.size)
         } else {
             1 // Only group visible
         }
@@ -53,7 +54,9 @@ class DestinationAdapter(
         if (holder is GroupViewHolder) {
             holder.bind()
         } else if (holder is ChildViewHolder) {
-            holder.bind(route.destinations[position - 1]) // subtract 1 because position 0 = group
+            holder.bind(
+                if(isTo) route.destinations_to[position - 1] else route.destinations_back[position - 1]
+            )
         }
     }
 
@@ -76,27 +79,19 @@ class DestinationAdapter(
 
         fun bind(destination: Destination) {
             val position = bindingAdapterPosition - 1 // child index
-
-            if (position == 0) {
-                level.setImageResource(R.drawable.icon_end_node)
-                level.rotation = 90f
-            } else if (position == route.destinations.size - 1) {
-                level.setImageResource(R.drawable.icon_end_node)
-                level.rotation = -90f
-            } else {
-                level.setImageResource(R.drawable.icon_mid_node)
-                level.rotation = 0f
-            }
-
             title.text = destination.title
 
-            icon.setImageResource(
-                if (destination.type == "School") {
-                    R.drawable.icon_star
-                } else {
-                    R.drawable.icon_star_not
-                }
-            )
+            icon.setImageResource(destination.type)
+        }
+    }
+
+    public fun updateData() {
+        if(isTo) {
+            isTo = false;
+            notifyDataSetChanged()
+        } else {
+            isTo = true;
+            notifyDataSetChanged()
         }
     }
 }

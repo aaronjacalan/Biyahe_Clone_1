@@ -8,8 +8,9 @@ import java.io.Serializable
 @Parcelize
 data class Route (
     var code : String = "",
-    var summary : String = "",
-    var photo_resource : Int = R.drawable.ic_launcher_foreground,
-    var destinations : List<Destination>,
-    var route_resource : Int = R.drawable.ic_launcher_foreground
+    var profile : Int = R.drawable.ic_launcher_foreground,
+    var destinations_to : List<Destination>,
+    var destinations_back : List<Destination>,
+    var routeTo_resource : Int = R.drawable.ic_launcher_foreground,
+    var routeBack_resource : Int = R.drawable.ic_launcher_foreground
 ) : Parcelable

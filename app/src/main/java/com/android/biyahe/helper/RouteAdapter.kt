@@ -38,8 +38,8 @@ class RouteAdapter(
         val ib_bookmark = view.findViewById<ImageButton>(R.id.ib_bookmark)
 
         val route = routeList[position]
-        iv_route.setImageResource(route.photo_resource)
-        tv_route_code.setText("${route.code} ${route.summary}")
+        iv_route.setImageResource(route.profile)
+        tv_route_code.setText("${route.code}")
 
         val isBookmarked = bookmarkList.contains(route)
         ib_bookmark.setImageResource(
