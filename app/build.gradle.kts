@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -66,6 +67,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -81,4 +83,5 @@ dependencies {
     implementation ("com.google.android.material:material:1.11.0")
     implementation ("androidx.activity:activity-ktx:1.7.2")
     implementation ("jp.wasabeef:blurry:4.0.1")
+    implementation ("com.google.firebase:firebase-auth-ktx:21.3.0")
 }

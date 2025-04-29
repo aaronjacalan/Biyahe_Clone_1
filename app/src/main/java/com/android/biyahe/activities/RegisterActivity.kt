@@ -20,6 +20,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.android.biyahe.R
+import com.android.biyahe.database.FirebaseManager
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.isInvalidUID
 import com.android.biyahe.utils.getPasswordValidationError
@@ -187,6 +188,13 @@ class RegisterActivity : Activity() {
             if (!validateCredentials()) {
                 return@setOnClickListener
             }
+
+            // Successful login
+            FirebaseManager.addUser(
+                username.text.toString(),
+                password.text.toString(),
+                mutableListOf()
+            )
 
             saveUserCredentials()
             toast("Registration Successful!")

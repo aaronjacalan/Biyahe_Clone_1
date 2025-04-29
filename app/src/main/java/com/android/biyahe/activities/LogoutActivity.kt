@@ -20,6 +20,8 @@ import android.graphics.Rect
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.ViewGroup
+import com.android.biyahe.data.RouteDataManager
+import com.android.biyahe.database.FirebaseManager
 
 object LogoutDialog {
     fun show(context: Context) {
@@ -121,6 +123,10 @@ object LogoutDialog {
             val intent = Intent(context, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             context.startActivity(intent)
+
+            // Update User
+            FirebaseManager.updateBookmark(RouteDataManager.bookmarked)
+            FirebaseManager.remoteSaveUserInstance()
 
             alertDialog.dismiss()
         }

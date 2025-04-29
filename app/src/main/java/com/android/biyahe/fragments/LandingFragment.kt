@@ -14,6 +14,7 @@ import com.android.biyahe.R
 import com.android.biyahe.activities.RouteActivity
 import com.android.biyahe.activities.SettingsActivity
 import com.android.biyahe.data.RouteDataManager
+import com.android.biyahe.database.FirebaseManager
 import com.android.biyahe.helper.RouteAdapter
 
 class LandingFragment : Fragment() {
@@ -32,6 +33,7 @@ class LandingFragment : Fragment() {
         val routes = view.findViewById<ListView>(R.id.lv_routes)
         val routeList = RouteDataManager.routelist
         // To check if already bookmarked
+        setUserBookmarks()
         val bookmarked = RouteDataManager.bookmarked
 
         val arrayAdapter = RouteAdapter(
@@ -65,6 +67,16 @@ class LandingFragment : Fragment() {
                 return true
             }
         })
+    }
+
+    fun setUserBookmarks() {
+        val routes = RouteDataManager.routelist
+        val user_bookmarks : List<String> = FirebaseManager.current_user.bookmarkList
+        for(r in routes) {
+            if(user_bookmarks.contains((r.code))) {
+                RouteDataManager.bookmarked.add(r)
+            }
+        }
     }
 
 }
