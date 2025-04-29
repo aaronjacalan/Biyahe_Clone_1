@@ -50,7 +50,7 @@ class BookmarkFragment : Fragment() {
         val routes = RouteDataManager.routelist
         val user_bookmarks : List<String> = FirebaseManager.current_user.bookmarkList
         for(r in routes) {
-            if(user_bookmarks.contains((r.code)) && !RouteDataManager.bookmarked.contains(r)) {
+            if(user_bookmarks.contains(r.code) && !RouteDataManager.bookmarked.contains(r)) {
                 RouteDataManager.bookmarked.add(r)
             }
         }
