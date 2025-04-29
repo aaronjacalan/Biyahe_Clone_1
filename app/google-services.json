@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "287663896621",
+    "project_id": "biyahe-project-284",
+    "storage_bucket": "biyahe-project-284.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287663896621:android:6c0c266e49b5dc19c620a4",
+        "android_client_info": {
+          "package_name": "com.android.biyahe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACwVXnaYCHVIiJLfwVtaqJcTRie0clhYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
