@@ -20,6 +20,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.android.biyahe.R
+import com.android.biyahe.database.FirebaseManager
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
 
@@ -164,9 +165,13 @@ class LoginActivity : Activity() {
             }
 
             if (authenticateUser()) {
-                toast("Welcome Back ${savedUsername}")
-                animateCardLoginOut {
-                    navigateTo(NavigationActivity::class.java, finishCurrent = true)
+                FirebaseManager.verifyUser(username.text.toString(), password.text.toString(), this) {
+                    if(it) {
+                        toast("Welcome Back ${savedUsername}")
+                        animateCardLoginOut {
+                            navigateTo(NavigationActivity::class.java, finishCurrent = true)
+                        }
+                    }
                 }
             } else {
                 if (savedUsername.isEmpty() || savedPassword.isEmpty()) {
