@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -15,6 +13,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -22,21 +21,15 @@ import androidx.core.content.ContextCompat
 import com.android.biyahe.R
 import com.android.biyahe.database.FirebaseManager
 import com.android.biyahe.utils.isEmpty
-import com.android.biyahe.utils.isInvalidUID
 import com.android.biyahe.utils.getPasswordValidationError
 import com.android.biyahe.utils.isValidPassword
 import com.android.biyahe.utils.toast
 
 class RegisterActivity : Activity() {
 
-    private lateinit var uid: EditText
     private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var confirmPass: EditText
-    private lateinit var uidErrorText: TextView
-    private lateinit var usernameErrorText: TextView
-    private lateinit var passwordErrorText: TextView
-    private lateinit var confirmPasswordErrorText: TextView
     private lateinit var buttonRegister: Button
     private lateinit var cardLogin: CardView
     private var backgroundId: Int = R.drawable.background_grainy1
@@ -47,19 +40,15 @@ class RegisterActivity : Activity() {
 
     companion object {
         private const val PREF_NAME = "ProfileData"
-        private const val KEY_UID = "UID"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
         private const val EXTRA_BACKGROUND_ID = "BACKGROUND_ID"
 
-        private const val ERROR_EMPTY_UID = "UID CANNOT BE EMPTY"
-        private const val ERROR_INVALID_UID = "UID MUST NOT CONTAIN SPACES"
         private const val ERROR_EMPTY_USERNAME = "USERNAME CANNOT BE EMPTY"
         private const val ERROR_EMPTY_PASSWORD = "PASSWORD CANNOT BE EMPTY"
         private const val ERROR_PASSWORDS_MISMATCH = "PASSWORDS DO NOT MATCH"
         private const val ERROR_EMPTY_CONFIRM_PASSWORD = "CONFIRM PASSWORD IS REQUIRED"
 
-        private const val ERROR_DISPLAY_DURATION = 1500L // 1.5 seconds
         private const val ANIMATION_DURATION = 500L // Animation duration in ms
     }
 
@@ -88,24 +77,12 @@ class RegisterActivity : Activity() {
     }
 
     private fun initializeViews() {
-        uid = findViewById(R.id.et_enterUID)
         username = findViewById(R.id.et_enterUsername)
         password = findViewById(R.id.et_enterPassword)
         confirmPass = findViewById(R.id.et_confirmPassword)
 
-        uidErrorText = findViewById(R.id.tv_uid_error)
-        usernameErrorText = findViewById(R.id.tv_username_error)
-        passwordErrorText = findViewById(R.id.tv_password_error)
-        confirmPasswordErrorText = findViewById(R.id.tv_confirm_password_error)
-
         buttonRegister = findViewById(R.id.btn_register)
         cardLogin = findViewById(R.id.card_login)
-
-        // Initially hide error messages
-        uidErrorText.visibility = View.INVISIBLE
-        usernameErrorText.visibility = View.INVISIBLE
-        passwordErrorText.visibility = View.INVISIBLE
-        confirmPasswordErrorText.visibility = View.INVISIBLE
 
         // Initially set the card login to be slightly below and invisible for animation
         cardLogin.translationY = 100f
@@ -154,27 +131,22 @@ class RegisterActivity : Activity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                if (uid.text.isNotEmpty()) uidErrorText.visibility = View.INVISIBLE
-                if (username.text.isNotEmpty()) usernameErrorText.visibility = View.INVISIBLE
-                if (password.text.isNotEmpty()) passwordErrorText.visibility = View.INVISIBLE
-                if (confirmPass.text.isNotEmpty()) confirmPasswordErrorText.visibility = View.INVISIBLE
-
+                // Since error text views have been removed, we just need to validate password match
+                // when either password field is changed
                 if (s === password.editableText || s === confirmPass.editableText) {
                     validatePasswordMatch()
                 }
             }
         }
 
-        uid.addTextChangedListener(textWatcher)
         username.addTextChangedListener(textWatcher)
         password.addTextChangedListener(textWatcher)
         confirmPass.addTextChangedListener(textWatcher)
     }
 
     private fun validatePasswordMatch() {
-        if (!confirmPass.isEmpty() && password.text.toString() != confirmPass.text.toString()) {
-            showError(confirmPasswordErrorText, ERROR_PASSWORDS_MISMATCH)
-        }
+        // No need to show error since error views have been removed
+        // We'll rely on the validateCredentials method for final validation
     }
 
     private fun setupClickListeners() {
@@ -186,10 +158,11 @@ class RegisterActivity : Activity() {
 
         buttonRegister.setOnClickListener {
             if (!validateCredentials()) {
+                shakeRegisterButton()
                 return@setOnClickListener
             }
 
-            // Successful login
+            // Successful login - keeping Firebase code as is
             FirebaseManager.addUser(
                 username.text.toString(),
                 password.text.toString(),
@@ -206,26 +179,13 @@ class RegisterActivity : Activity() {
             }
         }
 
-        findViewById<CardView>(R.id.btn_facebook).setOnClickListener {
-            toast("Facebook login clicked")
-            animateCardLoginOut {
-                navigateTo(NavigationActivity::class.java, finishCurrent = true)
-            }
-        }
-
-        findViewById<CardView>(R.id.btn_google).setOnClickListener {
+        findViewById<ImageButton>(R.id.btn_google).setOnClickListener {
             toast("Google login clicked")
             animateCardLoginOut {
                 navigateTo(NavigationActivity::class.java, finishCurrent = true)
             }
         }
 
-        findViewById<CardView>(R.id.btn_outlook).setOnClickListener {
-            toast("Outlook login clicked")
-            animateCardLoginOut {
-                navigateTo(NavigationActivity::class.java, finishCurrent = true)
-            }
-        }
     }
 
     private fun navigateTo(activityClass: Class<*>, finishCurrent: Boolean = false) {
@@ -233,56 +193,35 @@ class RegisterActivity : Activity() {
         intent.putExtra(EXTRA_BACKGROUND_ID, backgroundId)
         startActivity(intent)
         overridePendingTransition(0, 0)
-        finish()
+        if (finishCurrent) finish()
     }
 
     private fun validateCredentials(): Boolean {
         var isValid = true
 
-        if (uid.isEmpty()) {
-            showError(uidErrorText, ERROR_EMPTY_UID)
-            isValid = false
-        } else if (uid.isInvalidUID()) {
-            showError(uidErrorText, ERROR_INVALID_UID)
-            isValid = false
-        }
-
         if (username.isEmpty()) {
-            showError(usernameErrorText, ERROR_EMPTY_USERNAME)
+            toast(ERROR_EMPTY_USERNAME)
             isValid = false
         }
 
         if (password.isEmpty()) {
-            showError(passwordErrorText, ERROR_EMPTY_PASSWORD)
+            toast(ERROR_EMPTY_PASSWORD)
             isValid = false
         } else if (!password.isValidPassword()) {
             val errorMessage = password.getPasswordValidationError() ?: ERROR_EMPTY_PASSWORD
-            showError(passwordErrorText, errorMessage)
+            toast(errorMessage)
             isValid = false
         }
 
         if (confirmPass.isEmpty()) {
-            showError(confirmPasswordErrorText, ERROR_EMPTY_CONFIRM_PASSWORD)
+            toast(ERROR_EMPTY_CONFIRM_PASSWORD)
             isValid = false
         } else if (password.text.toString() != confirmPass.text.toString()) {
-            showError(confirmPasswordErrorText, ERROR_PASSWORDS_MISMATCH)
+            toast(ERROR_PASSWORDS_MISMATCH)
             isValid = false
-        }
-
-        if (!isValid) {
-            shakeRegisterButton()
         }
 
         return isValid
-    }
-
-    private fun showError(errorTextView: TextView, errorMessage: String) {
-        errorTextView.text = errorMessage
-        errorTextView.visibility = View.VISIBLE
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            errorTextView.visibility = View.INVISIBLE
-        }, ERROR_DISPLAY_DURATION)
     }
 
     private fun shakeRegisterButton() {
@@ -293,12 +232,10 @@ class RegisterActivity : Activity() {
     }
 
     private fun saveUserCredentials() {
-        val uidText = uid.text.toString()
         val usernameText = username.text.toString()
         val passwordText = password.text.toString()
 
         with(sharedPref.edit()) {
-            putString(KEY_UID, uidText)
             putString(KEY_USERNAME, usernameText)
             putString(KEY_PASSWORD, passwordText)
             apply()

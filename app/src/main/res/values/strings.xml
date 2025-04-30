@@ -2,4 +2,8 @@
     <string name="app_name">BIYAHE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="login_description_2">Whether you\'re a daily commuter or just out for a laag kay wa\'y lingaw sa balay, BIYAHE helps you move with the city\'s rhythm—through its lifeline: the jeepneys. Know where to ride, when to say \"lugar lang,\" and how to get there hassle-free. From the busy kanto to the tucked-away eskina, we\'ve got the routes, stops, and even the pila covered.</string>
+    <string name="login_description_3">No more guessing. No more \"Asa ni dapit?\" or \"Saag na sad ta, bai.\" Just clear, simple, local travel—powered by BIYAHE.</string>
+
 </resources>

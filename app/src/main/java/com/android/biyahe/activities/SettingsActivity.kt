@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import com.android.biyahe.R
 import com.android.biyahe.databinding.ActivitySettingsBinding
+import com.android.biyahe.dialogs.LogoutDialog
 import com.google.android.material.imageview.ShapeableImageView
 
 class SettingsActivity : Activity() {
@@ -19,7 +20,7 @@ class SettingsActivity : Activity() {
     private lateinit var userIcon: ShapeableImageView
     private lateinit var username: TextView
     private lateinit var userID: TextView
-    private val TAG = "SettingsActivity"
+    private val     TAG = "SettingsActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

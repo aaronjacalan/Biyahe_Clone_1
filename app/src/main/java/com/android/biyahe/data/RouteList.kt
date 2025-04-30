@@ -762,7 +762,8 @@ object RouteDataManager {
                     d.shopwise,
                     d.quiot
                 ),
-                R.drawable.route_09c
+                R.drawable.route_09c_forw,
+                R.drawable.route_09c_back
             ),
 
             Route("09F", R.drawable.ic_launcher_foreground,
@@ -1927,7 +1928,8 @@ object RouteDataManager {
                     d.collegio_immaculada,
                     d.hall_justice,
                     d.parkmall
-                )
+                ), R.drawable.route_23d_forw,
+                R.drawable.route_23d_back
             )
     )
 

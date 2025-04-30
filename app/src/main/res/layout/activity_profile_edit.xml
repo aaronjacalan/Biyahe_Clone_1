@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="30dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/tt_interphases_pro_black"
                     android:text="username"
                     android:textColor="@color/colorSecondary"
@@ -182,22 +182,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_usernameHeader" />
 
-                <TextView
-                    android:id="@+id/tv_username_error"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorButtons"
-                    android:textSize="8sp"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="1dp"
-                    android:fontFamily="@font/tt_interphases_pro_demibold"
-                    android:visibility="invisible"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    app:layout_constraintTop_toBottomOf="@id/et_enterUsername"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
 
                 <!-- SHORT DESCRIPTION -->
                 <TextView
@@ -205,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="35dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
                     android:fontFamily="@font/tt_interphases_pro_black"
                     android:text="short description"
@@ -213,7 +197,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_username_error" />
+                    app:layout_constraintTop_toBottomOf="@id/et_enterUsername" />
 
                 <EditText
                     android:id="@+id/et_enterShortDescription"

@@ -69,7 +69,7 @@
             <EditText
                 android:id="@+id/et_enterUsername"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="69dp"
                 android:layout_marginTop="35dp"
                 android:maxLength="35"
                 android:layout_marginHorizontal="25dp"
@@ -78,31 +78,16 @@
                 android:hint="Username"
                 android:inputType="text"
                 android:textAlignment="center"
-                android:textSize="11sp"
+                android:textSize="13sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_loginTitle2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_username_error"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorButtons"
-                android:textSize="8sp"
-                android:layout_marginTop="1dp"
-                android:fontFamily="@font/tt_interphases_pro_demibold"
-                android:visibility="invisible"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                app:layout_constraintTop_toBottomOf="@id/et_enterUsername"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <EditText
                 android:id="@+id/et_enterPassword"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="69dp"
+                android:layout_marginTop="10dp"
                 android:maxLength="69"
                 android:layout_marginHorizontal="25dp"
                 android:background="@drawable/login_text_border"
@@ -110,23 +95,8 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textAlignment="center"
-                android:textSize="11sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_username_error"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_password_error"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#FF0000"
-                android:textSize="8sp"
-                android:layout_marginTop="1dp"
-                android:fontFamily="@font/tt_interphases_pro_demibold"
-                android:visibility="invisible"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                app:layout_constraintTop_toBottomOf="@id/et_enterPassword"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/et_enterUsername"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -144,7 +114,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_password_error"
+                app:layout_constraintTop_toBottomOf="@id/et_enterPassword"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

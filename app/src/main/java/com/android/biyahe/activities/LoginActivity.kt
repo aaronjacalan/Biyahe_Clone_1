@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -28,8 +26,6 @@ class LoginActivity : Activity() {
 
     private lateinit var username: EditText
     private lateinit var password: EditText
-    private lateinit var usernameErrorText: TextView
-    private lateinit var passwordErrorText: TextView
     private lateinit var buttonLogin: Button
     private lateinit var cardLogin: FrameLayout
     private var backgroundId: Int = R.drawable.background_grainy1
@@ -58,7 +54,6 @@ class LoginActivity : Activity() {
         private const val ERROR_WRONG_USERNAME = "USERNAME DOES NOT EXIST"
         private const val ERROR_WRONG_PASSWORD = "INCORRECT PASSWORD"
 
-        private const val ERROR_DISPLAY_DURATION = 1500L // 1.5 seconds
         private const val ANIMATION_DURATION = 500L // Animation duration in ms
     }
 
@@ -86,14 +81,8 @@ class LoginActivity : Activity() {
     private fun initializeViews() {
         username = findViewById(R.id.et_enterUsername)
         password = findViewById(R.id.et_enterPassword)
-        usernameErrorText = findViewById(R.id.tv_username_error)
-        passwordErrorText = findViewById(R.id.tv_password_error)
         buttonLogin = findViewById(R.id.btn_loginToApp)
         cardLogin = findViewById(R.id.card_login)
-
-        // Initially hide error messages
-        usernameErrorText.visibility = View.INVISIBLE
-        passwordErrorText.visibility = View.INVISIBLE
 
         // Initially set the card login to be slightly below and invisible for animation
         cardLogin.translationY = 100f
@@ -142,9 +131,7 @@ class LoginActivity : Activity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                // Clear error messages when user starts typing
-                if (username.text.isNotEmpty()) usernameErrorText.visibility = View.INVISIBLE
-                if (password.text.isNotEmpty()) passwordErrorText.visibility = View.INVISIBLE
+                // Error text views have been removed, no need to update their visibility
             }
         }
 
@@ -164,33 +151,21 @@ class LoginActivity : Activity() {
                 return@setOnClickListener
             }
 
-//            if (authenticateUser()) {
-                FirebaseManager.verifyUser(username.text.toString(), password.text.toString(), this) {
-
-                    if(it == 1) {
-                        toast("Welcome Back ${username.text}")
-                        animateCardLoginOut {
-                            navigateTo(NavigationActivity::class.java, finishCurrent = true)
-                        }
-                    } else if(it == 2) {
-                        showError(usernameErrorText, ERROR_WRONG_USERNAME)
-                        shakeLoginButton()
-                    } else if(it == 3) {
-                        showError(passwordErrorText, ERROR_WRONG_PASSWORD)
-                        shakeLoginButton()
+            // Firebase verification - kept intact
+            FirebaseManager.verifyUser(username.text.toString(), password.text.toString(), this) {
+                if(it == 1) {
+                    toast("Welcome Back ${username.text}")
+                    animateCardLoginOut {
+                        navigateTo(NavigationActivity::class.java, finishCurrent = true)
                     }
+                } else if(it == 2) {
+                    toast(ERROR_WRONG_USERNAME)
+                    shakeLoginButton()
+                } else if(it == 3) {
+                    toast(ERROR_WRONG_PASSWORD)
+                    shakeLoginButton()
                 }
-//            } else {
-//                if (savedUsername.isEmpty() || savedPassword.isEmpty()) {
-//                    toast("No saved credentials found. Please register first.")
-//                    return@setOnClickListener
-//                }
-//
-//                if (username.text.toString() != savedUsername) {
-//                    showError(usernameErrorText, ERROR_WRONG_USERNAME)
-//                } else {
-//                    showError(passwordErrorText, ERROR_WRONG_PASSWORD)
-//                }
+            }
         }
     }
 
@@ -206,12 +181,12 @@ class LoginActivity : Activity() {
         var isValid = true
 
         if (username.isEmpty()) {
-            showError(usernameErrorText, ERROR_EMPTY_USERNAME)
+            toast(ERROR_EMPTY_USERNAME)
             isValid = false
         }
 
         if (password.isEmpty()) {
-            showError(passwordErrorText, ERROR_EMPTY_PASSWORD)
+            toast(ERROR_EMPTY_PASSWORD)
             isValid = false
         }
 
@@ -220,15 +195,6 @@ class LoginActivity : Activity() {
         }
 
         return isValid
-    }
-
-    private fun showError(errorTextView: TextView, errorMessage: String) {
-        errorTextView.text = errorMessage
-        errorTextView.visibility = View.VISIBLE
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            errorTextView.visibility = View.INVISIBLE
-        }, ERROR_DISPLAY_DURATION)
     }
 
     private fun shakeLoginButton() {
@@ -254,5 +220,4 @@ class LoginActivity : Activity() {
             super.onBackPressed()
         }
     }
-
 }

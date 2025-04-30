@@ -1,238 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
+    android:background="@drawable/background_grainy2"
     android:layout_height="match_parent"
-    tools:context=".activities.DeveloperActivity">
+    android:layout_width="match_parent">
 
-    <Space
-        android:id="@+id/top_space"
+    <com.android.biyahe.utils.ParallaxScrollView
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="16dp"
+        android:fillViewport="true"
+        android:id="@+id/parallaxScrollView"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.050"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:scrollbars="vertical">
 
-    <ImageButton
-        android:id="@+id/developer_previous"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:contentDescription="Previous Button"
-        android:scaleType="centerInside"
-        android:src="@drawable/icon_backarrow"
-        android:scaleX="-1"
-        app:layout_constraintStart_toStartOf="@+id/developer_scrollpane"
-        app:layout_constraintTop_toBottomOf="@+id/top_space" />
-
-    <Space
-        android:id="@+id/top_space2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.035"
-        app:layout_constraintTop_toBottomOf="@id/developer_previous"/>
-
-    <TextView
-        android:id="@+id/developer_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ABOUT THE DEVELOPERS"
-        android:textFontWeight="5000"
-        android:textSize="25sp"
-        android:textColor="@color/blue_theme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_space2" />
-
-    <Space
-        android:id="@+id/top_space3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.035"
-        app:layout_constraintTop_toBottomOf="@id/developer_title"/>
-
-    <ScrollView
-        android:id="@+id/developer_scrollpane"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="10dp"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_space3"
-        app:layout_constraintVertical_bias="0.45"
-        app:layout_constraintWidth_percent="0.9">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_width="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Parallax header elements -->
+            <FrameLayout
+                android:id="@+id/headerContainer"
+                android:layout_height="175dp"
+                android:layout_width="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/headerLayout"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:background="@drawable/circle_button"
+                        android:contentDescription="Go back"
+                        android:id="@+id/developerPageGoBack"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_width="35dp"
+                        android:paddingEnd="2dp"
+                        android:paddingStart="0dp"
+                        android:paddingVertical="10dp"
+                        android:rotation="180"
+                        android:rotationY="180"
+                        android:src="@drawable/icon_prev_arrow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/colorAccentDark" />
+
+                    <TextView
+                        android:fontFamily="@font/tt_interphases_pro_black"
+                        android:id="@+id/txtAboutHeader"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:letterSpacing=".02"
+                        android:text="Developers"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="42sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/developerPageGoBack" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+            <!-- Content area -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@android:color/transparent"
+                android:id="@+id/contentLayout"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/headerContainer"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="35dp"
-                android:background="@drawable/dev_background">
-
-                <ImageView
-                    android:id="@+id/developer1"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="Developer 2"
-                    android:src="@drawable/dev2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_gravity="center"
-                    android:text="Sydney B. Galorio"
-                    android:textFontWeight="5000"
-                    android:textSize="25sp"
-                    android:textStyle="italic"
-                    android:textColor="@color/dev_text"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Course &amp; Year:"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="BSCS - 2"
-                    android:textFontWeight="5000"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Fun Fact:"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="I love to play video games such that I am Grandmaster 1 in Marvel Rivals and Legendary 4 in Warframe."
-                    android:textFontWeight="5000"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Description:"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="As a computer science student, I want to bring this application to fruition to help non-locals navigate through the city without getting lost and save some money on transportation."
-                    android:textFontWeight="5000"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="35dp"
-                android:background="@drawable/dev_background">
+                android:minHeight="900dp"
+                android:paddingBottom="30dp">
 
-                <ImageView
-                    android:id="@+id/developer2"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="Developer 2"
-                    android:src="@drawable/dev1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_gravity="center"
-                    android:text="Aaron Rey A. Jacalan"
-                    android:textFontWeight="5000"
-                    android:textSize="25sp"
-                    android:textStyle="italic"
-                    android:textColor="@color/dev_text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Developer 1 Section -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/developer1Card"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Course &amp; Year:"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:fontFamily="@font/photograph_signature"
+                            android:id="@+id/nameHeader"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp"
+                            android:layout_width="wrap_content"
+                            android:scaleX="2.3"
+                            android:scaleY="2.3"
+                            android:text="Galorio"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="70sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/developer1"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="50dp"
+                            android:layout_width="200dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/developer_2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_fullname"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="wrap_content"
+                            android:text="SYDNEY GALORIO"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/divider1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <View
+                            android:background="@color/colorAccentDark"
+                            android:id="@+id/divider1"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="200dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/developer1" />
+
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_aboutMeHeader"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_width="wrap_content"
+                            android:text="about me"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_demibold"
+                            android:id="@+id/tv_aboutMe"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="0dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="As a computer science student, I want to bring this application to fruition to help non-locals navigate through the city without getting lost and save some money on transportation."
+                            android:textColor="@color/colorFontDark"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_aboutMeHeader" />
+
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_funFactHeader"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_width="wrap_content"
+                            android:text="fun fact"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_aboutMe" />
+
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_demibold"
+                            android:id="@+id/tv_funFact"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="0dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="I love to play video games such that I am Grandmaster 1 in Marvel Rivals and Legendary 4 in Warframe."
+                            android:textColor="@color/colorFontDark"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_funFactHeader" />
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:id="@+id/socialMediaContainer"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_funFact">
+
+                            <ImageView
+                                android:contentDescription="GitHub"
+                                android:id="@+id/developer1_github"
+                                android:layout_height="30dp"
+                                android:layout_margin="10dp"
+                                android:layout_width="30dp"
+                                android:src="@drawable/icon_github" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Developer 2 Section -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/developer2Card"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="BSCS - 2"
-                    android:textFontWeight="5000"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
+                    android:layout_marginTop="30dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/developer1Card">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Fun Fact:"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:padding="15dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Hello, I am [your name], i am currently a [your year] year [your course] student. I like playing video games such as [insert games here such as FPS, sandbox, indie games, etc.] and my hobbies include [insert hobbies here such as playing football, traveling, biking etc.]. "
-                    android:textFontWeight="5000"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
+                        <TextView
+                            android:fontFamily="@font/photograph_signature"
+                            android:id="@+id/nameHeader2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp"
+                            android:layout_width="wrap_content"
+                            android:scaleX="2.3"
+                            android:scaleY="2.3"
+                            android:text="Jacalan"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="70sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Description:"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
+                        <ImageView
+                            android:id="@+id/developer2"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="50dp"
+                            android:layout_width="200dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/developer_2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="I created this app with the goal of making it easier for people to navigate around Cebu using public transportation. The app is designed to help locals and visitors alike by providing clear, up-to-date information about routes, schedules, and the most efficient ways to get from one place to another. Whether you're a daily commuter or someone new to the area, the app aims to simplify your travel experience, making public transportation more accessible and less stressful. With this tool, everyone can feel more confident and empowered when getting around Cebu, making their journeys smoother and more convenient."
-                    android:textFontWeight="5000"
-                    android:textSize="15sp"
-                    android:textColor="@color/dev_text" />
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_fullname2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="wrap_content"
+                            android:text="AARON JACALAN"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/divider2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
-            </LinearLayout>
+                        <View
+                            android:background="@color/colorAccentDark"
+                            android:id="@+id/divider2"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="200dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/developer2" />
 
-        </LinearLayout>
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_aboutMeHeader2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_width="wrap_content"
+                            android:text="about me"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
-    </ScrollView>
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_demibold"
+                            android:id="@+id/tv_aboutMe2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="0dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="Hello, I am [your name], i am currently a [your year] year [your course] student. I like playing video games such as [insert games here such as FPS, sandbox, indie games, etc.] and my hobbies include [insert hobbies here such as playing football, traveling, biking etc.]. "
+                            android:textColor="@color/colorFontDark"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_aboutMeHeader2" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_funFactHeader2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_width="wrap_content"
+                            android:text="fun fact"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_aboutMe2" />
+
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_demibold"
+                            android:id="@+id/tv_funFact2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="0dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="I play video games yes very nice very good"
+                            android:textColor="@color/colorFontDark"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_funFactHeader2" />
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:id="@+id/socialMediaContainer2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_funFact2">
+
+                            <ImageView
+                                android:contentDescription="GitHub"
+                                android:id="@+id/developer2_github"
+                                android:layout_height="30dp"
+                                android:layout_margin="10dp"
+                                android:layout_width="30dp"
+                                android:src="@drawable/icon_github" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </RelativeLayout>
+    </com.android.biyahe.utils.ParallaxScrollView>
+</FrameLayout>

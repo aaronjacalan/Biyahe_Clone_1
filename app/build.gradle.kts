@@ -84,4 +84,5 @@ dependencies {
     implementation ("androidx.activity:activity-ktx:1.7.2")
     implementation ("jp.wasabeef:blurry:4.0.1")
     implementation ("com.google.firebase:firebase-auth-ktx:21.3.0")
+    implementation ("com.airbnb.android:lottie:6.6.6")
 }

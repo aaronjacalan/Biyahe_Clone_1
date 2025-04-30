@@ -5,77 +5,143 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_grainy3"
-    tools:context=".activities.OpeningActivity">
+    android:background="@drawable/background_grainy2">
 
-    <TextView
-        android:id="@+id/tv_openingHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:fontFamily="@font/tt_interphases_pro_black"
-        android:text="WELCOME TO BIHAYE 👋🏼"
-        android:layout_marginTop="55dp"
-        android:textAllCaps="true"
-        android:textColor="@color/colorFontLight"
-        android:textSize="16sp"
-        android:textAlignment="center"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieView"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/opening_anim"
+        app:lottie_speed="1" />
 
-    <TextView
-        android:id="@+id/tv_openingText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:fontFamily="@font/tt_interphases_pro_black"
-        android:layout_marginBottom="10dp"
-        android:text="Tanang ruta"
-        android:textAllCaps="true"
-        android:textColor="@color/colorFontLight"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_openingText2" />
-
-    <TextView
-        android:id="@+id/tv_openingText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:fontFamily="@font/tt_interphases_pro_black"
-        android:layout_marginBottom="10dp"
-        android:text="tanang sakyanan"
-        android:textAllCaps="true"
-        android:textColor="@color/colorFontLight"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_openingText3" />
-
-    <TextView
-        android:id="@+id/tv_openingText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/tt_interphases_pro_black"
-        android:layout_marginBottom="30dp"
-        android:layout_marginHorizontal="20dp"
-        android:lineSpacingExtra="9dp"
-        android:text="naa sa imong kamot!"
-        android:textAllCaps="true"
-        android:textColor="@color/colorFontLight"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_getStarted" />
-
-    <Button
-        android:id="@+id/btn_getStarted"
-        android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/tt_interphases_pro_extrabold"
-        android:text="Get Started"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="315dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/lottieView"
+        app:cardBackgroundColor="@color/colorBackground"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="2dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/tv_loginTitleHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/tt_interphases_pro_black"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:text="Welcome to BIYAHE 👋🏼" />
+
+            <TextView
+                android:id="@+id/tv_loginDescription1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_loginTitleHeader"
+                android:fontFamily="@font/tt_interphases_pro_black"
+                android:textAlignment="center"
+                android:textColor="@color/colorSecondary"
+                android:textSize="18sp"
+                android:text="Your smart companion for every sakay." />
+
+            <TextView
+                android:id="@+id/tv_loginDescription2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_loginDescription1"
+                android:fontFamily="@font/tt_interphases_pro_medium"
+                android:lineSpacingExtra="1sp"
+                android:textAlignment="center"
+                android:textColor="@color/colorFontDark"
+                android:textSize="14sp"
+                android:text="@string/login_description_2" />
+
+            <TextView
+                android:id="@+id/tv_loginDescription3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_loginDescription2"
+                android:fontFamily="@font/tt_interphases_pro_medium"
+                android:lineSpacingExtra="1sp"
+                android:textAlignment="center"
+                android:textColor="@color/colorFontDark"
+                android:textSize="14sp"
+                android:text="@string/login_description_3" />
+
+            <TextView
+                android:id="@+id/tv_loginDescription4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_loginDescription3"
+                android:fontFamily="@font/tt_interphases_pro_black"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:text="Tanan routa, tanan masakyan—naa ras imong kamot." />
+
+            <Button
+                android:id="@+id/btn_loginToApp"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_signupToApp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/colorButtons"
+                android:fontFamily="@font/tt_interphases_pro_black"
+                android:letterSpacing="0.05"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="LOGIN" />
+
+            <Button
+                android:id="@+id/btn_signupToApp"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/tt_interphases_pro_black"
+                android:letterSpacing="0.05"
+                android:textColor="@color/colorSecondary"
+                android:textSize="14sp"
+                android:text="SIGNUP" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,12 +19,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.android.biyahe.R
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
+import com.android.biyahe.dialog.AddAccountDialog
+import com.android.biyahe.dialogs.ExitEditProfile
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
 import com.google.android.material.imageview.ShapeableImageView
@@ -38,7 +37,6 @@ class ProfileEditActivity : Activity() {
     private lateinit var shortDescTextView: EditText
     private lateinit var listViewLinkedAccountsEdit: ListView
     private lateinit var accountAdapter: AccountAdapter
-    private lateinit var usernameError: TextView
     private lateinit var userIcon: ShapeableImageView
 
     private val PICK_IMAGE_REQUEST = 1001
@@ -59,26 +57,12 @@ class ProfileEditActivity : Activity() {
         usernameTextView = findViewById(R.id.et_enterUsername)
         shortDescTextView = findViewById(R.id.et_enterShortDescription)
         listViewLinkedAccountsEdit = findViewById(R.id.listViewLinkedAccountsEdit)
-        usernameError = findViewById(R.id.tv_username_error)
         userIcon = findViewById(R.id.CircleImageIcon)
-
-        usernameError.visibility = View.VISIBLE
-
-        resetErrorMessages()
 
         usernameTextView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
-                    usernameError.text = "USERNAME CANNOT BE EMPTY"
-                    usernameError.visibility = View.VISIBLE
-                } else if (s.length < 5) {
-                    usernameError.text = "USERNAME MUST BE AT LEAST 5 CHARACTERS"
-                    usernameError.visibility = View.VISIBLE
-                } else {
-                    usernameError.visibility = View.INVISIBLE
-                }
             }
         })
 
@@ -92,19 +76,6 @@ class ProfileEditActivity : Activity() {
         buttonCancelEdit.setOnClickListener {
             Log.i("ProfileEditActivity", "Cancel Edit Profile")
             ExitEditProfile.show(this)
-
-//            AlertDialog.Builder(this)
-//                .setTitle("Cancel Changes")
-//                .setMessage("Are you sure you want to cancel editing?")
-//                .setPositiveButton("Yes") { dialog, _ ->
-//                    dialog.dismiss()
-//                    finish()
-//                }
-//                .setNegativeButton("No") { dialog, _ ->
-//                    dialog.dismiss()
-//                }
-//                .create()
-//                .show()
         }
 
         val buttonSaveChanges = findViewById<ImageView>(R.id.editProfile_saveChanges)
@@ -192,18 +163,14 @@ class ProfileEditActivity : Activity() {
         }
     }
 
-    private fun resetErrorMessages() {
-        usernameError.text = ""
-    }
-
     private fun validateInputFields(): Boolean {
         var isValid = true
 
         if (usernameTextView.isEmpty()) {
-            usernameError.text = "USERNAME CANNOT BE EMPTY"
+            toast("USERNAME CANNOT BE EMPTY")
             isValid = false
         } else if (usernameTextView.text.toString().length < 5) {
-            usernameError.text = "USERNAME MUST BE AT LEAST 5 CHARACTERS"
+            toast("USERNAME MUST BE AT LEAST 5 CHARACTERS")
             isValid = false
         }
 

@@ -1,139 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/corner_radius_large"
-    android:backgroundTint="@android:color/transparent"
-    android:orientation="vertical"
-    android:padding="25dp">
-
-    <ImageView
-        android:id="@+id/editProfile_saveChanges"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@drawable/circle_button"
-        android:padding="6dp"
-        android:src="@drawable/icon_prev_arrow"
-        android:tint="@color/colorAccentDark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseAppTint" />
+    android:background="@drawable/corner_radius_dialog">
 
     <TextView
         android:id="@+id/tv_addLinkedAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="30dp"
         android:fontFamily="@font/tt_interphases_pro_black"
-        android:text="NEW LINKED ACCOUNT"
+        android:letterSpacing="0.02"
+        android:text="new linked account"
         android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/colorFontDark"
-        android:textSize="23sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfile_saveChanges" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/icon_container"
+    <TextView
+        android:id="@+id/tv_account_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/tv_addLinkedAccount">
-
-        <ImageView
-            android:id="@+id/account_icon"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/icon_facebook" />
-
-        <Button
-            android:id="@+id/btn_changeIcon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
-            android:fontFamily="@font/tt_interphases_pro_extrabold"
-            android:paddingVertical="15dp"
-            android:text="Change Icon"
-            android:textColor="@color/colorFontLight"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="15dp"
+        android:alpha="0.5"
+        android:fontFamily="@font/tt_interphases_pro_demibold"
+        android:text="Update your profile by adding a new social media account link. Expand your online presence and make it easier for others to connect with you across different platforms."
+        android:textAlignment="center"
+        android:textColor="@color/colorFontDark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addLinkedAccount" />
 
     <EditText
         android:id="@+id/et_enterAccountName"
         android:layout_width="match_parent"
         android:layout_height="69dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="30dp"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/login_text_border"
         android:fontFamily="@font/tt_interphases_pro_demibold"
         android:hint="ACCOUNT NAME"
         android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/icon_container" />
-
-    <TextView
-        android:id="@+id/tv_AccountName_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/jb_mono_xtrabold"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#FF0000"
-        android:textSize="8sp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountName" />
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_account_desc" />
 
     <EditText
         android:id="@+id/et_enterAccountLink"
         android:layout_width="match_parent"
         android:layout_height="69dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="10dp"
         android:background="@drawable/login_text_border"
         android:fontFamily="@font/tt_interphases_pro_demibold"
         android:hint="LINK TO ACCOUNT"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_AccountName_error" />
-
-    <TextView
-        android:id="@+id/tv_AccountLink_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/jb_mono_xtrabold"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#FF0000"
-        android:textSize="8sp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountLink" />
+        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountName" />
 
     <Button
-        android:id="@+id/btnYes"
+        android:id="@+id/btnCancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/colorSecondary"
-        android:fontFamily="@font/jb_mono_xtrabold"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/corner_radius_small"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/tt_interphases_pro_black"
         android:paddingVertical="20dp"
-        android:text="ADD LINK"
-        android:textColor="@color/colorFontDark"
+        android:text="CANCEL"
+        android:textColor="@color/colorSecondary"
         android:textSize="13sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_enterAccountLink"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddLink"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_AccountLink_error" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:strokeColor="@color/colorFontDark" />
+
+    <Button
+        android:id="@+id/btnAddLink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/corner_radius_small"
+        android:backgroundTint="@color/colorButtons"
+        android:fontFamily="@font/tt_interphases_pro_black"
+        android:paddingVertical="20dp"
+        android:layout_marginStart="20dp"
+        android:text="ADD LINK"
+        android:textColor="@color/colorFontLight"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCancel"
+        app:layout_constraintTop_toTopOf="@+id/btnCancel"
+        app:layout_constraintStart_toEndOf="@+id/btnCancel"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
