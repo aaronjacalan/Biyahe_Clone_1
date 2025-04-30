@@ -22,7 +22,6 @@ class BookmarkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val route_bookmarks = view.findViewById<ListView>(R.id.lv_route_bookmarks)
 
-        setUserBookmarks()
         val routeList = RouteDataManager.bookmarked
 
         val arrayAdapter = RouteAdapter(
@@ -45,14 +44,4 @@ class BookmarkFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_bookmark, container, false)
     }
 
-    // To convert List<String> into List<Route>
-    fun setUserBookmarks() {
-        val routes = RouteDataManager.routelist
-        val user_bookmarks : List<String> = FirebaseManager.current_user.bookmarkList
-        for(r in routes) {
-            if(user_bookmarks.contains(r.code) && !RouteDataManager.bookmarked.contains(r)) {
-                RouteDataManager.bookmarked.add(r)
-            }
-        }
-    }
 }

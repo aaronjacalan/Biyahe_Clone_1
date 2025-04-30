@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.android.biyahe.data.Route
+import com.android.biyahe.data.RouteDataManager
 import com.android.biyahe.data.User
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -20,6 +21,7 @@ object FirebaseManager {
         get() = ::current_user.isInitialized
 
     fun addUser(username: String, password: String, bookmarkList: List<String>) {
+        // After validation, add all the details of user into the database
         val newUser = hashMapOf(
             "username" to username,
             "password" to password,
@@ -30,7 +32,7 @@ object FirebaseManager {
             .add(newUser)
             .addOnSuccessListener {
                 Log.d(TAG, "User registered successfully")
-                saveUserInstance(newUser)
+                setCurrentUserInstance(newUser)
             }
             .addOnFailureListener {
                 Log.e(TAG, "User registration failed: ${it.message}")
@@ -43,6 +45,7 @@ object FirebaseManager {
         context: Context,
         callback: (Boolean) -> Unit
     ) {
+        // To certify if login credentials are true
         db.collection(USERS_COLLECTION)
             .whereEqualTo("username", username)
             .get()
@@ -63,7 +66,7 @@ object FirebaseManager {
                         "password" to password,
                         "bookmarks" to (doc.get("bookmarks") as? List<String> ?: emptyList())
                     )
-                    saveUserInstance(user)
+                    setCurrentUserInstance(user)
                     callback(true)
                 } else {
                     Toast.makeText(context, "Password is incorrect", Toast.LENGTH_SHORT).show()
@@ -122,11 +125,21 @@ object FirebaseManager {
             }
     }
 
-    private fun saveUserInstance(newUser: HashMap<String, Any>) {
+    private fun setCurrentUserInstance(newUser: HashMap<String, Any>) {
+        // Sets Current User Instance
         current_user = User(
             username = newUser["username"] as String,
             password = newUser["password"] as String,
             bookmarkList = (newUser["bookmarks"] as? MutableList<String>) ?: mutableListOf()
         )
+
+        // Setup Current User's Bookmarks
+        val routes = RouteDataManager.routelist
+        val user_bookmarks : List<String> = current_user.bookmarkList
+        for(r in routes) {
+            if(user_bookmarks.contains(r.code)) {
+                RouteDataManager.bookmarked.add(r)
+            }
+        }
     }
 }
