@@ -127,6 +127,8 @@ object LogoutDialog {
             // Update User
             FirebaseManager.updateBookmark(RouteDataManager.bookmarked)
             FirebaseManager.remoteSaveUserInstance()
+            // Clear temporary storage
+            RouteDataManager.bookmarked.clear()
 
             alertDialog.dismiss()
         }

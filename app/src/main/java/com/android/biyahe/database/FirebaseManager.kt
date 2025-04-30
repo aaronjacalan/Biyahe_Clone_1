@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.android.biyahe.data.Route
 import com.android.biyahe.data.RouteDataManager
 import com.android.biyahe.data.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 object FirebaseManager {
@@ -20,22 +21,47 @@ object FirebaseManager {
     val isUserInitialized: Boolean
         get() = ::current_user.isInitialized
 
-    fun addUser(username: String, password: String, bookmarkList: List<String>) {
-        // After validation, add all the details of user into the database
-        val newUser = hashMapOf(
-            "username" to username,
-            "password" to password,
-            "bookmarks" to bookmarkList
-        )
+    fun addUser(
+        username: String,
+        password: String,
+        bookmarkList: List<String>,
+        context : Context,
+        callback: (Boolean) -> Unit) {
 
+        // Check if username exists
         db.collection(USERS_COLLECTION)
-            .add(newUser)
-            .addOnSuccessListener {
-                Log.d(TAG, "User registered successfully")
-                setCurrentUserInstance(newUser)
+            .whereEqualTo("username", username)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if(!querySnapshot.isEmpty) {
+                    Log.d(TAG, "Username is already taken!")
+                    Toast.makeText(context, "Username is already taken!", Toast.LENGTH_SHORT).show()
+                    callback(false)
+                    return@addOnSuccessListener
+                }
+
+                // After validation, add all the details of user into the database
+                val newUser = hashMapOf(
+                    "username" to username,
+                    "password" to password,
+                    "bookmarks" to bookmarkList
+                )
+
+                db.collection(USERS_COLLECTION)
+                    .add(newUser)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "User registered successfully")
+                        setCurrentUserInstanceAndPreferences(newUser)
+                        callback(true)
+                    }
+                    .addOnFailureListener {
+                        Log.e(TAG, "User registration failed: ${it.message}")
+                    }
+
             }
             .addOnFailureListener {
-                Log.e(TAG, "User registration failed: ${it.message}")
+                Log.e(TAG, "Error verifying user: ${it.message}")
+                return@addOnFailureListener
             }
     }
 
@@ -43,21 +69,26 @@ object FirebaseManager {
         username: String,
         password: String,
         context: Context,
-        callback: (Boolean) -> Unit
+        callback: (Int) -> Unit
     ) {
-        // To certify if login credentials are true
+        /* To certify if login credentials are true
+        *   1 -> Successful Login
+        *   2 -> Non-existent User
+        *   3 -> Incorrect Password
+        *   4 -> Firebase Error
+        */
         db.collection(USERS_COLLECTION)
             .whereEqualTo("username", username)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.isEmpty) {
                     Toast.makeText(context, "Username does not exist", Toast.LENGTH_SHORT).show()
-                    callback(false)
+                    callback(2)
                     return@addOnSuccessListener
                 }
 
                 val doc = querySnapshot.documents[0]
-                val storedPassword = doc.getString("password")
+                val storedPassword = doc.getString("password")!!
 
                 if (storedPassword == password) {
                     Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show()
@@ -66,17 +97,17 @@ object FirebaseManager {
                         "password" to password,
                         "bookmarks" to (doc.get("bookmarks") as? List<String> ?: emptyList())
                     )
-                    setCurrentUserInstance(user)
-                    callback(true)
+                    setCurrentUserInstanceAndPreferences(user)
+                    callback(1)
                 } else {
                     Toast.makeText(context, "Password is incorrect", Toast.LENGTH_SHORT).show()
-                    callback(false)
+                    callback(3)
                 }
             }
             .addOnFailureListener {
                 Log.e(TAG, "Error verifying user: ${it.message}")
                 Toast.makeText(context, "Login failed due to error", Toast.LENGTH_SHORT).show()
-                callback(false)
+                callback(4)
             }
     }
 
@@ -125,7 +156,7 @@ object FirebaseManager {
             }
     }
 
-    private fun setCurrentUserInstance(newUser: HashMap<String, Any>) {
+    private fun setCurrentUserInstanceAndPreferences(newUser: HashMap<String, Any>) {
         // Sets Current User Instance
         current_user = User(
             username = newUser["username"] as String,

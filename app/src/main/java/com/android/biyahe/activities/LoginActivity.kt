@@ -164,29 +164,33 @@ class LoginActivity : Activity() {
                 return@setOnClickListener
             }
 
-            if (authenticateUser()) {
+//            if (authenticateUser()) {
                 FirebaseManager.verifyUser(username.text.toString(), password.text.toString(), this) {
-                    if(it) {
-                        toast("Welcome Back ${savedUsername}")
+
+                    if(it == 1) {
+                        toast("Welcome Back ${username.text}")
                         animateCardLoginOut {
                             navigateTo(NavigationActivity::class.java, finishCurrent = true)
                         }
+                    } else if(it == 2) {
+                        showError(usernameErrorText, ERROR_WRONG_USERNAME)
+                        shakeLoginButton()
+                    } else if(it == 3) {
+                        showError(passwordErrorText, ERROR_WRONG_PASSWORD)
+                        shakeLoginButton()
                     }
                 }
-            } else {
-                if (savedUsername.isEmpty() || savedPassword.isEmpty()) {
-                    toast("No saved credentials found. Please register first.")
-                    return@setOnClickListener
-                }
-
-                if (username.text.toString() != savedUsername) {
-                    showError(usernameErrorText, ERROR_WRONG_USERNAME)
-                } else {
-                    showError(passwordErrorText, ERROR_WRONG_PASSWORD)
-                }
-
-                shakeLoginButton()
-            }
+//            } else {
+//                if (savedUsername.isEmpty() || savedPassword.isEmpty()) {
+//                    toast("No saved credentials found. Please register first.")
+//                    return@setOnClickListener
+//                }
+//
+//                if (username.text.toString() != savedUsername) {
+//                    showError(usernameErrorText, ERROR_WRONG_USERNAME)
+//                } else {
+//                    showError(passwordErrorText, ERROR_WRONG_PASSWORD)
+//                }
         }
     }
 

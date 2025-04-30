@@ -193,13 +193,16 @@ class RegisterActivity : Activity() {
             FirebaseManager.addUser(
                 username.text.toString(),
                 password.text.toString(),
-                mutableListOf()
-            )
-
-            saveUserCredentials()
-            toast("Registration Successful!")
-            animateCardLoginOut {
-                navigateTo(NavigationActivity::class.java, finishCurrent = true)
+                mutableListOf(),
+                this
+            ) {
+                if(it) {
+                    // saveUserCredentials()
+                    toast("Registration Successful!")
+                    animateCardLoginOut {
+                        navigateTo(NavigationActivity::class.java, finishCurrent = true)
+                    }
+                }
             }
         }
 
