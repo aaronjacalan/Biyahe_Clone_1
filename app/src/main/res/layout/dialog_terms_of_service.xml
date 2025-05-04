@@ -80,12 +80,11 @@
         android:background="@drawable/corner_radius_small"
         android:backgroundTint="@color/colorButtons"
         android:fontFamily="@font/tt_interphases_pro_black"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
         android:text="OK"
+        android:layout_marginTop="25dp"
         android:textColor="@color/colorFontLight"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
