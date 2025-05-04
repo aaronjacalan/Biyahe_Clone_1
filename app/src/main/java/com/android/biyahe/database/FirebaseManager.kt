@@ -51,7 +51,7 @@ object FirebaseManager {
                     .add(newUser)
                     .addOnSuccessListener {
                         Log.d(TAG, "User registered successfully")
-                        setCurrentUserInstanceAndPreferences(newUser)
+                        setCurrentUserInstanceAndPreferences(newUser, it.id)
                         callback(true)
                     }
                     .addOnFailureListener {
@@ -97,7 +97,7 @@ object FirebaseManager {
                         "password" to password,
                         "bookmarks" to (doc.get("bookmarks") as? List<String> ?: emptyList())
                     )
-                    setCurrentUserInstanceAndPreferences(user)
+                    setCurrentUserInstanceAndPreferences(user, doc.id)
                     callback(1)
                 } else {
                     Toast.makeText(context, "Password is incorrect", Toast.LENGTH_SHORT).show()
@@ -156,9 +156,10 @@ object FirebaseManager {
             }
     }
 
-    private fun setCurrentUserInstanceAndPreferences(newUser: HashMap<String, Any>) {
+    private fun setCurrentUserInstanceAndPreferences(newUser: HashMap<String, Any>, id : String) {
         // Sets Current User Instance
         current_user = User(
+            id,
             username = newUser["username"] as String,
             password = newUser["password"] as String,
             bookmarkList = (newUser["bookmarks"] as? MutableList<String>) ?: mutableListOf()

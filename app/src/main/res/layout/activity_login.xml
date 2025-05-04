@@ -118,6 +118,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <ProgressBar
+                android:id="@+id/pb_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/btn_loginToApp"
+                app:layout_constraintBottom_toBottomOf="@id/btn_loginToApp"
+                app:layout_constraintStart_toStartOf="@id/btn_loginToApp"
+                app:layout_constraintEnd_toEndOf="@id/btn_loginToApp"
+                android:indeterminateTint="@color/colorSecondary"
+                android:visibility="invisible"
+                android:indeterminate="true"
+                android:elevation="10dp"/>
+
             <TextView
                 android:id="@+id/tv_gotoRegister"
                 android:layout_width="wrap_content"

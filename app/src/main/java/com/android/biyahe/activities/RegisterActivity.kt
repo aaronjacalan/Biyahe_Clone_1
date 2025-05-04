@@ -14,6 +14,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +33,7 @@ class RegisterActivity : Activity() {
     private lateinit var confirmPass: EditText
     private lateinit var buttonRegister: Button
     private lateinit var cardLogin: CardView
+    private lateinit var progressBar: ProgressBar
     private var backgroundId: Int = R.drawable.background_grainy1
 
     private val sharedPref by lazy {
@@ -83,6 +85,7 @@ class RegisterActivity : Activity() {
 
         buttonRegister = findViewById(R.id.btn_register)
         cardLogin = findViewById(R.id.card_login)
+        progressBar = findViewById(R.id.pb_register)
 
         // Initially set the card login to be slightly below and invisible for animation
         cardLogin.translationY = 100f
@@ -157,8 +160,12 @@ class RegisterActivity : Activity() {
         }
 
         buttonRegister.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
+            buttonRegister.isEnabled = false
             if (!validateCredentials()) {
                 shakeRegisterButton()
+                progressBar.visibility = View.INVISIBLE
+                buttonRegister.isEnabled = true
                 return@setOnClickListener
             }
 
@@ -176,6 +183,8 @@ class RegisterActivity : Activity() {
                         navigateTo(NavigationActivity::class.java, finishCurrent = true)
                     }
                 }
+                progressBar.visibility = View.INVISIBLE
+                buttonRegister.isEnabled = true
             }
         }
 

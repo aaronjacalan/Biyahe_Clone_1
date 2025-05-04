@@ -73,8 +73,8 @@ class SettingsActivity : Activity() {
         val sharedUserid = sharedPref.getString("UID", "")
         val sharedUsername = sharedPref.getString("username", "")
 
-        userID.text = sharedUserid
-        username.text = sharedUsername
+//        userID.text = sharedUserid
+//        username.text = sharedUsername
 
         val savedImageUri = sharedPref.getString("profileImageUri", null)
         if (savedImageUri != null) {

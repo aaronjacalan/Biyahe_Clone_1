@@ -128,6 +128,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <ProgressBar
+                android:id="@+id/pb_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/btn_register"
+                app:layout_constraintBottom_toBottomOf="@id/btn_register"
+                app:layout_constraintStart_toStartOf="@id/btn_register"
+                app:layout_constraintEnd_toEndOf="@id/btn_register"
+                android:indeterminateTint="@color/colorSecondary"
+                android:visibility="invisible"
+                android:indeterminate="true"
+                android:elevation="10dp"/>
+
             <ImageButton
                 android:id="@+id/btn_google"
                 android:layout_width="0dp"

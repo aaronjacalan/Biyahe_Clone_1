@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.android.biyahe.R
 import com.android.biyahe.activities.DeveloperActivity
 import com.android.biyahe.activities.ProfileActivity
+import com.android.biyahe.database.FirebaseManager
 import com.android.biyahe.dialogs.LogoutDialog
 import com.android.biyahe.databinding.FragmentSettingsBinding
 
@@ -57,11 +58,8 @@ class SettingsFragment : Fragment() {
     private fun loadProfileData() {
         val sharedPref = requireContext().getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
 
-        val sharedUserid = sharedPref.getString("UID", "")
-        val sharedUsername = sharedPref.getString("username", "")
-
-        binding.UIDTextView.text = sharedUserid
-        binding.textUsername.text = sharedUsername
+        binding.UIDTextView.text = FirebaseManager.current_user.id
+        binding.textUsername.text = FirebaseManager.current_user.username
 
         val savedImageUri = sharedPref.getString("profileImageUri", null)
         if (savedImageUri != null) {

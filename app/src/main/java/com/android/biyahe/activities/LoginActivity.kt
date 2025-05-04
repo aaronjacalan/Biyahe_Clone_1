@@ -14,6 +14,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -28,6 +29,7 @@ class LoginActivity : Activity() {
     private lateinit var password: EditText
     private lateinit var buttonLogin: Button
     private lateinit var cardLogin: FrameLayout
+    private lateinit var progressBar : ProgressBar
     private var backgroundId: Int = R.drawable.background_grainy1
 
     // Lazy loading for preferences and credentials
@@ -83,6 +85,7 @@ class LoginActivity : Activity() {
         password = findViewById(R.id.et_enterPassword)
         buttonLogin = findViewById(R.id.btn_loginToApp)
         cardLogin = findViewById(R.id.card_login)
+        progressBar = findViewById(R.id.pb_login)
 
         // Initially set the card login to be slightly below and invisible for animation
         cardLogin.translationY = 100f
@@ -147,7 +150,11 @@ class LoginActivity : Activity() {
         }
 
         buttonLogin.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
+            buttonLogin.isEnabled = false
             if (!validateCredentials()) {
+                progressBar.visibility = View.GONE
+                buttonLogin.isEnabled = true
                 return@setOnClickListener
             }
 
@@ -165,6 +172,8 @@ class LoginActivity : Activity() {
                     toast(ERROR_WRONG_PASSWORD)
                     shakeLoginButton()
                 }
+                progressBar.visibility = View.GONE
+                buttonLogin.isEnabled = true
             }
         }
     }
