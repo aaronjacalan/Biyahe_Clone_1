@@ -6,24 +6,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.android.biyahe.R
 import com.android.biyahe.database.FirebaseManager
+import com.android.biyahe.dialogs.TermsOfService
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.getPasswordValidationError
-import com.android.biyahe.utils.isValidPassword
 import com.android.biyahe.utils.toast
 
 class RegisterActivity : Activity() {
@@ -34,7 +29,6 @@ class RegisterActivity : Activity() {
     private lateinit var buttonRegister: Button
     private lateinit var cardLogin: CardView
     private lateinit var progressBar: ProgressBar
-    private var backgroundId: Int = R.drawable.background_grainy1
 
     private val sharedPref by lazy {
         getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -44,7 +38,6 @@ class RegisterActivity : Activity() {
         private const val PREF_NAME = "ProfileData"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
-        private const val EXTRA_BACKGROUND_ID = "BACKGROUND_ID"
 
         private const val ERROR_EMPTY_USERNAME = "USERNAME CANNOT BE EMPTY"
         private const val ERROR_EMPTY_PASSWORD = "PASSWORD CANNOT BE EMPTY"
@@ -63,19 +56,10 @@ class RegisterActivity : Activity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        backgroundId = intent.getIntExtra(EXTRA_BACKGROUND_ID, R.drawable.background_grainy1)
-
         initializeViews()
-        setupBackground()
-        setupTextWatchers()
+        setupEditTextListeners() // <-- Add this!
         setupClickListeners()
         animateCardLoginIn()
-    }
-
-    private fun setupBackground() {
-        findViewById<ConstraintLayout>(R.id.main).apply {
-            background = ContextCompat.getDrawable(this@RegisterActivity, backgroundId)
-        }
     }
 
     private fun initializeViews() {
@@ -87,69 +71,61 @@ class RegisterActivity : Activity() {
         cardLogin = findViewById(R.id.card_login)
         progressBar = findViewById(R.id.pb_register)
 
-        // Initially set the card login to be slightly below and invisible for animation
         cardLogin.translationY = 100f
         cardLogin.alpha = 0f
     }
 
+    private fun setupEditTextListeners() {
+        username.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                setEditTextActivated(username, false)
+            }
+        })
+        password.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                setEditTextActivated(password, false)
+            }
+        })
+        confirmPass.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                setEditTextActivated(confirmPass, false)
+            }
+        })
+    }
+
     private fun animateCardLoginIn() {
-        // Animate translation (float up)
         ObjectAnimator.ofFloat(cardLogin, "translationY", 100f, 0f).apply {
             duration = ANIMATION_DURATION
             interpolator = DecelerateInterpolator()
             start()
         }
-
-        // Animate fade in
         ObjectAnimator.ofFloat(cardLogin, "alpha", 0f, 1f).apply {
-            duration = ANIMATION_DURATION - 100
+            duration = ANIMATION_DURATION - 75
             start()
         }
     }
 
     private fun animateCardLoginOut(onAnimationEnd: () -> Unit) {
-        // Animate translation (float down)
         ObjectAnimator.ofFloat(cardLogin, "translationY", 0f, 100f).apply {
             duration = ANIMATION_DURATION
             interpolator = AccelerateInterpolator()
             start()
         }
-
-        // Animate fade out
         ObjectAnimator.ofFloat(cardLogin, "alpha", 1f, 0f).apply {
-            duration = ANIMATION_DURATION - 100
+            duration = ANIMATION_DURATION - 75
             start()
-
-            // When animation ends, execute the callback
             addUpdateListener { animator ->
                 if (animator.animatedFraction >= 1.0f) {
                     onAnimationEnd()
                 }
             }
         }
-    }
-
-    private fun setupTextWatchers() {
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                // Since error text views have been removed, we just need to validate password match
-                // when either password field is changed
-                if (s === password.editableText || s === confirmPass.editableText) {
-                    validatePasswordMatch()
-                }
-            }
-        }
-
-        username.addTextChangedListener(textWatcher)
-        password.addTextChangedListener(textWatcher)
-        confirmPass.addTextChangedListener(textWatcher)
-    }
-
-    private fun validatePasswordMatch() {
-        // No need to show error since error views have been removed
-        // We'll rely on the validateCredentials method for final validation
     }
 
     private fun setupClickListeners() {
@@ -159,25 +135,57 @@ class RegisterActivity : Activity() {
             }
         }
 
+        val openTermsOfService = findViewById<TextView>(R.id.tv_termsOfService)
+        openTermsOfService.setOnClickListener {
+            TermsOfService.show(this)
+        }
+
+        val showPassImage = findViewById<ImageView>(R.id.iv_showPassword)
+        val showPassText = findViewById<TextView>(R.id.tv_showPassword)
+        var isPasswordVisible = false
+
+        showPassImage.setOnClickListener {
+            val tf1 = password.typeface
+            val tf2 = confirmPass.typeface
+
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                confirmPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                showPassImage.setImageResource(R.drawable.icon_hide)
+                showPassText.text = "Hide"
+            } else {
+                password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                confirmPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                showPassImage.setImageResource(R.drawable.icon_show)
+                showPassText.text = "Show"
+            }
+
+            password.typeface = tf1
+            confirmPass.typeface = tf2
+
+            password.setSelection(password.text.length)
+            confirmPass.setSelection(confirmPass.text.length)
+        }
+
         buttonRegister.setOnClickListener {
             progressBar.visibility = View.VISIBLE
             buttonRegister.isEnabled = false
-            if (!validateCredentials()) {
+            if (!validateCredentialsAndShowError()) {
                 shakeRegisterButton()
                 progressBar.visibility = View.INVISIBLE
                 buttonRegister.isEnabled = true
                 return@setOnClickListener
             }
 
-            // Successful login - keeping Firebase code as is
+            // Successful registration
             FirebaseManager.addUser(
                 username.text.toString(),
                 password.text.toString(),
                 mutableListOf(),
                 this
             ) {
-                if(it) {
-                    // saveUserCredentials()
+                if (it) {
                     toast("Registration Successful!")
                     animateCardLoginOut {
                         navigateTo(NavigationActivity::class.java, finishCurrent = true)
@@ -187,50 +195,58 @@ class RegisterActivity : Activity() {
                 buttonRegister.isEnabled = true
             }
         }
-
-        findViewById<ImageButton>(R.id.btn_google).setOnClickListener {
-            toast("Google login clicked")
-            animateCardLoginOut {
-                navigateTo(NavigationActivity::class.java, finishCurrent = true)
-            }
-        }
-
     }
 
     private fun navigateTo(activityClass: Class<*>, finishCurrent: Boolean = false) {
-        val intent = Intent(this, activityClass)
-        intent.putExtra(EXTRA_BACKGROUND_ID, backgroundId)
-        startActivity(intent)
+        startActivity(Intent(this, activityClass))
         overridePendingTransition(0, 0)
         if (finishCurrent) finish()
     }
 
-    private fun validateCredentials(): Boolean {
-        var isValid = true
+    private fun validateCredentialsAndShowError(): Boolean {
+        var valid = true
+
+        setEditTextActivated(username, false)
+        setEditTextActivated(password, false)
+        setEditTextActivated(confirmPass, false)
 
         if (username.isEmpty()) {
             toast(ERROR_EMPTY_USERNAME)
-            isValid = false
+            setEditTextActivated(username, true)
+            valid = false
         }
 
         if (password.isEmpty()) {
             toast(ERROR_EMPTY_PASSWORD)
-            isValid = false
-        } else if (!password.isValidPassword()) {
-            val errorMessage = password.getPasswordValidationError() ?: ERROR_EMPTY_PASSWORD
-            toast(errorMessage)
-            isValid = false
+            setEditTextActivated(password, true)
+            valid = false
+        }
+
+        password.getPasswordValidationError()?.let {
+            toast(it)
+            setEditTextActivated(password, true)
+            valid = false
         }
 
         if (confirmPass.isEmpty()) {
             toast(ERROR_EMPTY_CONFIRM_PASSWORD)
-            isValid = false
-        } else if (password.text.toString() != confirmPass.text.toString()) {
-            toast(ERROR_PASSWORDS_MISMATCH)
-            isValid = false
+            setEditTextActivated(confirmPass, true)
+            valid = false
         }
 
-        return isValid
+        if (password.text.toString() != confirmPass.text.toString()) {
+            toast(ERROR_PASSWORDS_MISMATCH)
+            setEditTextActivated(password, true)
+            setEditTextActivated(confirmPass, true)
+            valid = false
+        }
+
+        return valid
+    }
+
+    private fun setEditTextActivated(editText: EditText, activated: Boolean) {
+        editText.isActivated = activated
+        editText.refreshDrawableState()
     }
 
     private fun shakeRegisterButton() {

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_grainy2">
+    android:background="@drawable/background_grainy">
 
     <com.android.biyahe.utils.ParallaxScrollView
         android:id="@+id/parallaxScrollView"
@@ -88,7 +88,7 @@
                     android:text="Username"
                     android:textAlignment="center"
                     android:textColor="@color/colorFontLight"
-                    android:textSize="32sp"
+                    android:textSize="35sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/CircleImageIcon" />
@@ -102,7 +102,7 @@
                     android:text="helldivers"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccentLight"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_username" />
@@ -170,10 +170,9 @@
                     android:background="@drawable/corner_radius_small"
                     android:backgroundTint="@color/white"
                     android:nestedScrollingEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtLinkedAccountsHeader"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtLinkedAccountsHeader" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

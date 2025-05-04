@@ -24,7 +24,8 @@ import androidx.core.content.ContextCompat
 import com.android.biyahe.R
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
-import com.android.biyahe.dialog.AddAccountDialog
+import com.android.biyahe.database.FirebaseManager
+import com.android.biyahe.dialogs.AddAccountDialog
 import com.android.biyahe.dialogs.ExitEditProfile
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
@@ -179,9 +180,14 @@ class ProfileEditActivity : Activity() {
 
     private fun setupAccountsList() {
         val accounts = AccountsList.listOfAccounts
-        accountAdapter = AccountAdapter(this, accounts, onClick = { account ->
-            toast("${account.name} Was Clicked")
-        })
+        accountAdapter = AccountAdapter(
+            this,
+            accounts,
+            onClick = { },
+            getIconResId = { iconType ->
+                getIconResId(iconType)
+            }
+        )
         listViewLinkedAccountsEdit.adapter = accountAdapter
 
         setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)
@@ -211,6 +217,14 @@ class ProfileEditActivity : Activity() {
         listView.requestLayout()
     }
 
+    private fun getIconResId(iconType: String): Int = when (iconType) {
+        "facebook" -> R.drawable.icon_facebook
+        "google" -> R.drawable.icon_google
+        "outlook" -> R.drawable.icon_outlook
+        "github" -> R.drawable.icon_github
+        else -> R.drawable.icon_link
+    }
+
     private fun saveUserChanges() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
@@ -232,13 +246,8 @@ class ProfileEditActivity : Activity() {
     private fun loadProfileData() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
 
-        val uidValue = sharedPref.getString("UID", "") ?: ""
-        val usernameValue = sharedPref.getString("username", "") ?: ""
-        val shortDescValue = sharedPref.getString("shortDesc", "") ?: ""
-
-        UIDTextView.setText(uidValue)
-        usernameTextView.setText(usernameValue)
-        shortDescTextView.setText(shortDescValue)
+        UIDTextView.setText(FirebaseManager.current_user.id)
+        usernameTextView.setText(FirebaseManager.current_user.username)
 
         val savedImageUri = sharedPref.getString("profileImageUri", null)
         if (!savedImageUri.isNullOrEmpty()) {

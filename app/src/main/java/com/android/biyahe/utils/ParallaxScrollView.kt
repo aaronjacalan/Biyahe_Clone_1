@@ -56,6 +56,9 @@ class ParallaxScrollView @JvmOverloads constructor(
 
             applyEffectToView(it.findViewById(R.id.settings_goBack), scrollProgress)
             applyEffectToView(it.findViewById(R.id.settings_viewProfile), scrollProgress)
+
+            applyEffectToView(it.findViewById(R.id.txtAboutHeader), scrollProgress)
+            applyEffectToView(it.findViewById(R.id.developerPageGoBack), scrollProgress)
         }
     }
 

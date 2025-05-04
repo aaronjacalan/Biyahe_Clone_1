@@ -15,15 +15,17 @@ import com.android.biyahe.activities.ProfileActivity
 import com.android.biyahe.database.FirebaseManager
 import com.android.biyahe.dialogs.LogoutDialog
 import com.android.biyahe.databinding.FragmentSettingsBinding
+import com.android.biyahe.dialogs.TermsOfService
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSettingsBinding
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
     private val TAG = "SettingsFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment using View Binding
-        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,6 +34,11 @@ class SettingsFragment : Fragment() {
 
         setupClickListeners()
         loadProfileData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupClickListeners() {
@@ -50,9 +57,18 @@ class SettingsFragment : Fragment() {
             navigateTo(DeveloperActivity::class.java)
         }
 
+        val termsOfServiceListener = View.OnClickListener {
+            Log.d(TAG, "Terms of Service button clicked")
+            TermsOfService.show(requireActivity())
+        }
+
         binding.imageAboutDevelopersPage.setOnClickListener(developerPageClickListener)
         binding.textAboutDevelopersPage.setOnClickListener(developerPageClickListener)
         binding.arrowAboutDevelopersPage.setOnClickListener(developerPageClickListener)
+
+        binding.imageAboutTermsOfService.setOnClickListener(termsOfServiceListener)
+        binding.textAboutTermsOfService.setOnClickListener(termsOfServiceListener)
+        binding.arrowAboutTermsOfService.setOnClickListener(termsOfServiceListener)
     }
 
     private fun loadProfileData() {

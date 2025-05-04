@@ -1,20 +1,17 @@
 package com.android.biyahe.data
 
-import com.android.biyahe.R
-
 object AccountsList {
 
+    // Use iconType strings you can map to resources in your app code
     val listOfAccounts = mutableListOf(
-        Accounts("Facebook Name", "https://facebook.com", R.drawable.icon_facebook),
-        Accounts("Google Account Name", "https://google.com", R.drawable.icon_google),
-        Accounts("Outlook Account Name", "https://outlook.com", R.drawable.icon_outlook),
-        Accounts("GitHub Account Name", "https;//github.com", R.drawable.icon_github),
-        Accounts("CIT LAIR Account Name", "https://lair.education/", R.drawable.icon_cit),
-        Accounts("Test","Test",R.drawable.background1)
+        Account("fb", "Facebook Name", "https://facebook.com", "facebook"),
+        Account("google", "Google Account Name", "https://google.com", "google"),
+        Account("outlook", "Outlook Account Name", "https://outlook.com", "outlook"),
+        Account("github", "GitHub Account Name", "https://github.com", "github"),
+        Account("test", "Test", "Test", "default")
     )
 
-    fun addAccount(name: String, link: String, iconResId: Int = R.drawable.placeholder) {
-        listOfAccounts.add(Accounts(name, link, iconResId))
+    fun addAccount(id: String, displayName: String, link: String, iconType: String = "default") {
+        listOfAccounts.add(Account(id, displayName, link, iconType))
     }
-
 }

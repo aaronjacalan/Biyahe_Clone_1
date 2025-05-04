@@ -2,7 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_grainy2"
+    android:background="@drawable/background_grainy"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -117,7 +117,7 @@
                             android:layout_marginTop="50dp"
                             android:layout_width="200dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/dev2"
+                            android:src="@drawable/dev_2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -260,7 +260,7 @@
                             android:layout_marginTop="50dp"
                             android:layout_width="200dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/developer_2"
+                            android:src="@drawable/dev_2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

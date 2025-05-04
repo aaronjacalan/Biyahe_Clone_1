@@ -42,7 +42,7 @@ object RouteDataManager {
                     d.emall,
                     d.j_alcantara,
                     d.usc_south
-                )
+                ), R.drawable.route_01c, R.drawable.route_01c
             ),
 
             Route("01K", R.drawable.ic_launcher_foreground,
@@ -91,7 +91,7 @@ object RouteDataManager {
                     d.v_urgello,
                     d.swu_phinma,
                     d.sacred_heart
-                )
+                ),R.drawable.route_01k, R.drawable.route_01k
             ),
 
             Route("02B", R.drawable.ic_launcher_foreground,
@@ -128,7 +128,7 @@ object RouteDataManager {
                     d.gv_hotel,
                     d.uc,
                     d.panganiban
-                )
+                ),R.drawable.route_02b, R.drawable.route_02b
             ),
 
             Route("03A", R.drawable.ic_launcher_foreground,
@@ -177,7 +177,7 @@ object RouteDataManager {
                     d.citi,
                     d.sykes,
                     d.f_cabahug
-                )
+                ), R.drawable.route_03a, R.drawable.route_03a
             ),
 
             Route("03B", R.drawable.ic_launcher_foreground,
@@ -214,7 +214,7 @@ object RouteDataManager {
                     d.persimmon,
                     d.joseph_parish,
                     d.sindulan
-                )
+                ), R.drawable.route_03b_forw, R.drawable.route_03b_back
             ),
 
             Route("03L", R.drawable.ic_launcher_foreground,
@@ -256,7 +256,7 @@ object RouteDataManager {
                     d.hipodromo,
                     d.persimmon,
                     d.p_cabantan
-                )
+                ), R.drawable.route_03l_forw, R.drawable.route_03l_back
             ),
 
             Route("03Q", R.drawable.profile_03q,
@@ -271,7 +271,7 @@ object RouteDataManager {
                     d.juan_luna_ave,
                     d.landers,
                     d.ayala
-                )
+                ), R.drawable.route_03q, R.drawable.route_03q
             ),
 
             Route("04B", R.drawable.ic_launcher_foreground,
@@ -325,7 +325,7 @@ object RouteDataManager {
                     d.jy_mall,
                     d.salinas,
                     d.stephenson
-                )
+                ), R.drawable.route_04b_forw, R.drawable.route_04b_back
             ),
 
             Route("04H", R.drawable.ic_launcher_foreground,
@@ -378,7 +378,7 @@ object RouteDataManager {
                     d.marco_polo,
                     d.cebu_vet_drive,
                     d.busay
-                )
+                ), R.drawable.route_04h_forw, R.drawable.route_04h_back
             ),
 
             Route("04I", R.drawable.ic_launcher_foreground,
@@ -434,7 +434,7 @@ object RouteDataManager {
                     d.marco_polo,
                     d.cebu_vet_drive,
                     d.busay
-                )
+                ), R.drawable.route_04i_forw, R.drawable.route_04i_back
             ),
 
             Route("04L", R.drawable.ic_launcher_foreground,
@@ -471,7 +471,7 @@ object RouteDataManager {
                     d.usp,
                     d.salinas,
                     d.lahug
-                )
+                ), R.drawable.route_04l_forw, R.drawable.route_04l_back
             ),
 
             Route("04M", R.drawable.ic_launcher_foreground,
@@ -490,7 +490,7 @@ object RouteDataManager {
                     d.lahug_hall,
                     d.church_latter,
                     d.jy_mall
-                )
+                ), R.drawable.route_04m_forw, R.drawable.route_04m_back
             ),
 
             Route("06B", R.drawable.ic_launcher_foreground,
@@ -526,7 +526,7 @@ object RouteDataManager {
                     d.prc,
                     d.fooda_guada,
                     d.guadalupe_church
-                )
+                ), R.drawable.route_06b_forw, R.drawable.route_06b_back
             ),
 
             Route("06C", R.drawable.ic_launcher_foreground,
@@ -559,7 +559,7 @@ object RouteDataManager {
                     d.prc,
                     d.fooda_guada,
                     d.guadalupe_church
-                )
+                ), R.drawable.route_06c_forw, R.drawable.route_06c_back
             ),
 
             Route("06G", R.drawable.ic_launcher_foreground,
@@ -589,7 +589,7 @@ object RouteDataManager {
                     d.prc,
                     d.fooda_guada,
                     d.guadalupe_church
-                )
+                ), R.drawable.route_06g_forw, R.drawable.route_06g_back
             ),
 
             Route("06H", R.drawable.ic_launcher_foreground,
@@ -630,7 +630,7 @@ object RouteDataManager {
                     d.prc,
                     d.fooda_guada,
                     d.guadalupe_church
-                )
+                ), R.drawable.route_06h_forw, R.drawable.route_06h_back
             ),
 
             Route("07B", R.drawable.ic_launcher_foreground,
@@ -671,41 +671,41 @@ object RouteDataManager {
                     d.good_shepherd,
                     d.r_arcenas,
                     d.court_appeals
-                )
+                ), R.drawable.route_07b_forw, R.drawable.route_07b_back
             ),
 
-            Route("08F", R.drawable.ic_launcher_foreground,
-                listOf(
-                    d.alumnos,
-                    d.tagunol,
-                    d.c_padilla,
-                    d.carlock_st,
-                    d.spolarium,
-                    d.leon_kilat,
-                    d.magallanes,
-                    d.pburgos,
-                    d.legaspi_ext,
-                    d.sergio_osmena,
-                    d.b_benedicto,
-                    d.jc_veyra,
-                    d.sm_city
-                ),
-                listOf(
-                    d.sm_city,
-                    d.a_soriano,
-                    d.gen_max,
-                    d.g_gaisano,
-                    d.c_padilla,
-                    d.mj_cuenca,
-                    d.sikatuna,
-                    d.uv,
-                    d.colon_market,
-                    d.c_padilla,
-                    d.gaisano_jai_alai,
-                    d.san_roque,
-                    d.alumnos
-                )
-            ),
+//            Route("08F", R.drawable.ic_launcher_foreground,
+//                listOf(
+//                    d.alumnos,
+//                    d.tagunol,
+//                    d.c_padilla,
+//                    d.carlock_st,
+//                    d.spolarium,
+//                    d.leon_kilat,
+//                    d.magallanes,
+//                    d.pburgos,
+//                    d.legaspi_ext,
+//                    d.sergio_osmena,
+//                    d.b_benedicto,
+//                    d.jc_veyra,
+//                    d.sm_city
+//                ),
+//                listOf(
+//                    d.sm_city,
+//                    d.a_soriano,
+//                    d.gen_max,
+//                    d.g_gaisano,
+//                    d.c_padilla,
+//                    d.mj_cuenca,
+//                    d.sikatuna,
+//                    d.uv,
+//                    d.colon_market,
+//                    d.c_padilla,
+//                    d.gaisano_jai_alai,
+//                    d.san_roque,
+//                    d.alumnos
+//                )
+//            ),
 
             Route("08G", R.drawable.ic_launcher_foreground,
                 listOf(
@@ -732,7 +732,7 @@ object RouteDataManager {
                     d.gaisano_jai_alai,
                     d.c_padilla,
                     d.alumnos
-                )
+                ), R.drawable.route_08g_forw, R.drawable.route_08g_back
             ),
 
             Route("09C", R.drawable.profile_09c,
@@ -761,9 +761,7 @@ object RouteDataManager {
                     d.mambaling,
                     d.shopwise,
                     d.quiot
-                ),
-                R.drawable.route_09c_forw,
-                R.drawable.route_09c_back
+                ), R.drawable.route_09c_forw, R.drawable.route_09c_back
             ),
 
             Route("09F", R.drawable.ic_launcher_foreground,
@@ -797,7 +795,7 @@ object RouteDataManager {
                     d.mambaling,
                     d.shopwise,
                     d.quiot
-                ),
+                ), R.drawable.route_09c_forw, R.drawable.route_09f_back
 
             ),
 
@@ -836,7 +834,7 @@ object RouteDataManager {
                     d.shopwise,
                     d.usjr,
                     d.quiot
-                ),
+                ), R.drawable.route_09g_forw, R.drawable.route_09g_back
 
             ),
 
@@ -868,49 +866,49 @@ object RouteDataManager {
                     d.usjr,
                     d.pardo,
                     d.bulacao
-                ),
+                ), R.drawable.route_10f_forw, R.drawable.route_10f_back
             ),
 
-            Route("10G", R.drawable.ic_launcher_foreground,
-                listOf(
-                    d.pardo,
-                    d.usjr,
-                    d.citu,
-                    d.shopwise,
-                    d.mambaling,
-                    d.c_padilla,
-                    d.r_padilla,
-                    d.carlock_st,
-                    d.san_nicolas_parish,
-                    d.leon_kilat,
-                    d.dionsio_st,
-                    d.cebu_city_hall,
-                    d.la_nueva,
-                    d.metro_water,
-                    d.osmena,
-                    d.sto_nino_hall
-                ),
-                listOf(
-                    d.sto_nino_hall,
-                    d.metro_cathedral,
-                    d.dionsio_st,
-                    d.uv,
-                    d.gaisano_main,
-                    d.colon_market,
-                    d.colon_metro,
-                    d.leon_kilat,
-                    d.san_nicolas_parish,
-                    d.don_carlos_hs,
-                    d.carlock_st,
-                    d.r_padilla,
-                    d.c_padilla,
-                    d.mambaling,
-                    d.shopwise,
-                    d.citu,
-                    d.usjr,
-                    d.pardo
-                ),
-            ),
+//            Route("10G", R.drawable.ic_launcher_foreground,
+//                listOf(
+//                    d.pardo,
+//                    d.usjr,
+//                    d.citu,
+//                    d.shopwise,
+//                    d.mambaling,
+//                    d.c_padilla,
+//                    d.r_padilla,
+//                    d.carlock_st,
+//                    d.san_nicolas_parish,
+//                    d.leon_kilat,
+//                    d.dionsio_st,
+//                    d.cebu_city_hall,
+//                    d.la_nueva,
+//                    d.metro_water,
+//                    d.osmena,
+//                    d.sto_nino_hall
+//                ),
+//                listOf(
+//                    d.sto_nino_hall,
+//                    d.metro_cathedral,
+//                    d.dionsio_st,
+//                    d.uv,
+//                    d.gaisano_main,
+//                    d.colon_market,
+//                    d.colon_metro,
+//                    d.leon_kilat,
+//                    d.san_nicolas_parish,
+//                    d.don_carlos_hs,
+//                    d.carlock_st,
+//                    d.r_padilla,
+//                    d.c_padilla,
+//                    d.mambaling,
+//                    d.shopwise,
+//                    d.citu,
+//                    d.usjr,
+//                    d.pardo
+//                ),
+//            ),
 
             Route("10H", R.drawable.profile_10h,
                 listOf(
@@ -956,7 +954,7 @@ object RouteDataManager {
                     d.usjr,
                     d.pardo,
                     d.bulacao
-                )
+                ), R.drawable.route_10h_forw, R.drawable.route_10h_back
             ),
 
             Route("10M", R.drawable.ic_launcher_foreground,
@@ -1009,7 +1007,7 @@ object RouteDataManager {
                     d.usjr,
                     d.pardo,
                     d.bulacao
-                )
+                ), R.drawable.route_10m_forw, R.drawable.route_10m_back
             ),
 
             Route("11A", R.drawable.ic_launcher_foreground,
@@ -1037,7 +1035,7 @@ object RouteDataManager {
                     d.tagunol,
                     d.rizal,
                     d.inayawan
-                )
+                ), R.drawable.route_11a_forw, R.drawable.route_11a_back
             ),
 
             Route("12D", R.drawable.ic_launcher_foreground,
@@ -1082,7 +1080,7 @@ object RouteDataManager {
                     d.tisa_hs,
                     d.tisa_elem,
                     d.punta_princesa
-                )
+                ), R.drawable.route_12d_forw, R.drawable.route_12d_back
             ),
 
             Route("12G", R.drawable.ic_launcher_foreground,
@@ -1133,7 +1131,7 @@ object RouteDataManager {
                     d.tisa_hs,
                     d.tisa_elem,
                     d.punta_princesa
-                )
+                ), R.drawable.route_12g_forw, R.drawable.route_12g_back
             ),
 
             Route("12I", R.drawable.ic_launcher_foreground,
@@ -1185,7 +1183,7 @@ object RouteDataManager {
                     d.miller,
                     d.punta_princesa_elem,
                     d.punta_princesa
-                )
+                ), R.drawable.route_12i_forw, R.drawable.route_12i_back
             ),
 
             Route("12L", R.drawable.ic_launcher_foreground,
@@ -1223,7 +1221,7 @@ object RouteDataManager {
                     d.tisa_elem,
                     d.tisa_elem,
                     d.punta_princesa
-                )
+                ), R.drawable.route_12l_forw, R.drawable.route_12l_back
             ),
 
             Route("13B", R.drawable.ic_launcher_foreground,
@@ -1291,7 +1289,7 @@ object RouteDataManager {
                     d.talamban_elem,
                     d.cmic,
                     d.tintay_terminal
-                )
+                ), R.drawable.route_13b_forw, R.drawable.route_13b_back
             ),
 
             Route("13C", R.drawable.ic_launcher_foreground,
@@ -1346,7 +1344,7 @@ object RouteDataManager {
                     d.talamban_elem,
                     d.cmic,
                     d.tintay_terminal
-                )
+                ), R.drawable.route_13c_forw, R.drawable.route_13c_back
             ),
 
             Route("13H", R.drawable.ic_launcher_foreground,
@@ -1389,7 +1387,7 @@ object RouteDataManager {
                     d.pelish_eng,
                     d.bacayan,
                     d.pitos
-                )
+                ), R.drawable.route_13h_forw, R.drawable.route_13h_back
             ),
 
             Route("14D", R.drawable.ic_launcher_foreground,
@@ -1426,7 +1424,7 @@ object RouteDataManager {
                     d.golden_peak,
                     d.kuya_j,
                     d.ayala
-                )
+                ), R.drawable.route_14d_forw, R.drawable.route_14d_back
             ),
 
             Route("17B", R.drawable.ic_launcher_foreground,
@@ -1486,7 +1484,7 @@ object RouteDataManager {
                     d.pnp,
                     d.lapu_camp_elem,
                     d.apas
-                )
+                ), R.drawable.route_17b_forw, R.drawable.route_17b_back
             ),
 
             Route("17C", R.drawable.ic_launcher_foreground,
@@ -1556,7 +1554,7 @@ object RouteDataManager {
                     d.pnp,
                     d.lapu_camp_elem,
                     d.apas
-                )
+                ), R.drawable.route_17c_forw, R.drawable.route_17c_back
             ),
 
             Route("17D", R.drawable.ic_launcher_foreground,
@@ -1616,7 +1614,7 @@ object RouteDataManager {
                     d.pnp,
                     d.lapu_camp_elem,
                     d.apas
-                )
+                ), R.drawable.route_17c_forw, R.drawable.route_17c_back
             ),
 
             Route("20A", R.drawable.ic_launcher_foreground,
@@ -1674,7 +1672,7 @@ object RouteDataManager {
                     d.john_paul_II,
                     d.keppel,
                     d.ayala
-                )
+                ), R.drawable.route_20a_forw, R.drawable.route_20a_back
             ),
 
             Route("21A", R.drawable.ic_launcher_foreground,
@@ -1738,7 +1736,7 @@ object RouteDataManager {
                     d.matimco,
                     d.dfa,
                     d.pacific_mall
-                )
+                ), R.drawable.route_21a_forw, R.drawable.route_21a_back
             ),
 
             Route("22A", R.drawable.ic_launcher_foreground,
@@ -1798,7 +1796,7 @@ object RouteDataManager {
                     d.mandaue_central,
                     d.a_mabini,
                     d.cm_cabahug
-                )
+                ), R.drawable.route_22a_forw, R.drawable.route_22a_back
             ),
 
             Route("22D", R.drawable.ic_launcher_foreground,
@@ -1858,7 +1856,7 @@ object RouteDataManager {
                     d.mandaue_central,
                     d.a_mabini,
                     d.cm_cabahug
-                )
+                ), R.drawable.route_22d_forw, R.drawable.route_22d_back
             ),
 
             Route("22I", R.drawable.ic_launcher_foreground,
@@ -1894,7 +1892,7 @@ object RouteDataManager {
                     d.mandaue_cscclex,
                     d.bir,
                     d.mandaue_pub_market_new
-                )
+                ), R.drawable.route_22i_forw, R.drawable.route_22i_back
             ),
 
             Route("23D", R.drawable.profile_23d,
