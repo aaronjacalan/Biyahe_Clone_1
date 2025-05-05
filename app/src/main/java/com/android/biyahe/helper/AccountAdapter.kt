@@ -8,12 +8,15 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.android.biyahe.R
-import com.android.biyahe.data.Accounts
+import com.android.biyahe.data.Account
 
-class AccountAdapter(private val context: Context,
-                     private val accountList: List<Accounts>,
-                     private val onClick: (Accounts) -> Unit
-                    ): BaseAdapter() {
+class AccountAdapter(
+    private val context: Context,
+    private val accountList: List<Account>,
+    private val onClick: (Account) -> Unit,
+    private val getIconResId: (String) -> Int
+) : BaseAdapter() {
+
     override fun getCount(): Int = accountList.size
     override fun getItem(position: Int): Any = accountList[position]
     override fun getItemId(position: Int): Long = position.toLong()
@@ -27,14 +30,13 @@ class AccountAdapter(private val context: Context,
 
         val account = accountList[position]
 
-        accountIcon.setImageResource(account.iconResId)
-        accountName.text = account.name
+        // Use the iconType string and the resource mapping function
+        accountIcon.setImageResource(getIconResId(account.iconType))
+        accountName.text = account.displayName
         accountLink.text = account.link
 
         view.setOnClickListener { onClick(account) }
 
         return view
     }
-
-
 }

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageView
 import com.android.biyahe.R
+import com.android.biyahe.dialogs.OpenLinkActivity
 import com.android.biyahe.utils.SafeClickListener
 import com.google.android.material.snackbar.Snackbar
 
@@ -44,14 +45,21 @@ class DeveloperActivity : Activity() {
 
     private fun setupGitHubLinks() {
         findViewById<ImageView>(R.id.developer1_github).setSafeOnClickListener {
-            openGitHubProfile(GALORIO_GITHUB_URL)
+            showOpenLinkDialog(GALORIO_GITHUB_URL)
         }
 
         findViewById<ImageView>(R.id.developer2_github).setSafeOnClickListener {
-            openGitHubProfile(JACALAN_GITHUB_URL)
+            showOpenLinkDialog(JACALAN_GITHUB_URL)
         }
     }
 
+    private fun showOpenLinkDialog(url: String) {
+        OpenLinkActivity.show(this, url)
+    }
+
+    // You can keep the original openGitHubProfile for fallback/error handling if needed.
+    // It is now unused since OpenLinkActivity.show handles the navigation.
+    /*
     private fun openGitHubProfile(url: String) {
         try {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -66,6 +74,7 @@ class DeveloperActivity : Activity() {
             ).show()
         }
     }
+    */
 
     private fun ImageView.setSafeOnClickListener(onClick: (ImageView) -> Unit) {
         this.setOnClickListener(object : SafeClickListener() {

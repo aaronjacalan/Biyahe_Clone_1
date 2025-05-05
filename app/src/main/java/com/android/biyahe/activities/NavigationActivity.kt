@@ -11,14 +11,15 @@ import com.android.biyahe.databinding.ActivityNavigationBinding
 import com.android.biyahe.dialogs.ExitDialog
 import com.android.biyahe.fragments.BookmarkFragment
 import com.android.biyahe.fragments.LandingFragment
-import com.android.biyahe.fragments.ProfileFragment
 import com.android.biyahe.fragments.SettingsFragment
-import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
+import com.android.biyahe.utils.toast
+import io.ak1.BubbleTabBar
 
 class NavigationActivity : AppCompatActivity() {
 
+    private var onlineMode: Boolean = true
     private lateinit var binding: ActivityNavigationBinding
-    private var currentFragmentId = 1 // Track the current fragment ID
+    private var currentFragmentId: Int = R.id.home // Use menu item IDs
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,40 +29,39 @@ class NavigationActivity : AppCompatActivity() {
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.navBar.add(
-            CurvedBottomNavigation.Model(1, "", R.drawable.icon_home)
-        )
-        binding.navBar.add(
-            CurvedBottomNavigation.Model(2, "", R.drawable.icon_bookmark)
-        )
-        binding.navBar.add(
-            CurvedBottomNavigation.Model(3, "", R.drawable.icon_settings)
-        )
+        onlineMode = intent.getBooleanExtra("online_mode", true)
 
-        binding.navBar.setOnClickMenuListener {
-            when(it.id) {
-                1 -> {
-                    currentFragmentId = 1
+        // Initial fragment setup
+        currentFragmentId = R.id.home
+        switchFragment(LandingFragment())
+        updateStatusBarColor(R.id.home)
+        binding.bubbleTabBar.setSelectedWithId(R.id.home, false)
+
+        // Listener for BubbleTabBar
+        binding.bubbleTabBar.addBubbleListener { id ->
+            if (!onlineMode && id != R.id.home) {
+                toast("Offline mode: Only landing page is accessible.")
+                binding.bubbleTabBar.setSelectedWithId(R.id.home, true)
+                return@addBubbleListener
+            }
+            when (id) {
+                R.id.home -> {
+                    currentFragmentId = R.id.home
                     switchFragment(LandingFragment())
-                    updateStatusBarColor(1) // Update status bar for Fragment 1
+                    updateStatusBarColor(R.id.home)
                 }
-                2 -> {
-                    currentFragmentId = 2
+                R.id.bookmarks -> {
+                    currentFragmentId = R.id.bookmarks
                     switchFragment(BookmarkFragment())
-                    updateStatusBarColor(2) // Update status bar for Fragment 2
+                    updateStatusBarColor(R.id.bookmarks)
                 }
-                3 -> {
-                    currentFragmentId = 3
+                R.id.settings -> {
+                    currentFragmentId = R.id.settings
                     switchFragment(SettingsFragment())
-                    updateStatusBarColor(3) // Update status bar for Fragment 3
+                    updateStatusBarColor(R.id.settings)
                 }
             }
         }
-
-        currentFragmentId = 1
-        switchFragment(LandingFragment())
-        updateStatusBarColor(1)
-        binding.navBar.show(1)
     }
 
     private fun setFullScreenView() {
@@ -72,18 +72,12 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     private fun updateStatusBarColor(fragmentId: Int) {
-        when (fragmentId) {
-            1 -> {
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-            else -> {
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-        }
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 
     @SuppressLint("ResourceType")
-    private fun switchFragment(fragment : Fragment) {
+    private fun switchFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.fade_depth_in,
@@ -95,13 +89,13 @@ class NavigationActivity : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        if (currentFragmentId == 1) {
+        if (currentFragmentId == R.id.home) {
             ExitDialog.show(this)
         } else {
-            currentFragmentId = 1
+            currentFragmentId = R.id.home
             switchFragment(LandingFragment())
-            updateStatusBarColor(1)
-            binding.navBar.show(1)
+            updateStatusBarColor(R.id.home)
+            binding.bubbleTabBar.setSelectedWithId(R.id.home, true)
         }
     }
 

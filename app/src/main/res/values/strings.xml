@@ -1,9 +1,111 @@
 <resources>
     <string name="app_name">BIYAHE</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="login_description_2">Whether you\'re a daily commuter or just out for a laag kay wa\'y lingaw sa balay, BIYAHE helps you move with the city\'s rhythm—through its lifeline: the jeepneys. Know where to ride, when to say \"lugar lang,\" and how to get there hassle-free. From the busy kanto to the tucked-away eskina, we\'ve got the routes, stops, and even the pila covered.</string>
-    <string name="login_description_3">No more guessing. No more \"Asa ni dapit?\" or \"Saag na sad ta, bai.\" Just clear, simple, local travel—powered by BIYAHE.</string>
+    <string name="login_description_2">
+        Whether you’re a daily commuter or just out for a laag kay wa’y lingaw sa balay, BIYAHE helps you move with the city’s rhythm—through its lifeline: the jeepneys.
+        Know where to ride, when to say "lugar lang," and how to get there hassle-free.
+        From the busy kanto to the tucked-away eskina, we’ve got the routes, stops, and even the pila covered.
+    </string>
+
+    <string name="login_description_3">
+        No more guessing. No more "Asa ni dapit?" or "Saag na sad ta, bai." Just clear, simple, local travel—powered by BIYAHE.
+    </string>
+
+    <string name="terms_of_service_body">
+        <![CDATA[
+            <b>1. INTRODUCTION</b><br><br>
+            Welcome to Biyahe ("we," "our," or "us"). Biyahe is a mobile application designed to show users the different jeepney routes in Cebu, Philippines. By downloading, accessing, or using our application, you agree to be bound by these Terms of Service ("Terms").<br><br>
+
+            <b>2. ACCEPTANCE OF TERMS</b><br><br>
+            By accessing or using the Biyahe application, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, please do not use our application.<br><br>
+
+            <b>3. USER ACCOUNTS AND REGISTRATION</b><br><br>
+            <b>3.1 Account Creation</b><br>
+            To use certain features of Biyahe, you must register for an account. When registering, you agree to provide accurate, current, and complete information about yourself.<br><br>
+            <b>3.2 Account Security</b><br>
+            You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.<br><br>
+
+            <b>4. DATA COLLECTION AND PRIVACY</b><br><br>
+            <b>User Information:</b><br>
+            We collect limited personal information to provide and improve our services, including but not limited to:<br>
+            - Username<br>
+            - Account information<br><br>
+            <b>Limited Use of Data:</b><br>
+            We will only use your personal information for the following purposes:<br>
+            - Providing jeepney route information in Cebu<br>
+            - Customer support<br>
+            - Improving app functionality<br>
+            - Safety and security features<br>
+            - Legal compliance<br><br>
+            <b>No Third-Party Sharing:</b><br>
+            We do not sell, rent, or share your personal information with third parties for marketing purposes or any purposes unrelated to the operation of the Biyahe app.<br><br>
+            <b>Data Security:</b><br>
+            We implement reasonable security measures to protect your personal information from unauthorized access, use, or disclosure.<br><br>
+
+            <b>5. USE OF THE SERVICE</b><br><br>
+            <b>5.1 License</b><br>
+            We grant you a limited, non-exclusive, non-transferable, revocable license to use the Biyahe app for personal, non-commercial purposes.<br><br>
+            <b>5.2 Prohibited Activities</b><br>
+            You agree not to:<br>
+            - Use the app for any illegal purpose<br>
+            - Attempt to gain unauthorized access to Biyahe systems<br>
+            - Interfere with other users’ access to the app<br>
+            - Reverse engineer or attempt to extract the source code of the app<br>
+            - Use the app in a way that could damage or overburden our servers<br>
+            - Create multiple accounts or false identities<br><br>
+
+            <b>6. APP USAGE</b><br><br>
+            <b>6.1 Free Service</b><br>
+            Biyahe is currently provided as a free service for viewing jeepney routes in Cebu. There are no fees associated with basic use of the application.<br><br>
+            <b>6.2 Future Services</b><br>
+            Any potential future premium services will be clearly marked within the app, and separate terms may apply to such services.<br><br>
+
+            <b>7. USER CONTENT</b><br><br>
+            <b>7.1 Reviews and Feedback</b><br>
+            You may have the opportunity to provide reviews, comments, or other content. You retain ownership of this content, but grant us a non-exclusive, worldwide, royalty-free license to use, display, and distribute such content for the purposes of operating and improving the app.<br><br>
+
+            <b>8. THIRD-PARTY SERVICES</b><br><br>
+            The app may integrate with third-party services such as maps or payment processors. Your use of these services may be subject to additional terms from those third parties.<br><br>
+
+            <b>9. DISCLAIMERS</b><br><br>
+            <b>9.1 "AS IS" Basis</b><br>
+            The Biyahe app is provided on an "as is" and "as available" basis without warranties of any kind.<br><br>
+            <b>9.2 Service Availability</b><br>
+            We do not guarantee that the app will be uninterrupted, timely, secure, or error-free.<br><br>
+
+            <b>10. LIMITATION OF LIABILITY</b><br><br>
+            To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the app.<br><br>
+
+            <b>11. INDEMNIFICATION</b><br><br>
+            You agree to indemnify and hold harmless Biyahe and its officers, directors, employees, and agents from any claims, damages, liabilities, costs, or expenses arising from your use of the app or violation of these Terms.<br><br>
+
+            <b>12. TERMINATION</b><br><br>
+            <b>12.1 Termination by You</b><br>
+            You may terminate your account at any time by following the instructions in the app.<br><br>
+            <b>12.2 Termination by Us</b><br>
+            We may terminate or suspend your account and access to the app at our sole discretion, without notice, for conduct that we believe violates these Terms or is harmful to other users, us, or third parties.<br><br>
+
+            <b>13. CHANGES TO TERMS</b><br><br>
+            We may modify these Terms at any time. If we make material changes, we will provide notice through the app or by other means. Your continued use of the app after such notice constitutes your acceptance of the modified Terms.<br><br>
+
+            <b>14. DISPUTE RESOLUTION</b><br><br>
+            Any dispute arising from these Terms or your use of the app shall be governed by the laws of the Philippines, without regard to conflict of law principles.<br><br>
+
+            <b>15. GENERAL PROVISIONS</b><br><br>
+            <b>15.1 Entire Agreement</b><br>
+            These Terms constitute the entire agreement between you and Biyahe regarding the app.<br><br>
+            <b>15.2 Severability</b><br>
+            If any provision of these Terms is found to be unenforceable, that provision will be enforced to the maximum extent possible, and the other provisions will remain in full force and effect.<br><br>
+            <b>15.3 No Waiver</b><br>
+            Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.<br><br>
+            <b>15.4 Contact Information</b><br>
+            For questions about these Terms, please contact us at:<br>
+            Email: aaronjacalan.business@gmail.com<br><br>
+
+            By using the Biyahe app, you acknowledge that you have read these Terms and agree to be bound by them.
+        ]]>
+    </string>
 
 </resources>

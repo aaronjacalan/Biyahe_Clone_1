@@ -85,4 +85,5 @@ dependencies {
     implementation ("jp.wasabeef:blurry:4.0.1")
     implementation ("com.google.firebase:firebase-auth-ktx:21.3.0")
     implementation ("com.airbnb.android:lottie:6.6.6")
+    implementation ("io.ak1:bubbletabbar:1.0.8")
 }

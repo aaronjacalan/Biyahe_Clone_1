@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_grainy2">
+    android:background="@drawable/background_grainy">
 
     <com.android.biyahe.utils.ParallaxScrollView
         android:id="@+id/parallaxScrollView"
@@ -57,7 +57,7 @@
                         android:text="Username"
                         android:textAlignment="center"
                         android:textColor="@color/colorFontLight"
-                        android:textSize="32sp"
+                        android:textSize="35sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/CircleImageIcon" />
@@ -71,13 +71,13 @@
                         android:text="helldivers"
                         android:textAlignment="center"
                         android:textColor="@color/colorAccentLight"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_username" />
 
                     <Button
-                        android:id="@+id/settings_viewProfile"
+                        android:id="@+id/settingsViewProfile"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginHorizontal="125dp"
@@ -122,72 +122,72 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_appThemeFrame_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:fontFamily="@font/tt_interphases_pro_black"
-                    android:text="themes"
-                    android:textColor="@color/colorSecondary"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_settingsHeader" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_appThemeFrame_header"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="35dp"-->
+<!--                    android:layout_marginTop="30dp"-->
+<!--                    android:layout_marginEnd="30dp"-->
+<!--                    android:fontFamily="@font/tt_interphases_pro_black"-->
+<!--                    android:text="themes"-->
+<!--                    android:textColor="@color/colorSecondary"-->
+<!--                    android:textSize="16sp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/tv_settingsHeader" />-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/appThemeFrame"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/corner_radius_large"
-                    android:backgroundTint="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_appThemeFrame_header">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/appThemeFrame"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginHorizontal="30dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:background="@drawable/corner_radius_large"-->
+<!--                    android:backgroundTint="@color/colorPrimary"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/tv_appThemeFrame_header">-->
 
-                    <ImageView
-                        android:id="@+id/image_appearanceSettings_SystemTheme"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginStart="25dp"
-                        android:src="@drawable/icon_pallete"
-                        android:tint="@color/colorBackground"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="UseAppTint" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/image_appearanceSettings_SystemTheme"-->
+<!--                        android:layout_width="25dp"-->
+<!--                        android:layout_height="25dp"-->
+<!--                        android:layout_marginVertical="20dp"-->
+<!--                        android:layout_marginStart="25dp"-->
+<!--                        android:src="@drawable/icon_pallete"-->
+<!--                        android:tint="@color/colorBackground"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        tools:ignore="UseAppTint" />-->
 
-                    <TextView
-                        android:id="@+id/text_appearanceSettings_SystemTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:fontFamily="@font/tt_interphases_pro_extrabold"
-                        android:text="Choose System Theme"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/image_appearanceSettings_SystemTheme"
-                        app:layout_constraintStart_toEndOf="@id/image_appearanceSettings_SystemTheme"
-                        app:layout_constraintTop_toTopOf="@+id/image_appearanceSettings_SystemTheme" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/text_appearanceSettings_SystemTheme"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="20dp"-->
+<!--                        android:fontFamily="@font/tt_interphases_pro_extrabold"-->
+<!--                        android:text="Choose System Theme"-->
+<!--                        android:textColor="@color/colorBackground"-->
+<!--                        android:textSize="12sp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/image_appearanceSettings_SystemTheme"-->
+<!--                        app:layout_constraintStart_toEndOf="@id/image_appearanceSettings_SystemTheme"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/image_appearanceSettings_SystemTheme" />-->
 
-                    <Switch
-                        android:id="@+id/switch_lightDark"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="25dp"
-                        android:thumb="@drawable/switch_theme_thumb"
-                        android:track="@drawable/switch_theme_track"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+<!--                    <Switch-->
+<!--                        android:id="@+id/switch_lightDark"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginEnd="25dp"-->
+<!--                        android:thumb="@drawable/switch_theme_thumb"-->
+<!--                        android:track="@drawable/switch_theme_track"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        tools:ignore="UseSwitchCompatOrMaterialXml" />-->
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 <TextView
                     android:id="@+id/tv_notificationSettingsFrame_header"
@@ -202,7 +202,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/appThemeFrame" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_settingsHeader" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/notificationSettingsFrame"

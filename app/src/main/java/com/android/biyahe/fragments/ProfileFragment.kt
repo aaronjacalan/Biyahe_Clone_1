@@ -64,13 +64,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupAccountsList() {
-        val accounts = AccountsList.listOfAccounts
-        accountAdapter = AccountAdapter(requireContext(), accounts, onClick = { account ->
-//            toast("${account.name} Was Clicked")
-        })
-        listViewLinkedAccounts.adapter = accountAdapter
-
-        setListViewHeightBasedOnChildren(listViewLinkedAccounts)
+//        val accounts = AccountsList.listOfAccounts
+//        accountAdapter = AccountAdapter(requireContext(), accounts, onClick = { account -> toast("${account.name} Was Clicked") })
+//        listViewLinkedAccounts.adapter = accountAdapter
+//        setListViewHeightBasedOnChildren(listViewLinkedAccounts)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

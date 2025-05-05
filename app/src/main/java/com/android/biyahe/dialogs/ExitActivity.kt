@@ -76,7 +76,7 @@ object ExitDialog {
             it.attributes = layoutParams
 
             it.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-            it.setDimAmount(0.7f)
+            it.setDimAmount(0.8f)
         }
 
         yesButton.setOnClickListener {

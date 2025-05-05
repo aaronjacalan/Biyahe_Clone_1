@@ -14,6 +14,8 @@ import android.widget.TextView
 import com.android.biyahe.R
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
+import com.android.biyahe.database.FirebaseManager
+import com.android.biyahe.dialogs.OpenLinkActivity
 import com.android.biyahe.utils.toast
 import com.google.android.material.imageview.ShapeableImageView
 
@@ -62,9 +64,17 @@ class ProfileActivity : Activity() {
 
     private fun setupAccountsList() {
         val accounts = AccountsList.listOfAccounts
-        accountAdapter = AccountAdapter(this, accounts, onClick = { account ->
-            toast("${account.name} Was Clicked")
-        })
+        accountAdapter = AccountAdapter(
+            this,
+            accounts,
+            onClick = { account ->
+                val link = account.link
+                OpenLinkActivity.show(this, link)
+            },
+            getIconResId = { iconType ->
+                getIconResId(iconType)
+            }
+        )
         listViewLinkedAccounts.adapter = accountAdapter
 
         setListViewHeightBasedOnChildren(listViewLinkedAccounts)
@@ -81,13 +91,8 @@ class ProfileActivity : Activity() {
     private fun loadProfileData() {
         val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
 
-        val userID = sharedPref.getString("UID", "")
-        val username = sharedPref.getString("username", "")
-        val shortDesc = sharedPref.getString("shortDesc", "")
-
-        UIDTextView.text = userID
-        usernameTextView.text = username
-        shortDescTextView.text = shortDesc
+        UIDTextView.text = FirebaseManager.current_user.id
+        usernameTextView.text = FirebaseManager.current_user.username
 
         val savedImageUri = sharedPref.getString("profileImageUri", null)
         if (savedImageUri != null) {
@@ -119,6 +124,14 @@ class ProfileActivity : Activity() {
         params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))
         listView.layoutParams = params
         listView.requestLayout()
+    }
+
+    private fun getIconResId(iconType: String): Int = when (iconType) {
+        "facebook" -> R.drawable.icon_facebook
+        "google" -> R.drawable.icon_google
+        "outlook" -> R.drawable.icon_outlook
+        "github" -> R.drawable.icon_github
+        else -> R.drawable.icon_link
     }
 
     companion object {

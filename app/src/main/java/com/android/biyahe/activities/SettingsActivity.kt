@@ -20,7 +20,7 @@ class SettingsActivity : Activity() {
     private lateinit var userIcon: ShapeableImageView
     private lateinit var username: TextView
     private lateinit var userID: TextView
-    private val     TAG = "SettingsActivity"
+    private val TAG = "SettingsActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
