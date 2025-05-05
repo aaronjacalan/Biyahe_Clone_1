@@ -8,7 +8,7 @@ object RouteDataManager {
 
     val routelist = mutableListOf(
 
-            Route( "01C", R.drawable.ic_launcher_foreground,
+            Route( "01C", R.drawable.profile_01c,
                 listOf(
                     d.usc_south,
                     d.j_alcantara,
@@ -45,7 +45,7 @@ object RouteDataManager {
                 ), R.drawable.route_01c, R.drawable.route_01c
             ),
 
-            Route("01K", R.drawable.ic_launcher_foreground,
+            Route("01K", R.drawable.profile_01k,
                 listOf(
                     d.v_urgello,
                     d.sacred_heart,
@@ -94,7 +94,7 @@ object RouteDataManager {
                 ),R.drawable.route_01k, R.drawable.route_01k
             ),
 
-            Route("02B", R.drawable.ic_launcher_foreground,
+            Route("02B", R.drawable.profile_02b,
                 listOf(
                     d.cebu_med,
                     d.csbt,
@@ -131,7 +131,7 @@ object RouteDataManager {
                 ),R.drawable.route_02b, R.drawable.route_02b
             ),
 
-            Route("03A", R.drawable.ic_launcher_foreground,
+            Route("03A", R.drawable.profile_03a,
                 listOf(
                     d.f_cabahug,
                     d.sykes,
@@ -180,7 +180,7 @@ object RouteDataManager {
                 ), R.drawable.route_03a, R.drawable.route_03a
             ),
 
-            Route("03B", R.drawable.ic_launcher_foreground,
+            Route("03B", R.drawable.profile_03b,
                 listOf(
                     d.sindulan,
                     d.joseph_parish,
@@ -217,7 +217,7 @@ object RouteDataManager {
                 ), R.drawable.route_03b_forw, R.drawable.route_03b_back
             ),
 
-            Route("03L", R.drawable.ic_launcher_foreground,
+            Route("03L", R.drawable.profile_03l,
                 listOf(
                     d.p_cabantan,
                     d.waterfront,
@@ -274,7 +274,7 @@ object RouteDataManager {
                 ), R.drawable.route_03q, R.drawable.route_03q
             ),
 
-            Route("04B", R.drawable.ic_launcher_foreground,
+            Route("04B", R.drawable.profile_04b,
                 listOf(
                     d.stephenson,
                     d.salinas,
@@ -328,7 +328,7 @@ object RouteDataManager {
                 ), R.drawable.route_04b_forw, R.drawable.route_04b_back
             ),
 
-            Route("04H", R.drawable.ic_launcher_foreground,
+            Route("04H", R.drawable.profile_04h,
                 listOf(
                     d.busay,
                     d.cebu_vet_drive,
@@ -381,7 +381,7 @@ object RouteDataManager {
                 ), R.drawable.route_04h_forw, R.drawable.route_04h_back
             ),
 
-            Route("04I", R.drawable.ic_launcher_foreground,
+            Route("04I", R.drawable.profile_04i,
                 listOf(
                     d.busay,
                     d.cebu_vet_drive,
@@ -437,7 +437,7 @@ object RouteDataManager {
                 ), R.drawable.route_04i_forw, R.drawable.route_04i_back
             ),
 
-            Route("04L", R.drawable.ic_launcher_foreground,
+            Route("04L", R.drawable.profile_04l,
                 listOf(
                     d.lahug,
                     d.jy_mall,
@@ -474,7 +474,7 @@ object RouteDataManager {
                 ), R.drawable.route_04l_forw, R.drawable.route_04l_back
             ),
 
-            Route("04M", R.drawable.ic_launcher_foreground,
+            Route("04M", R.drawable.profile_04m,
                 listOf(
                     d.jy_mall,
                     d.salinas,
@@ -493,7 +493,7 @@ object RouteDataManager {
                 ), R.drawable.route_04m_forw, R.drawable.route_04m_back
             ),
 
-            Route("06B", R.drawable.ic_launcher_foreground,
+            Route("06B", R.drawable.profile_06b,
                 listOf(
                     d.guadalupe_church,
                     d.fooda_guada,
@@ -529,7 +529,7 @@ object RouteDataManager {
                 ), R.drawable.route_06b_forw, R.drawable.route_06b_back
             ),
 
-            Route("06C", R.drawable.ic_launcher_foreground,
+            Route("06C", R.drawable.profile_06c,
                 listOf(
                     d.guadalupe_church,
                     d.fooda_guada,
@@ -562,7 +562,7 @@ object RouteDataManager {
                 ), R.drawable.route_06c_forw, R.drawable.route_06c_back
             ),
 
-            Route("06G", R.drawable.ic_launcher_foreground,
+            Route("06G", R.drawable.profile_06g,
                 listOf(
                     d.guadalupe_church,
                     d.fooda_guada,
@@ -592,7 +592,7 @@ object RouteDataManager {
                 ), R.drawable.route_06g_forw, R.drawable.route_06g_back
             ),
 
-            Route("06H", R.drawable.ic_launcher_foreground,
+            Route("06H", R.drawable.profile_06h,
                 listOf(
                     d.guadalupe_church,
                     d.fooda_guada,
@@ -633,7 +633,7 @@ object RouteDataManager {
                 ), R.drawable.route_06h_forw, R.drawable.route_06h_back
             ),
 
-            Route("07B", R.drawable.ic_launcher_foreground,
+            Route("07B", R.drawable.profile_07b,
                 listOf(
                     d.court_appeals,
                     d.r_arcenas,
@@ -707,7 +707,7 @@ object RouteDataManager {
 //                )
 //            ),
 
-            Route("08G", R.drawable.ic_launcher_foreground,
+            Route("08G", R.drawable.profile_08g,
                 listOf(
                     d.alumnos,
                     d.tagunol,
@@ -764,7 +764,7 @@ object RouteDataManager {
                 ), R.drawable.route_09c_forw, R.drawable.route_09c_back
             ),
 
-            Route("09F", R.drawable.ic_launcher_foreground,
+            Route("09F", R.drawable.profile_09f,
                 listOf(
                     d.quiot,
                     d.swu_basak,
@@ -799,7 +799,7 @@ object RouteDataManager {
 
             ),
 
-            Route("09G", R.drawable.ic_launcher_foreground,
+            Route("09G", R.drawable.profile_09g,
                 listOf(
                     d.quiot,
                     d.swu_basak,
@@ -838,7 +838,7 @@ object RouteDataManager {
 
             ),
 
-            Route("10F", R.drawable.ic_launcher_foreground,
+            Route("10F", R.drawable.profile_10f,
                 listOf(
                     d.bulacao,
                     d.pardo,
@@ -957,7 +957,7 @@ object RouteDataManager {
                 ), R.drawable.route_10h_forw, R.drawable.route_10h_back
             ),
 
-            Route("10M", R.drawable.ic_launcher_foreground,
+            Route("10M", R.drawable.profile_10m,
                 listOf(
                     d.bulacao,
                     d.pardo,
@@ -1010,7 +1010,7 @@ object RouteDataManager {
                 ), R.drawable.route_10m_forw, R.drawable.route_10m_back
             ),
 
-            Route("11A", R.drawable.ic_launcher_foreground,
+            Route("11A", R.drawable.profile_11a,
                 listOf(
                     d.inayawan,
                     d.rizal,
@@ -1038,7 +1038,7 @@ object RouteDataManager {
                 ), R.drawable.route_11a_forw, R.drawable.route_11a_back
             ),
 
-            Route("12D", R.drawable.ic_launcher_foreground,
+            Route("12D", R.drawable.profile_12d,
                 listOf(
                     d.punta_princesa,
                     d.tisa_elem,
@@ -1083,7 +1083,7 @@ object RouteDataManager {
                 ), R.drawable.route_12d_forw, R.drawable.route_12d_back
             ),
 
-            Route("12G", R.drawable.ic_launcher_foreground,
+            Route("12G", R.drawable.profile_12g,
                 listOf(
                     d.punta_princesa,
                     d.punta_princesa_elem,
@@ -1134,7 +1134,7 @@ object RouteDataManager {
                 ), R.drawable.route_12g_forw, R.drawable.route_12g_back
             ),
 
-            Route("12I", R.drawable.ic_launcher_foreground,
+            Route("12I", R.drawable.profile_12i,
                 listOf(
                     d.punta_princesa,
                     d.tisa_elem,
@@ -1186,7 +1186,7 @@ object RouteDataManager {
                 ), R.drawable.route_12i_forw, R.drawable.route_12i_back
             ),
 
-            Route("12L", R.drawable.ic_launcher_foreground,
+            Route("12L", R.drawable.profile_12l,
                 listOf(
                     d.punta_princesa,
                     d.punta_princesa_elem,
@@ -1224,7 +1224,7 @@ object RouteDataManager {
                 ), R.drawable.route_12l_forw, R.drawable.route_12l_back
             ),
 
-            Route("13B", R.drawable.ic_launcher_foreground,
+            Route("13B", R.drawable.profile_13b,
                 listOf(
                     d.tintay_terminal,
                     d.cmic,
@@ -1292,7 +1292,7 @@ object RouteDataManager {
                 ), R.drawable.route_13b_forw, R.drawable.route_13b_back
             ),
 
-            Route("13C", R.drawable.ic_launcher_foreground,
+            Route("13C", R.drawable.profile_13c,
                 listOf(
                     d.tintay_terminal,
                     d.cmic,
@@ -1347,7 +1347,7 @@ object RouteDataManager {
                 ), R.drawable.route_13c_forw, R.drawable.route_13c_back
             ),
 
-            Route("13H", R.drawable.ic_launcher_foreground,
+            Route("13H", R.drawable.profile_13h,
                 listOf(
                     d.pitos,
                     d.bacayan,
@@ -1390,7 +1390,7 @@ object RouteDataManager {
                 ), R.drawable.route_13h_forw, R.drawable.route_13h_back
             ),
 
-            Route("14D", R.drawable.ic_launcher_foreground,
+            Route("14D", R.drawable.profile_14d,
                 listOf(
                     d.ayala,
                     d.quest,
@@ -1427,7 +1427,7 @@ object RouteDataManager {
                 ), R.drawable.route_14d_forw, R.drawable.route_14d_back
             ),
 
-            Route("17B", R.drawable.ic_launcher_foreground,
+            Route("17B", R.drawable.profile_17b,
                 listOf(
                     d.apas,
                     d.lapu_camp_elem,
@@ -1487,7 +1487,7 @@ object RouteDataManager {
                 ), R.drawable.route_17b_forw, R.drawable.route_17b_back
             ),
 
-            Route("17C", R.drawable.ic_launcher_foreground,
+            Route("17C", R.drawable.profile_17c,
                 listOf(
                     d.apas,
                     d.lapu_camp_elem,
@@ -1557,7 +1557,7 @@ object RouteDataManager {
                 ), R.drawable.route_17c_forw, R.drawable.route_17c_back
             ),
 
-            Route("17D", R.drawable.ic_launcher_foreground,
+            Route("17D", R.drawable.profile_17d,
                 listOf(
                     d.apas,
                     d.lapu_camp_elem,
@@ -1617,7 +1617,7 @@ object RouteDataManager {
                 ), R.drawable.route_17c_forw, R.drawable.route_17c_back
             ),
 
-            Route("20A", R.drawable.ic_launcher_foreground,
+            Route("20A", R.drawable.profile_20a,
                 listOf(
                     d.ayala,
                     d.waste_facility,
@@ -1675,7 +1675,7 @@ object RouteDataManager {
                 ), R.drawable.route_20a_forw, R.drawable.route_20a_back
             ),
 
-            Route("21A", R.drawable.ic_launcher_foreground,
+            Route("21A", R.drawable.profile_21a,
                 listOf(
                     d.royal_oaks,
                     d.kosmos,
@@ -1739,7 +1739,7 @@ object RouteDataManager {
                 ), R.drawable.route_21a_forw, R.drawable.route_21a_back
             ),
 
-            Route("22A", R.drawable.ic_launcher_foreground,
+            Route("22A", R.drawable.profile_22a,
                 listOf(
                     d.cm_cabahug,
                     d.a_mabini,
@@ -1799,7 +1799,7 @@ object RouteDataManager {
                 ), R.drawable.route_22a_forw, R.drawable.route_22a_back
             ),
 
-            Route("22D", R.drawable.ic_launcher_foreground,
+            Route("22D", R.drawable.profile_22d,
                 listOf(
                     d.cm_cabahug,
                     d.a_mabini,
@@ -1859,7 +1859,7 @@ object RouteDataManager {
                 ), R.drawable.route_22d_forw, R.drawable.route_22d_back
             ),
 
-            Route("22I", R.drawable.ic_launcher_foreground,
+            Route("22I", R.drawable.profile_22i,
                 listOf(
                     d.mandaue_pub_market_new,
                     d.bim,
