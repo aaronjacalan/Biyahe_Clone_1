@@ -113,11 +113,11 @@
 
                         <ImageView
                             android:id="@+id/developer1"
-                            android:layout_height="200dp"
+                            android:layout_height="210dp"
                             android:layout_marginTop="50dp"
-                            android:layout_width="200dp"
+                            android:layout_width="210dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/dev_2"
+                            android:src="@drawable/dev_1"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
