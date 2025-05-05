@@ -1,57 +1,86 @@
 package com.android.biyahe.activities
 
+import android.animation.Animator
 import android.app.Activity
 import android.os.Bundle
-import android.widget.ExpandableListView
-import android.widget.LinearLayout
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.View
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.android.biyahe.R
 import com.android.biyahe.data.Route
 import com.android.biyahe.databinding.ActivityRouteBinding
 import com.android.biyahe.helper.DestinationAdapter
 import com.android.biyahe.helper.DestinationItemDecoration
 
-class RouteActivity : AppCompatActivity() {
+class RouteActivity : Activity() {
 
-    private lateinit var binding : ActivityRouteBinding
-    private var isTo : Boolean = true
+    private lateinit var binding: ActivityRouteBinding
+    private lateinit var lottieView: LottieAnimationView
+    private var isTo: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setFullScreenView()
+
         binding = ActivityRouteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val route = intent.getParcelableExtra<Route>("route")!!
+        lottieView = findViewById(R.id.lottieView)
+        setLottieDirection(isTo)
 
-        binding.tvRouteCode.setText(route.code)
+        val route = intent.getParcelableExtra<Route>("route") ?: return
+
+        binding.tvRouteCode.text = route.code
         binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
         binding.btnBack.setOnClickListener {
             finish()
         }
 
-        val adapter = DestinationAdapter(
-                this,
-                route
-            )
-        binding.lvRouteDestinations.setAdapter(adapter)
+        val adapter = DestinationAdapter(this, route)
+        binding.lvRouteDestinations.adapter = adapter
         binding.lvRouteDestinations.layoutManager = LinearLayoutManager(this)
         binding.lvRouteDestinations.addItemDecoration(DestinationItemDecoration(adapter))
 
-        binding.btnChangeRoute.setOnClickListener{
-            if(isTo) {
-                isTo = false
-                binding.pvRouteDisplay.setImageResource(route.routeBack_resource)
-            } else {
-                isTo = true
-                binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
-            }
-            adapter.updateData()
-        }
+        binding.lottieView.setOnClickListener {
+            lottieView.removeAllAnimatorListeners()
+            setLottieDirection(isTo)
+            lottieView.playAnimation()
 
+            lottieView.addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {}
+                override fun onAnimationEnd(animation: Animator) {
+                    isTo = !isTo
+                    if (isTo) {
+                        binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
+                    } else {
+                        binding.pvRouteDisplay.setImageResource(route.routeBack_resource)
+                    }
+                    adapter.updateData()
+                    setLottieDirection(isTo)
+                    lottieView.removeAllAnimatorListeners() // Clean up
+                }
+                override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationRepeat(animation: Animator) {}
+            })
+        }
+    }
+
+    private fun setLottieDirection(toDirection: Boolean) {
+        lottieView.repeatCount = 0
+        lottieView.repeatMode = LottieDrawable.RESTART
+        lottieView.speed = if (toDirection) 2f else -2f
+        lottieView.progress = if (toDirection) 0f else 1f
+        lottieView.pauseAnimation()
+    }
+
+    private fun setFullScreenView() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 }

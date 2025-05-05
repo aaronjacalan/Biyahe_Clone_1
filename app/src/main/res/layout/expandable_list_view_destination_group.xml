@@ -9,8 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Destinations"
+        android:textAllCaps="true"
         android:textSize="20sp"
-        android:fontFamily="@font/tt_interphases_pro_medium"
+        android:textColor="@color/colorSecondary"
+        android:fontFamily="@font/tt_interphases_pro_black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

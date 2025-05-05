@@ -39,9 +39,7 @@ class OpeningActivity : Activity() {
         val gotoLoginBtn = findViewById<Button>(R.id.btn_loginToApp)
         val gotoRegisterBtn = findViewById<Button>(R.id.btn_signupToApp)
 
-        // Check connectivity and show dialog if needed
         checkConnectivityOrShowDialog()
-        // Register receiver after initial check to avoid redundant dialog display
         registerConnectivityReceiver()
 
         gotoLoginBtn.setOnClickListener {
@@ -108,4 +106,5 @@ class OpeningActivity : Activity() {
         val netInfo: NetworkInfo? = cm.activeNetworkInfo
         return netInfo != null && netInfo.isConnected
     }
+
 }

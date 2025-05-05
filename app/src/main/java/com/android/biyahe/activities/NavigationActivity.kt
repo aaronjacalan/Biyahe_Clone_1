@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.android.biyahe.R
 import com.android.biyahe.databinding.ActivityNavigationBinding
 import com.android.biyahe.dialogs.ExitDialog
+import com.android.biyahe.dialogs.OfflineMode
 import com.android.biyahe.fragments.BookmarkFragment
 import com.android.biyahe.fragments.LandingFragment
 import com.android.biyahe.fragments.SettingsFragment
@@ -30,6 +31,8 @@ class NavigationActivity : AppCompatActivity() {
 
         onlineMode = intent.getBooleanExtra("online_mode", true)
 
+        if (!onlineMode) OfflineMode.show(this)
+
         currentFragmentId = R.id.home
         switchFragment(LandingFragment())
         updateStatusBarColor(R.id.home)
@@ -37,7 +40,6 @@ class NavigationActivity : AppCompatActivity() {
 
         updateTabBarForOnlineMode()
 
-        // Listener for BubbleTabBar
         binding.bubbleTabBar.addBubbleListener { id ->
             if (!onlineMode && id != R.id.home) {
                 toast("Offline mode: Only landing page is accessible.")
@@ -72,8 +74,7 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     private fun updateStatusBarColor(fragmentId: Int) {
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 
     private fun updateTabBarForOnlineMode() {
@@ -83,7 +84,7 @@ class NavigationActivity : AppCompatActivity() {
 
             if (!onlineMode && tabId != R.id.home) {
                 tab.isEnabled = false
-                tab.alpha = 0.5f // Dim the tab to indicate it's disabled
+                tab.alpha = 0.5f
             } else {
                 tab.isEnabled = true
                 tab.alpha = 1.0f

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_grainy">
+    android:background="@drawable/background_grainy" >
 
     <com.android.biyahe.utils.ParallaxScrollView
         android:id="@+id/parallaxScrollView"
@@ -105,7 +105,7 @@
                 android:layout_marginEnd="0dp"
                 android:background="@drawable/top_rounded_bg"
                 android:backgroundTint="@color/colorBackground"
-                android:minHeight="690dp"
+                android:minHeight="650dp"
                 android:paddingBottom="30dp">
 
                 <TextView
@@ -241,7 +241,7 @@
                         app:layout_constraintTop_toTopOf="@+id/image_notifications_EnableNotif" />
 
                     <Switch
-                        android:id="@+id/switch_notifications_EnableNotif"
+                        android:id="@+id/switchNotificationsEnableNotif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="25dp"
@@ -291,7 +291,7 @@
                         app:layout_constraintTop_toTopOf="@+id/image_notifications_RouteNotif" />
 
                     <Switch
-                        android:id="@+id/switch_notifications_RouteNotif"
+                        android:id="@+id/switchNotificationsRouteNotif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="25dp"
@@ -341,7 +341,7 @@
                         app:layout_constraintTop_toTopOf="@+id/image_notifications_TrafficAlerts" />
 
                     <Switch
-                        android:id="@+id/switch_notifications_TrafficAlerts"
+                        android:id="@+id/switchNotificationsTrafficAlerts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="25dp"
@@ -362,47 +362,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/image_notifications_TrafficAlerts" />
-
-                    <!-- Fare Updates Notifications Section (New) -->
-                    <ImageView
-                        android:id="@+id/image_notifications_FareUpdates"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:src="@drawable/icon_bell"
-                        android:tint="@color/colorBackground"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider3"
-                        app:tint="@color/colorIcons"
-                        tools:ignore="UseAppTint" />
-
-                    <TextView
-                        android:id="@+id/text_notifications_FareUpdates"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:fontFamily="@font/tt_interphases_pro_extrabold"
-                        android:text="Fare Updates"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/image_notifications_FareUpdates"
-                        app:layout_constraintStart_toEndOf="@+id/image_notifications_FareUpdates"
-                        app:layout_constraintTop_toTopOf="@+id/image_notifications_FareUpdates" />
-
-                    <Switch
-                        android:id="@+id/switch_notifications_FareUpdates"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="25dp"
-                        android:thumb="@drawable/switch_thumb"
-                        android:track="@drawable/switch_track"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_notifications_FareUpdates"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/text_notifications_FareUpdates"
-                        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

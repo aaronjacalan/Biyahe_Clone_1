@@ -20,6 +20,7 @@ import com.android.biyahe.dialogs.TermsOfService
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.getPasswordValidationError
 import com.android.biyahe.utils.toast
+import com.google.firebase.auth.FirebaseAuth // <-- ADD THIS IMPORT
 
 class RegisterActivity : Activity() {
 
@@ -35,9 +36,10 @@ class RegisterActivity : Activity() {
     }
 
     companion object {
-        private const val PREF_NAME = "ProfileData"
-        private const val KEY_USERNAME = "username"
-        private const val KEY_PASSWORD = "password"
+        const val PREF_NAME = "ProfileData"
+        const val KEY_USERNAME = "username"
+        const val KEY_PASSWORD = "password"
+        private const val KEY_UID = "uid"
 
         private const val ERROR_EMPTY_USERNAME = "USERNAME CANNOT BE EMPTY"
         private const val ERROR_EMPTY_PASSWORD = "PASSWORD CANNOT BE EMPTY"
@@ -57,7 +59,7 @@ class RegisterActivity : Activity() {
         )
 
         initializeViews()
-        setupEditTextListeners() // <-- Add this!
+        setupEditTextListeners()
         setupClickListeners()
         animateCardLoginIn()
     }
@@ -178,28 +180,47 @@ class RegisterActivity : Activity() {
                 return@setOnClickListener
             }
 
-            // Successful registration
-            FirebaseManager.addUser(
-                username.text.toString(),
-                password.text.toString(),
-                mutableListOf(),
-                this
-            ) {
-                if (it) {
-                    toast("Registration Successful!")
-                    animateCardLoginOut {
-                        navigateTo(NavigationActivity::class.java, finishCurrent = true)
+            // If FirebaseManager.addUser does NOT create a FirebaseAuth user,
+            // you must FIRST create the user with FirebaseAuth, THEN add to Firestore
+            FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(
+                    username.text.toString(),
+                    password.text.toString()
+                ).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Now add user data to Firestore or your database as needed
+                        FirebaseManager.addUser(
+                            username.text.toString(),
+                            password.text.toString(),
+                            mutableListOf(),
+                            "",
+                            this
+                        ) { success ->
+                            if (success) {
+                                val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+                                saveUserCredentials(uid)
+                                toast("Registration Successful!")
+                                animateCardLoginOut {
+                                    navigateTo(NavigationActivity::class.java, finishCurrent = true)
+                                }
+                            } else {
+                                toast("Registration failed. Please try again.")
+                            }
+                            progressBar.visibility = View.INVISIBLE
+                            buttonRegister.isEnabled = true
+                        }
+                    } else {
+                        toast("Firebase Auth registration failed: ${task.exception?.message}")
+                        progressBar.visibility = View.INVISIBLE
+                        buttonRegister.isEnabled = true
                     }
                 }
-                progressBar.visibility = View.INVISIBLE
-                buttonRegister.isEnabled = true
-            }
         }
     }
 
     private fun navigateTo(activityClass: Class<*>, finishCurrent: Boolean = false) {
         startActivity(Intent(this, activityClass))
-        overridePendingTransition(0, 0)
+        if (activityClass != NavigationActivity::class.java) overridePendingTransition(0, 0)
         if (finishCurrent) finish()
     }
 
@@ -256,13 +277,13 @@ class RegisterActivity : Activity() {
         }
     }
 
-    private fun saveUserCredentials() {
+    private fun saveUserCredentials(uid: String) {
         val usernameText = username.text.toString()
         val passwordText = password.text.toString()
-
         with(sharedPref.edit()) {
             putString(KEY_USERNAME, usernameText)
             putString(KEY_PASSWORD, passwordText)
+            putString(KEY_UID, uid)
             apply()
         }
     }

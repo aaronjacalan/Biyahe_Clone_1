@@ -25,9 +25,10 @@ object FirebaseManager {
         username: String,
         password: String,
         bookmarkList: List<String>,
+        shortDescription: String = "",
         context : Context,
-        callback: (Boolean) -> Unit) {
-
+        callback: (Boolean) -> Unit
+    ) {
         // Check if username exists
         db.collection(USERS_COLLECTION)
             .whereEqualTo("username", username)
@@ -44,7 +45,8 @@ object FirebaseManager {
                 val newUser = hashMapOf(
                     "username" to username,
                     "password" to password,
-                    "bookmarks" to bookmarkList
+                    "bookmarks" to bookmarkList,
+                    "shortDescription" to shortDescription
                 )
 
                 db.collection(USERS_COLLECTION)
@@ -95,7 +97,8 @@ object FirebaseManager {
                     val user = hashMapOf(
                         "username" to username,
                         "password" to password,
-                        "bookmarks" to (doc.get("bookmarks") as? List<String> ?: emptyList())
+                        "bookmarks" to (doc.get("bookmarks") as? List<String> ?: emptyList()),
+                        "shortDescription" to (doc.getString("shortDescription") ?: "")
                     )
                     setCurrentUserInstanceAndPreferences(user, doc.id)
                     callback(1)
@@ -140,7 +143,8 @@ object FirebaseManager {
                 val updatedData = mapOf(
                     "username" to current_user.username,
                     "password" to current_user.password,
-                    "bookmarks" to current_user.bookmarkList
+                    "bookmarks" to current_user.bookmarkList,
+                    "shortDescription" to current_user.shortDescription
                 )
 
                 userDoc.update(updatedData)
@@ -156,22 +160,74 @@ object FirebaseManager {
             }
     }
 
+    fun saveUserProfileChanges(
+        newUsername: String,
+        newPassword: String,
+        shortDescription: String,
+        onComplete: (Boolean) -> Unit
+    ) {
+        if (!isUserInitialized) {
+            Log.e(TAG, "Cannot save profile: current_user not initialized")
+            onComplete(false)
+            return
+        }
+
+        val userId = current_user.id
+        val updatedData = mapOf(
+            "username" to newUsername,
+            "password" to newPassword,
+            "bookmarks" to current_user.bookmarkList,
+            "shortDescription" to shortDescription
+        )
+
+        db.collection(USERS_COLLECTION).document(userId)
+            .update(updatedData)
+            .addOnSuccessListener {
+                current_user.username = newUsername
+                current_user.password = newPassword
+                current_user.shortDescription = shortDescription
+                onComplete(true)
+            }
+            .addOnFailureListener {
+                Log.e(TAG, "Profile update failed: ${it.message}")
+                onComplete(false)
+            }
+    }
+
     private fun setCurrentUserInstanceAndPreferences(newUser: HashMap<String, Any>, id : String) {
-        // Sets Current User Instance
         current_user = User(
             id,
             username = newUser["username"] as String,
             password = newUser["password"] as String,
-            bookmarkList = (newUser["bookmarks"] as? MutableList<String>) ?: mutableListOf()
+            bookmarkList = (newUser["bookmarks"] as? MutableList<String>)
+                ?: (newUser["bookmarks"] as? List<String>)?.toMutableList()
+                ?: mutableListOf(),
+            shortDescription = newUser["shortDescription"] as? String ?: ""
         )
 
-        // Setup Current User's Bookmarks
         val routes = RouteDataManager.routelist
         val user_bookmarks : List<String> = current_user.bookmarkList
+        RouteDataManager.bookmarked.clear()
         for(r in routes) {
             if(user_bookmarks.contains(r.code)) {
                 RouteDataManager.bookmarked.add(r)
             }
         }
     }
+
+    fun verifyUserByUid(uid: String, context: Context, callback: (Int) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(uid).get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    callback(1)
+                } else {
+                    callback(2)
+                }
+            }
+            .addOnFailureListener {
+                callback(3)
+            }
+    }
+
 }

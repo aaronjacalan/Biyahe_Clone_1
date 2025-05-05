@@ -15,8 +15,10 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.*
 import com.android.biyahe.R
 import com.android.biyahe.database.FirebaseManager
+import com.android.biyahe.dialogs.ForgotPassword
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.toast
+import com.google.firebase.auth.FirebaseAuth // <-- Add this import
 
 class LoginActivity : Activity() {
 
@@ -25,24 +27,18 @@ class LoginActivity : Activity() {
     private lateinit var buttonLogin: Button
     private lateinit var cardLogin: FrameLayout
     private lateinit var progressBar : ProgressBar
+    private lateinit var ButtonRegisterAsGuest: Button
 
     // Lazy loading for preferences and credentials
     private val sharedPref by lazy {
         getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
 
-    private val savedUsername by lazy {
-        sharedPref.getString(KEY_USERNAME, "") ?: ""
-    }
-
-    private val savedPassword by lazy {
-        sharedPref.getString(KEY_PASSWORD, "") ?: ""
-    }
-
     companion object {
         private const val PREF_NAME = "ProfileData"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
+        private const val KEY_UID = "uid"
 
         private const val ERROR_EMPTY_USERNAME = "USERNAME CANNOT BE EMPTY"
         private const val ERROR_EMPTY_PASSWORD = "PASSWORD CANNOT BE EMPTY"
@@ -59,7 +55,7 @@ class LoginActivity : Activity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         initializeViews()
-        setupEditTextListeners() // Use the improved error reset listeners
+        setupEditTextListeners()
         setupClickListeners()
         animateCardLoginIn()
     }
@@ -70,6 +66,7 @@ class LoginActivity : Activity() {
         buttonLogin = findViewById(R.id.btn_loginToApp)
         cardLogin = findViewById(R.id.card_login)
         progressBar = findViewById(R.id.pb_login)
+        ButtonRegisterAsGuest = findViewById(R.id.btn_loginGuest)
 
         // Initially set the card login to be slightly below and invisible for animation
         cardLogin.translationY = 100f
@@ -131,6 +128,17 @@ class LoginActivity : Activity() {
             }
         }
 
+        findViewById<TextView>(R.id.tv_forgotPassword).setOnClickListener {
+            ForgotPassword.show(this)
+        }
+
+        ButtonRegisterAsGuest.setOnClickListener {
+            val intent = Intent(this, NavigationActivity::class.java)
+            intent.putExtra("online_mode", false)
+            startActivity(intent)
+            finish()
+        }
+
         val showPassImage = findViewById<ImageView>(R.id.iv_showPassword)
         val showPassText = findViewById<TextView>(R.id.tv_showPassword)
         var isPasswordVisible = false
@@ -162,18 +170,19 @@ class LoginActivity : Activity() {
                 return@setOnClickListener
             }
 
-            // Firebase verification - kept intact
             FirebaseManager.verifyUser(username.text.toString(), password.text.toString(), this) {
-                if(it == 1) {
+                if (it == 1) {
+                    val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
                     toast("Welcome Back ${username.text}")
                     animateCardLoginOut {
+                        saveUserCredentials(uid)
                         navigateTo(NavigationActivity::class.java, finishCurrent = true)
                     }
-                } else if(it == 2) {
+                } else if (it == 2) {
                     toast(ERROR_WRONG_USERNAME)
                     setEditTextActivated(username, true)
                     shakeLoginButton()
-                } else if(it == 3) {
+                } else if (it == 3) {
                     toast(ERROR_WRONG_PASSWORD)
                     setEditTextActivated(password, true)
                     shakeLoginButton()
@@ -184,17 +193,26 @@ class LoginActivity : Activity() {
         }
     }
 
+    private fun saveUserCredentials(uid: String) {
+        val usernameText = username.text.toString()
+        val passwordText = password.text.toString()
+        with(sharedPref.edit()) {
+            putString(KEY_USERNAME, usernameText)
+            putString(KEY_PASSWORD, passwordText)
+            putString(KEY_UID, uid)
+            apply()
+        }
+    }
+
     private fun navigateTo(activityClass: Class<*>, finishCurrent: Boolean = false) {
-        val intent = Intent(this, activityClass)
-        startActivity(intent)
-        overridePendingTransition(0, 0)
+        startActivity(Intent(this, activityClass))
+        if (activityClass != NavigationActivity::class.java) overridePendingTransition(0, 0)
         if (finishCurrent) finish()
     }
 
     private fun validateCredentialsAndShowError(): Boolean {
         var isValid = true
 
-        // Reset error state for all fields
         setEditTextActivated(username, false)
         setEditTextActivated(password, false)
 

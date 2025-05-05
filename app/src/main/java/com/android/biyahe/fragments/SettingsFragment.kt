@@ -1,5 +1,6 @@
 package com.android.biyahe.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import com.android.biyahe.R
 import com.android.biyahe.activities.DeveloperActivity
 import com.android.biyahe.activities.ProfileActivity
@@ -24,7 +26,6 @@ class SettingsFragment : Fragment() {
     private val TAG = "SettingsFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // Inflate the layout for this fragment using View Binding
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,6 +33,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupNotificationSwitches()
         setupClickListeners()
         loadProfileData()
     }
@@ -39,6 +41,44 @@ class SettingsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private fun setupNotificationSwitches() {
+        val masterSwitch = binding.switchNotificationsEnableNotif
+        val routeSwitch = binding.switchNotificationsRouteNotif
+        val trafficSwitch = binding.switchNotificationsTrafficAlerts
+
+        val prefs = requireContext().getSharedPreferences("notification_settings", Context.MODE_PRIVATE)
+        val masterEnabled = prefs.getBoolean("master_notifications_enabled", true)
+        masterSwitch.isChecked = masterEnabled
+        setSubSwitchesEnabled(masterEnabled, routeSwitch, trafficSwitch)
+        setSubSwitchesOpacity(masterEnabled, routeSwitch, trafficSwitch)
+
+        masterSwitch.setOnCheckedChangeListener { _, isChecked ->
+            setSubSwitchesEnabled(isChecked, routeSwitch, trafficSwitch)
+            setSubSwitchesOpacity(isChecked, routeSwitch, trafficSwitch)
+            prefs.edit().putBoolean("master_notifications_enabled", isChecked).apply()
+        }
+
+        val subSwitches = listOf(routeSwitch, trafficSwitch)
+        subSwitches.forEach { subSwitch ->
+            subSwitch.setOnCheckedChangeListener { _, _ ->
+                if (!masterSwitch.isChecked) {
+                    subSwitch.isChecked = false
+                }
+            }
+        }
+    }
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private fun setSubSwitchesEnabled(enabled: Boolean, vararg switches: Switch) {
+        switches.forEach { it.isEnabled = enabled }
+    }
+
+    private fun setSubSwitchesOpacity(enabled: Boolean, vararg switches: Switch) {
+        val alphaValue = if (enabled) 1.0f else 0.4f
+        switches.forEach { it.alpha = alphaValue }
     }
 
     private fun setupClickListeners() {

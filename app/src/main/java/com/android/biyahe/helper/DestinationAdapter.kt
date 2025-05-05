@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.biyahe.R
 import com.android.biyahe.data.Destination
@@ -81,7 +82,7 @@ class DestinationAdapter(
             title.text = destination.title
 
             level.setBackgroundColor(
-                if(position % 2 == 0) Color.YELLOW else Color.BLACK
+                ContextCompat.getColor(level.context, if (position % 2 == 0) R.color.colorPrimary else R.color.colorSecondary)
             )
 
             icon.setImageResource(destination.type)

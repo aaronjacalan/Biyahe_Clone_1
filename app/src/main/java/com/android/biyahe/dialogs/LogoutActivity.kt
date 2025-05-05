@@ -85,8 +85,9 @@ object LogoutDialog {
             it.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             it.setDimAmount(0.8f)
         }
+
         yesButton.setOnClickListener {
-            context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+            context.getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
                 .edit()
                 .clear()
                 .apply()

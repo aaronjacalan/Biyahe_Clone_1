@@ -4,5 +4,6 @@ data class User (
     var id : String = "",
     var username : String = "",
     var password : String = "",
-    var bookmarkList: MutableList<String>
+    var bookmarkList: MutableList<String>,
+    var shortDescription: String = ""
 )

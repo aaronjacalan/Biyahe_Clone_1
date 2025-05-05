@@ -30,7 +30,6 @@ class AccountAdapter(
 
         val account = accountList[position]
 
-        // Use the iconType string and the resource mapping function
         accountIcon.setImageResource(getIconResId(account.iconType))
         accountName.text = account.displayName
         accountLink.text = account.link

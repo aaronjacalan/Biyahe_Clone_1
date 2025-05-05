@@ -93,6 +93,7 @@ class ProfileActivity : Activity() {
 
         UIDTextView.text = FirebaseManager.current_user.id
         usernameTextView.text = FirebaseManager.current_user.username
+        shortDescTextView.text = FirebaseManager.current_user.shortDescription // <-- show short description
 
         val savedImageUri = sharedPref.getString("profileImageUri", null)
         if (savedImageUri != null) {
