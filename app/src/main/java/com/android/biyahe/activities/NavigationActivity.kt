@@ -13,7 +13,6 @@ import com.android.biyahe.fragments.BookmarkFragment
 import com.android.biyahe.fragments.LandingFragment
 import com.android.biyahe.fragments.SettingsFragment
 import com.android.biyahe.utils.toast
-import io.ak1.BubbleTabBar
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -31,11 +30,12 @@ class NavigationActivity : AppCompatActivity() {
 
         onlineMode = intent.getBooleanExtra("online_mode", true)
 
-        // Initial fragment setup
         currentFragmentId = R.id.home
         switchFragment(LandingFragment())
         updateStatusBarColor(R.id.home)
         binding.bubbleTabBar.setSelectedWithId(R.id.home, false)
+
+        updateTabBarForOnlineMode()
 
         // Listener for BubbleTabBar
         binding.bubbleTabBar.addBubbleListener { id ->
@@ -74,6 +74,21 @@ class NavigationActivity : AppCompatActivity() {
     private fun updateStatusBarColor(fragmentId: Int) {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
+    private fun updateTabBarForOnlineMode() {
+        for (i in 0 until binding.bubbleTabBar.childCount) {
+            val tab = binding.bubbleTabBar.getChildAt(i)
+            val tabId = tab.id
+
+            if (!onlineMode && tabId != R.id.home) {
+                tab.isEnabled = false
+                tab.alpha = 0.5f // Dim the tab to indicate it's disabled
+            } else {
+                tab.isEnabled = true
+                tab.alpha = 1.0f
+            }
+        }
     }
 
     @SuppressLint("ResourceType")

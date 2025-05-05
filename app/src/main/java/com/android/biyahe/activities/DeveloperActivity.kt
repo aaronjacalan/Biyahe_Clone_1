@@ -57,25 +57,6 @@ class DeveloperActivity : Activity() {
         OpenLinkActivity.show(this, url)
     }
 
-    // You can keep the original openGitHubProfile for fallback/error handling if needed.
-    // It is now unused since OpenLinkActivity.show handles the navigation.
-    /*
-    private fun openGitHubProfile(url: String) {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(intent)
-            Log.d("Developer Activity", "Opening GitHub profile: $url")
-        } catch (e: Exception) {
-            Log.e("Developer Activity", "Failed to open URL: $url", e)
-            Snackbar.make(
-                findViewById(android.R.id.content),
-                "Error Opening URL",
-                Snackbar.LENGTH_SHORT
-            ).show()
-        }
-    }
-    */
-
     private fun ImageView.setSafeOnClickListener(onClick: (ImageView) -> Unit) {
         this.setOnClickListener(object : SafeClickListener() {
             override fun onSafeCLick() {

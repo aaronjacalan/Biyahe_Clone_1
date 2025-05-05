@@ -12,9 +12,12 @@ import android.widget.TextView
 import android.app.Activity
 import android.util.DisplayMetrics
 import android.view.Gravity
+import android.view.View
 import com.android.biyahe.R
 
 object NoInternetDialog {
+
+    private var currentDialog: AlertDialog? = null
 
     @SuppressLint("SetTextI18n")
     fun show(
@@ -24,8 +27,11 @@ object NoInternetDialog {
     ) {
         val activity = context as? Activity ?: return
 
+        if (currentDialog?.isShowing == true) return
+
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_text, null)
         val alertDialog = AlertDialog.Builder(context).create()
+        currentDialog = alertDialog
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val header = dialogView.findViewById<TextView>(R.id.tv_textHeader)
@@ -33,11 +39,12 @@ object NoInternetDialog {
         val yesButton = dialogView.findViewById<Button>(R.id.btnProceed)
         val noButton = dialogView.findViewById<Button>(R.id.btnCancel)
 
-        header.text = "No Internet Connection"
+        noButton.visibility = View.GONE
+
+        header.text = "Offline Connection"
         textMessage.text =
-            "To access the full experience, please connect to the internet. Alternatively, you may continue as a guest, but note that some features will be limited or unavailable in this mode."
+            "You're currently offline, which means some parts of the app may not function as intended. To unlock the complete experience, please connect to the internet. \n\nIf you prefer, you may continue using the app as a guest. However, be aware that certain functionalities may be restricted or unavailable until you're back online."
         yesButton.text = "LOGIN AS GUEST"
-        noButton.text = "TRY AGAIN"
 
         alertDialog.setView(dialogView)
         alertDialog.setCancelable(false)
@@ -67,12 +74,22 @@ object NoInternetDialog {
 
         yesButton.setOnClickListener {
             alertDialog.dismiss()
+            currentDialog = null
             onGuest()
         }
 
-        noButton.setOnClickListener {
-            alertDialog.dismiss()
-            onTryAgain()
+        alertDialog.setOnDismissListener {
+            currentDialog = null
         }
     }
+
+    fun dismiss() {
+        currentDialog?.let {
+            if (it.isShowing) {
+                it.dismiss()
+            }
+            currentDialog = null
+        }
+    }
+
 }
