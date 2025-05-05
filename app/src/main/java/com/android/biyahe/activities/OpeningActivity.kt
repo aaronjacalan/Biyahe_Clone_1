@@ -9,10 +9,11 @@ import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.android.biyahe.R
+import com.android.biyahe.utils.NetworkUtil
+import com.android.biyahe.dialogs.NoInternetDialog
 
 class OpeningActivity : Activity() {
 
-    private var randomBackground: Int = 0
     private lateinit var lottieView: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,14 +32,11 @@ class OpeningActivity : Activity() {
             playAnimation()
         }
 
-        val headerText = findViewById<TextView>(R.id.tv_loginTitleHeader)
-        val textLine1 = findViewById<TextView>(R.id.tv_loginDescription1)
-        val textLine2 = findViewById<TextView>(R.id.tv_loginDescription2)
-        val textLine3 = findViewById<TextView>(R.id.tv_loginDescription3)
-        val textLine4 = findViewById<TextView>(R.id.tv_loginDescription4)
-
         val gotoLoginBtn = findViewById<Button>(R.id.btn_loginToApp)
         val gotoRegisterBtn = findViewById<Button>(R.id.btn_signupToApp)
+
+        // Check connectivity and show dialog if needed
+        checkConnectivityOrShowDialog()
 
         gotoLoginBtn.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -51,7 +49,22 @@ class OpeningActivity : Activity() {
             overridePendingTransition(0, 0)
             finish()
         }
-
     }
 
+    private fun checkConnectivityOrShowDialog() {
+        if (!NetworkUtil.isOnline(this)) {
+            NoInternetDialog.show(
+                context = this,
+                onGuest = {
+                    val intent = Intent(this, NavigationActivity::class.java)
+                    intent.putExtra("online_mode", false)
+                    startActivity(intent)
+                    finish()
+                },
+                onTryAgain = {
+                    checkConnectivityOrShowDialog()
+                }
+            )
+        }
+    }
 }
