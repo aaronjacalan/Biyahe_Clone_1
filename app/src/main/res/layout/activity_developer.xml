@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_grainy"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
@@ -100,7 +101,7 @@
                             android:fontFamily="@font/photograph_signature"
                             android:id="@+id/nameHeader"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
+                            android:layout_marginTop="30dp"
                             android:layout_width="wrap_content"
                             android:scaleX="2.3"
                             android:scaleY="2.3"
@@ -114,10 +115,10 @@
                         <ImageView
                             android:id="@+id/developer1"
                             android:layout_height="200dp"
-                            android:layout_marginTop="50dp"
+                            android:layout_marginTop="60dp"
                             android:layout_width="200dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/dev_2"
+                            android:src="@drawable/dev_1"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +131,8 @@
                             android:layout_width="wrap_content"
                             android:text="SYDNEY GALORIO"
                             android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.03"
                             app:layout_constraintBottom_toBottomOf="@+id/divider1"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -139,7 +141,7 @@
                             android:background="@color/colorAccentDark"
                             android:id="@+id/divider1"
                             android:layout_height="3dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="3dp"
                             android:layout_width="200dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +151,7 @@
                             android:fontFamily="@font/tt_interphases_pro_black"
                             android:id="@+id/tv_aboutMeHeader"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="25dp"
                             android:layout_width="wrap_content"
                             android:text="about me"
                             android:textColor="@color/colorSecondary"
@@ -175,7 +177,7 @@
                             android:fontFamily="@font/tt_interphases_pro_black"
                             android:id="@+id/tv_funFactHeader"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="25dp"
                             android:layout_width="wrap_content"
                             android:text="fun fact"
                             android:textColor="@color/colorSecondary"
@@ -197,23 +199,36 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_funFactHeader" />
 
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_linkedAccountsHeader"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:layout_width="wrap_content"
+                            android:text="linked accounts"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_funFact" />
+
                         <LinearLayout
                             android:gravity="center"
                             android:id="@+id/socialMediaContainer"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_funFact">
+                            app:layout_constraintTop_toBottomOf="@id/tv_linkedAccountsHeader">
 
                             <ImageView
                                 android:contentDescription="GitHub"
                                 android:id="@+id/developer1_github"
-                                android:layout_height="30dp"
-                                android:layout_margin="10dp"
-                                android:layout_width="30dp"
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="5dp"
                                 android:src="@drawable/icon_github" />
 
                         </LinearLayout>
@@ -243,7 +258,7 @@
                             android:fontFamily="@font/photograph_signature"
                             android:id="@+id/nameHeader2"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
+                            android:layout_marginTop="30dp"
                             android:layout_width="wrap_content"
                             android:scaleX="2.3"
                             android:scaleY="2.3"
@@ -257,7 +272,7 @@
                         <ImageView
                             android:id="@+id/developer2"
                             android:layout_height="200dp"
-                            android:layout_marginTop="50dp"
+                            android:layout_marginTop="60dp"
                             android:layout_width="200dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/dev_2"
@@ -273,7 +288,8 @@
                             android:layout_width="wrap_content"
                             android:text="AARON JACALAN"
                             android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.03"
                             app:layout_constraintBottom_toBottomOf="@+id/divider2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -282,7 +298,7 @@
                             android:background="@color/colorAccentDark"
                             android:id="@+id/divider2"
                             android:layout_height="3dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="3dp"
                             android:layout_width="200dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -333,30 +349,43 @@
                             android:layout_marginTop="5dp"
                             android:layout_width="0dp"
                             android:lineSpacingExtra="2dp"
-                            android:text="I play video games yes very nice very good"
+                            android:text="I play video games yes very nice very good add me on steam"
                             android:textColor="@color/colorFontDark"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_funFactHeader2" />
 
+                        <TextView
+                            android:fontFamily="@font/tt_interphases_pro_black"
+                            android:id="@+id/tv_linkedAccountsHeader2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:layout_width="wrap_content"
+                            android:text="linked accounts"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_funFact2" />
+
                         <LinearLayout
                             android:gravity="center"
                             android:id="@+id/socialMediaContainer2"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_funFact2">
+                            app:layout_constraintTop_toBottomOf="@id/tv_linkedAccountsHeader2">
 
                             <ImageView
                                 android:contentDescription="GitHub"
                                 android:id="@+id/developer2_github"
-                                android:layout_height="30dp"
-                                android:layout_margin="10dp"
-                                android:layout_width="30dp"
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="5dp"
                                 android:src="@drawable/icon_github" />
 
                         </LinearLayout>

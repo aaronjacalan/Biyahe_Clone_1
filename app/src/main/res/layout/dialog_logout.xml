@@ -49,6 +49,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorFontDark"
         android:alpha="0.8"
+        android:lineSpacingExtra="2dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

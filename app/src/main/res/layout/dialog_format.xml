@@ -51,6 +51,7 @@
             android:layout_marginTop="18dp"
             android:fontFamily="@font/tt_interphases_pro_medium"
             android:text="Are you sure you want to continue?"
+            android:lineSpacingExtra="2dp"
             android:textAlignment="center"
             android:textColor="@color/colorFontDark"
             android:alpha="0.8"
