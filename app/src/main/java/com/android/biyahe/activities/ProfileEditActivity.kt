@@ -1,15 +1,8 @@
 package com.android.biyahe.activities
 
-import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -21,9 +14,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.android.biyahe.R
+import com.android.biyahe.data.Account
 import com.android.biyahe.helper.AccountAdapter
 import com.android.biyahe.data.AccountsList
 import com.android.biyahe.database.FirebaseManager
@@ -41,13 +33,11 @@ class ProfileEditActivity : Activity() {
     private lateinit var shortDescTextView: EditText
     private lateinit var passwordTextView: EditText
     private lateinit var listViewLinkedAccountsEdit: ListView
-    private lateinit var accountAdapter: AccountAdapter
+    private var accountAdapter: AccountAdapter? = null
     private lateinit var userIcon: ShapeableImageView
 
-    private val PICK_IMAGE_REQUEST = 1001
-    private val READ_EXTERNAL_STORAGE_PERMISSION_CODE = 1002
-
-    private var selectedImageUri: Uri? = null
+    private var accountsAddedThisSession = 0
+    private lateinit var originalAccountsSnapshot: MutableList<Account>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,99 +62,32 @@ class ProfileEditActivity : Activity() {
         })
 
         setupShowHidePassword()
-        loadProfileData()
+        loadProfileDataAndSetupAccountsList()
 
-        userIcon.setOnClickListener {
-            checkPermissionAndOpenGallery()
-        }
+        originalAccountsSnapshot = AccountsList.listOfAccounts.map { it.copy() }.toMutableList()
 
         val buttonCancelEdit = findViewById<ImageView>(R.id.editProfile_goBack)
         buttonCancelEdit.setOnClickListener {
             Log.i("ProfileEditActivity", "Cancel Edit Profile")
-            ExitEditProfile.show(this)
+            handleCancelChanges()
         }
 
         val buttonSaveChanges = findViewById<ImageView>(R.id.editProfile_saveChanges)
         buttonSaveChanges.setOnClickListener {
             if (validateInputFields()) {
                 saveUserChanges()
+                accountsAddedThisSession = 0
+                originalAccountsSnapshot = AccountsList.listOfAccounts.map { it.copy() }.toMutableList()
             }
         }
 
         val addNewAccount = findViewById<Button>(R.id.editProfile_addAccountButton)
         addNewAccount.setOnClickListener {
-            AddAccountDialog.show(this) {
-                refreshAccountsList()
-            }
-        }
-
-        setupAccountsList()
-    }
-
-    private fun checkPermissionAndOpenGallery() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            openGallery()
-        } else {
-            when {
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
-                    openGallery()
+            if (AccountsList.listOfAccounts.size < 8) {
+                AddAccountDialog.show(this) {
+                    accountsAddedThisSession++
+                    refreshAccountsList()
                 }
-                ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE ) -> {
-                    AlertDialog.Builder(this)
-                        .setTitle("Permission Required")
-                        .setMessage("Storage permission is required to select an image from gallery")
-                        .setPositiveButton("Grant") { _, _ ->
-                            requestStoragePermission()
-                        }
-                        .setNegativeButton("Cancel") { dialog, _ ->
-                            dialog.dismiss()
-                            toast("Cannot access gallery without permission")
-                        }
-                        .create()
-                        .show()
-                }
-                else -> {
-                    requestStoragePermission()
-                }
-            }
-        }
-    }
-
-    private fun requestStoragePermission() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            READ_EXTERNAL_STORAGE_PERMISSION_CODE
-        )
-    }
-
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            selectedImageUri = data.data
-            userIcon.setImageURI(selectedImageUri)
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            READ_EXTERNAL_STORAGE_PERMISSION_CODE -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    openGallery()
-                } else {
-                    toast("Permission denied. Cannot access gallery.")
-                }
-                return
             }
         }
     }
@@ -229,23 +152,46 @@ class ProfileEditActivity : Activity() {
         }
     }
 
-    private fun setupAccountsList() {
-        val accounts = AccountsList.listOfAccounts
+    private fun loadProfileDataAndSetupAccountsList() {
+        val accounts: MutableList<Account> = try {
+            if (!FirebaseManager.isUserInitialized) {
+                throw IllegalStateException("User not initialized")
+            }
+            UIDTextView.setText(FirebaseManager.current_user.id)
+            usernameTextView.setText(FirebaseManager.current_user.username)
+            shortDescTextView.setText(FirebaseManager.current_user.shortDescription)
+            passwordTextView.setText(FirebaseManager.current_user.password)
+
+            AccountsList.listOfAccounts.clear()
+            AccountsList.listOfAccounts.addAll(FirebaseManager.current_user.linkedAccounts ?: mutableListOf())
+            AccountsList.listOfAccounts
+        } catch (e: Exception) {
+            UIDTextView.setText("")
+            usernameTextView.setText("")
+            shortDescTextView.setText("")
+            passwordTextView.setText("")
+            UIDTextView.isEnabled = false
+            usernameTextView.isEnabled = false
+            shortDescTextView.isEnabled = false
+            passwordTextView.isEnabled = false
+            listViewLinkedAccountsEdit.isEnabled = false
+            toast("User not loaded. Please login again.")
+            Log.e("ProfileEditActivity", "current_user is not initialized", e)
+            mutableListOf()
+        }
+
         accountAdapter = AccountAdapter(
             this,
             accounts,
             onClick = { },
-            getIconResId = { iconType ->
-                getIconResId(iconType)
-            }
+            getIconResId = { iconType -> getIconResId(iconType) }
         )
         listViewLinkedAccountsEdit.adapter = accountAdapter
-
         setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)
     }
 
     private fun refreshAccountsList() {
-        accountAdapter.notifyDataSetChanged()
+        accountAdapter?.notifyDataSetChanged()
         setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)
     }
 
@@ -283,20 +229,22 @@ class ProfileEditActivity : Activity() {
         val newPassword = passwordTextView.text.toString()
 
         with(sharedPref.edit()) {
-            putString("UID", UIDTextView.text.toString())
             putString("username", newUsername)
-            putString("shortDesc", shortDesc)
             putString("password", newPassword)
-            selectedImageUri?.let {
-                putString("profileImageUri", it.toString())
-            }
             apply()
+        }
+
+        if (!FirebaseManager.isUserInitialized) {
+            toast("User not loaded. Please login again.")
+            Log.e("ProfileEditActivity", "Cannot save changes: current_user not initialized")
+            return
         }
 
         FirebaseManager.saveUserProfileChanges(
             newUsername = newUsername,
             newPassword = newPassword,
-            shortDescription = shortDesc
+            shortDescription = shortDesc,
+            linkedAccounts = AccountsList.listOfAccounts
         ) { success ->
             if (success) {
                 toast("Changes saved successfully")
@@ -308,26 +256,16 @@ class ProfileEditActivity : Activity() {
         }
     }
 
-    private fun loadProfileData() {
-        val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
-
-        UIDTextView.setText(FirebaseManager.current_user.id)
-        usernameTextView.setText(FirebaseManager.current_user.username)
-        shortDescTextView.setText(FirebaseManager.current_user.shortDescription)
-        passwordTextView.setText(FirebaseManager.current_user.password)
-
-        val savedImageUri = sharedPref.getString("profileImageUri", null)
-        if (!savedImageUri.isNullOrEmpty()) {
-            try {
-                val uri = Uri.parse(savedImageUri)
-                userIcon.setImageURI(uri)
-                selectedImageUri = uri
-            } catch (e: Exception) {
-                Log.e("ProfileEditActivity", "Failed to load saved profile image: ${e.message}")
-                userIcon.setImageResource(R.drawable.icon_user)
+    private fun handleCancelChanges() {
+        if (accountsAddedThisSession > 0) {
+            val currentList = AccountsList.listOfAccounts
+            if (currentList.size >= accountsAddedThisSession) {
+                repeat(accountsAddedThisSession) { currentList.removeAt(currentList.lastIndex) }
             }
-        } else {
-            userIcon.setImageResource(R.drawable.icon_user)
+            refreshAccountsList()
         }
+        accountsAddedThisSession = 0
+        ExitEditProfile.show(this)
     }
+
 }

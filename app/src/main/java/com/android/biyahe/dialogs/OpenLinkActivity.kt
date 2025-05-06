@@ -21,7 +21,7 @@ object OpenLinkActivity {
 
     @SuppressLint("SetTextI18n")
     fun show(context: Context, url: String) {
-        val activity = context as? Activity ?: return // Return early if context is not an Activity
+        val activity = context as? Activity ?: return
 
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_text, null)
         val alertDialog = AlertDialog.Builder(context).create()

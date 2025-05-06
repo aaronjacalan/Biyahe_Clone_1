@@ -3,6 +3,7 @@ package com.android.biyahe.database
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.android.biyahe.data.Account
 import com.android.biyahe.data.Route
 import com.android.biyahe.data.RouteDataManager
 import com.android.biyahe.data.User
@@ -26,27 +27,27 @@ object FirebaseManager {
         password: String,
         bookmarkList: List<String>,
         shortDescription: String = "",
-        context : Context,
-        callback: (Boolean) -> Unit
+        linkedAccounts: List<Account> = emptyList(),
+        context: Context,
+        callback: (Boolean, String?) -> Unit
     ) {
-        // Check if username exists
         db.collection(USERS_COLLECTION)
             .whereEqualTo("username", username)
             .get()
             .addOnSuccessListener { querySnapshot ->
-                if(!querySnapshot.isEmpty) {
+                if (!querySnapshot.isEmpty) {
                     Log.d(TAG, "Username is already taken!")
                     Toast.makeText(context, "Username is already taken!", Toast.LENGTH_SHORT).show()
-                    callback(false)
+                    callback(false, null)
                     return@addOnSuccessListener
                 }
 
-                // After validation, add all the details of user into the database
                 val newUser = hashMapOf(
                     "username" to username,
                     "password" to password,
                     "bookmarks" to bookmarkList,
-                    "shortDescription" to shortDescription
+                    "shortDescription" to shortDescription,
+                    "linkedAccounts" to linkedAccounts.map { it.toMap() }
                 )
 
                 db.collection(USERS_COLLECTION)
@@ -54,31 +55,31 @@ object FirebaseManager {
                     .addOnSuccessListener {
                         Log.d(TAG, "User registered successfully")
                         setCurrentUserInstanceAndPreferences(newUser, it.id)
-                        callback(true)
+                        callback(true, it.id)
                     }
                     .addOnFailureListener {
                         Log.e(TAG, "User registration failed: ${it.message}")
+                        callback(false, null)
                     }
-
             }
             .addOnFailureListener {
                 Log.e(TAG, "Error verifying user: ${it.message}")
-                return@addOnFailureListener
+                callback(false, null)
             }
     }
 
+    /* To certify if login credentials are true
+        *   1 -> Successful Login
+        *   2 -> Non-existent User
+        *   3 -> Incorrect Password
+        *   4 -> Firebase Error
+        */
     fun verifyUser(
         username: String,
         password: String,
         context: Context,
         callback: (Int) -> Unit
     ) {
-        /* To certify if login credentials are true
-        *   1 -> Successful Login
-        *   2 -> Non-existent User
-        *   3 -> Incorrect Password
-        *   4 -> Firebase Error
-        */
         db.collection(USERS_COLLECTION)
             .whereEqualTo("username", username)
             .get()
@@ -90,15 +91,15 @@ object FirebaseManager {
                 }
 
                 val doc = querySnapshot.documents[0]
-                val storedPassword = doc.getString("password")!!
-
+                val storedPassword = doc.getString("password")
                 if (storedPassword == password) {
                     Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show()
                     val user = hashMapOf(
                         "username" to username,
                         "password" to password,
                         "bookmarks" to (doc.get("bookmarks") as? List<String> ?: emptyList()),
-                        "shortDescription" to (doc.getString("shortDescription") ?: "")
+                        "shortDescription" to (doc.getString("shortDescription") ?: ""),
+                        "linkedAccounts" to (doc.get("linkedAccounts") as? List<Map<String, Any?>> ?: emptyList<Map<String, Any?>>())
                     )
                     setCurrentUserInstanceAndPreferences(user, doc.id)
                     callback(1)
@@ -164,6 +165,7 @@ object FirebaseManager {
         newUsername: String,
         newPassword: String,
         shortDescription: String,
+        linkedAccounts: List<Account>,
         onComplete: (Boolean) -> Unit
     ) {
         if (!isUserInitialized) {
@@ -173,11 +175,14 @@ object FirebaseManager {
         }
 
         val userId = current_user.id
+        val accountsMap = linkedAccounts.map { it.toMap() }
+
         val updatedData = mapOf(
             "username" to newUsername,
             "password" to newPassword,
             "bookmarks" to current_user.bookmarkList,
-            "shortDescription" to shortDescription
+            "shortDescription" to shortDescription,
+            "linkedAccounts" to accountsMap
         )
 
         db.collection(USERS_COLLECTION).document(userId)
@@ -186,6 +191,7 @@ object FirebaseManager {
                 current_user.username = newUsername
                 current_user.password = newPassword
                 current_user.shortDescription = shortDescription
+                current_user.linkedAccounts = linkedAccounts.toMutableList()
                 onComplete(true)
             }
             .addOnFailureListener {
@@ -194,40 +200,31 @@ object FirebaseManager {
             }
     }
 
-    private fun setCurrentUserInstanceAndPreferences(newUser: HashMap<String, Any>, id : String) {
+    private fun setCurrentUserInstanceAndPreferences(newUser: HashMap<String, Any>, id: String) {
+        val linkedAccountsList = (newUser["linkedAccounts"] as? List<Map<String, Any?>>)
+            ?.map { Account.fromMap(it) }
+            ?.toMutableList()
+            ?: mutableListOf()
+
         current_user = User(
-            id,
+            id = id,
             username = newUser["username"] as String,
             password = newUser["password"] as String,
             bookmarkList = (newUser["bookmarks"] as? MutableList<String>)
                 ?: (newUser["bookmarks"] as? List<String>)?.toMutableList()
                 ?: mutableListOf(),
-            shortDescription = newUser["shortDescription"] as? String ?: ""
+            shortDescription = newUser["shortDescription"] as? String ?: "",
+            linkedAccounts = linkedAccountsList
         )
 
         val routes = RouteDataManager.routelist
-        val user_bookmarks : List<String> = current_user.bookmarkList
+        val user_bookmarks: List<String> = current_user.bookmarkList
         RouteDataManager.bookmarked.clear()
-        for(r in routes) {
-            if(user_bookmarks.contains(r.code)) {
+        for (r in routes) {
+            if (user_bookmarks.contains(r.code)) {
                 RouteDataManager.bookmarked.add(r)
             }
         }
-    }
-
-    fun verifyUserByUid(uid: String, context: Context, callback: (Int) -> Unit) {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("users").document(uid).get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    callback(1)
-                } else {
-                    callback(2)
-                }
-            }
-            .addOnFailureListener {
-                callback(3)
-            }
     }
 
 }

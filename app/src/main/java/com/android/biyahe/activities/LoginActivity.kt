@@ -29,7 +29,6 @@ class LoginActivity : Activity() {
     private lateinit var progressBar : ProgressBar
     private lateinit var ButtonRegisterAsGuest: Button
 
-    // Lazy loading for preferences and credentials
     private val sharedPref by lazy {
         getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
@@ -45,7 +44,7 @@ class LoginActivity : Activity() {
         private const val ERROR_WRONG_USERNAME = "USERNAME DOES NOT EXIST"
         private const val ERROR_WRONG_PASSWORD = "INCORRECT PASSWORD"
 
-        private const val ANIMATION_DURATION = 500L // Animation duration in ms
+        private const val ANIMATION_DURATION = 500L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +67,6 @@ class LoginActivity : Activity() {
         progressBar = findViewById(R.id.pb_login)
         ButtonRegisterAsGuest = findViewById(R.id.btn_loginGuest)
 
-        // Initially set the card login to be slightly below and invisible for animation
         cardLogin.translationY = 100f
         cardLogin.alpha = 0f
     }

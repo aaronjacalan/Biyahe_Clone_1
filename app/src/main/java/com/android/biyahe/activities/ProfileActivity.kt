@@ -25,7 +25,7 @@ class ProfileActivity : Activity() {
     private lateinit var usernameTextView: TextView
     private lateinit var shortDescTextView: TextView
     private lateinit var listViewLinkedAccounts: ListView
-    private lateinit var accountAdapter: AccountAdapter
+    private var accountAdapter: AccountAdapter? = null
     private lateinit var userIcon: ShapeableImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class ProfileActivity : Activity() {
         listViewLinkedAccounts = findViewById(R.id.ListViewLinkedAccounts)
         userIcon = findViewById(R.id.CircleImageIcon)
 
-        loadProfileData()
+        loadProfileDataAndSetupAccountsList()
 
         val buttonGoback = findViewById<ImageView>(R.id.viewProfile_goBack)
         buttonGoback.setOnClickListener {
@@ -58,12 +58,31 @@ class ProfileActivity : Activity() {
             val intent = Intent(this, ProfileEditActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_EDIT_PROFILE)
         }
-
-        setupAccountsList()
     }
 
-    private fun setupAccountsList() {
-        val accounts = AccountsList.listOfAccounts
+    private fun loadProfileDataAndSetupAccountsList() {
+        val accounts = try {
+            if (!FirebaseManager.isUserInitialized) throw IllegalStateException("User not initialized")
+            UIDTextView.text = FirebaseManager.current_user.id
+            usernameTextView.text = FirebaseManager.current_user.username
+            shortDescTextView.text = FirebaseManager.current_user.shortDescription
+
+            AccountsList.listOfAccounts.clear()
+            AccountsList.listOfAccounts.addAll(FirebaseManager.current_user.linkedAccounts ?: mutableListOf())
+            AccountsList.listOfAccounts
+        } catch (e: Exception) {
+            UIDTextView.text = ""
+            usernameTextView.text = ""
+            shortDescTextView.text = ""
+            UIDTextView.isEnabled = false
+            usernameTextView.isEnabled = false
+            shortDescTextView.isEnabled = false
+            listViewLinkedAccounts.isEnabled = false
+            toast("User not loaded. Please login again.")
+            Log.e("ProfileActivity", "current_user is not initialized", e)
+            mutableListOf()
+        }
+
         accountAdapter = AccountAdapter(
             this,
             accounts,
@@ -83,15 +102,8 @@ class ProfileActivity : Activity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == RESULT_OK) {
-            loadProfileData()
-            setupAccountsList()
+            loadProfileDataAndSetupAccountsList()
         }
-    }
-
-    private fun loadProfileData() {
-        UIDTextView.text = FirebaseManager.current_user.id
-        usernameTextView.text = FirebaseManager.current_user.username
-        shortDescTextView.text = FirebaseManager.current_user.shortDescription
     }
 
     private fun setListViewHeightBasedOnChildren(listView: ListView) {

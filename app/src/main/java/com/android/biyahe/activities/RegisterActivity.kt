@@ -185,10 +185,11 @@ class RegisterActivity : Activity() {
                 inputPassword,
                 mutableListOf(),
                 "",
+                emptyList(),
                 this
-            ) { success ->
+            ) { success, uid ->
                 if (success) {
-                    saveUserCredentials(inputUsername)
+                    saveUserCredentials(uid ?: "")
                     toast("Registration Successful!")
                     animateCardLoginOut {
                         navigateTo(NavigationActivity::class.java, finishCurrent = true)

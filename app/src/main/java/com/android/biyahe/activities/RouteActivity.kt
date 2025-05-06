@@ -55,14 +55,14 @@ class RouteActivity : Activity() {
                     isTo = !isTo
                     if (isTo) {
                         binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
-                        binding.tvRouteCode.text = "${route.code} - Backwards"
+                        binding.tvRouteCode.text = "${route.code} - Forwards"
                     } else {
                         binding.pvRouteDisplay.setImageResource(route.routeBack_resource)
-                        binding.tvRouteCode.text = "${route.code} - Forwards"
+                        binding.tvRouteCode.text = "${route.code} - Backwards"
                     }
                     adapter.updateData()
                     setLottieDirection(isTo)
-                    lottieView.removeAllAnimatorListeners() // Clean up
+                    lottieView.removeAllAnimatorListeners()
                 }
                 override fun onAnimationCancel(animation: Animator) {}
                 override fun onAnimationRepeat(animation: Animator) {}
@@ -73,7 +73,7 @@ class RouteActivity : Activity() {
     private fun setLottieDirection(toDirection: Boolean) {
         lottieView.repeatCount = 0
         lottieView.repeatMode = LottieDrawable.RESTART
-        lottieView.speed = if (toDirection) 2f else -2f
+        lottieView.speed = if (toDirection) 2.5f else -2.5f
         lottieView.progress = if (toDirection) 0f else 1f
         lottieView.pauseAnimation()
     }
