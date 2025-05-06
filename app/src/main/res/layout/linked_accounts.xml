@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/accountIcon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:scaleType="fitXY"
         android:layout_gravity="center_vertical" />
 
@@ -27,7 +27,7 @@
             android:fontFamily="@font/tt_interphases_pro_black"
             android:hint="SAMPLE"
             android:textColor="@color/colorFontDark"
-            android:textSize="17sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:hint="https://SAMPLE1.com"
             android:textColor="@color/grey"
             android:layout_marginTop="4dp"
-            android:textSize="8sp" />
+            android:textSize="11sp" />
 
     </LinearLayout>
 

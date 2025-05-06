@@ -89,23 +89,9 @@ class ProfileActivity : Activity() {
     }
 
     private fun loadProfileData() {
-        val sharedPref = getSharedPreferences("ProfileData", Context.MODE_PRIVATE)
-
         UIDTextView.text = FirebaseManager.current_user.id
         usernameTextView.text = FirebaseManager.current_user.username
-        shortDescTextView.text = FirebaseManager.current_user.shortDescription // <-- show short description
-
-        val savedImageUri = sharedPref.getString("profileImageUri", null)
-        if (savedImageUri != null) {
-            try {
-                userIcon.setImageURI(Uri.parse(savedImageUri))
-            } catch (e: Exception) {
-                Log.e("ProfileActivity", "Failed to load saved profile image: ${e.message}")
-                userIcon.setImageResource(R.drawable.icon_user)
-            }
-        } else {
-            userIcon.setImageResource(R.drawable.icon_user)
-        }
+        shortDescTextView.text = FirebaseManager.current_user.shortDescription
     }
 
     private fun setListViewHeightBasedOnChildren(listView: ListView) {

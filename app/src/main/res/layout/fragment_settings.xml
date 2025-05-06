@@ -57,7 +57,7 @@
                         android:text="Username"
                         android:textAlignment="center"
                         android:textColor="@color/colorFontLight"
-                        android:textSize="35sp"
+                        android:textSize="36sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/CircleImageIcon" />
@@ -68,10 +68,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="30dp"
                         android:fontFamily="@font/tt_interphases_pro_condensed_extrabold_italic"
-                        android:text="helldivers"
+                        android:text="user_id"
                         android:textAlignment="center"
                         android:textColor="@color/colorAccentLight"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_username" />
@@ -79,10 +79,10 @@
                     <Button
                         android:id="@+id/settingsViewProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="40dp"
                         android:layout_marginHorizontal="125dp"
                         android:layout_marginTop="15dp"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
                         android:background="@drawable/rounded_button"
                         android:backgroundTint="@color/colorSecondary"
                         android:fontFamily="@font/tt_interphases_pro_black"
@@ -105,7 +105,7 @@
                 android:layout_marginEnd="0dp"
                 android:background="@drawable/top_rounded_bg"
                 android:backgroundTint="@color/colorBackground"
-                android:minHeight="650dp"
+                android:minHeight="600dp"
                 android:paddingBottom="30dp">
 
                 <TextView
@@ -121,73 +121,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_appThemeFrame_header"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="35dp"-->
-<!--                    android:layout_marginTop="30dp"-->
-<!--                    android:layout_marginEnd="30dp"-->
-<!--                    android:fontFamily="@font/tt_interphases_pro_black"-->
-<!--                    android:text="themes"-->
-<!--                    android:textColor="@color/colorSecondary"-->
-<!--                    android:textSize="16sp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/tv_settingsHeader" />-->
-
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:id="@+id/appThemeFrame"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginHorizontal="30dp"-->
-<!--                    android:layout_marginTop="5dp"-->
-<!--                    android:background="@drawable/corner_radius_large"-->
-<!--                    android:backgroundTint="@color/colorPrimary"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/tv_appThemeFrame_header">-->
-
-<!--                    <ImageView-->
-<!--                        android:id="@+id/image_appearanceSettings_SystemTheme"-->
-<!--                        android:layout_width="25dp"-->
-<!--                        android:layout_height="25dp"-->
-<!--                        android:layout_marginVertical="20dp"-->
-<!--                        android:layout_marginStart="25dp"-->
-<!--                        android:src="@drawable/icon_pallete"-->
-<!--                        android:tint="@color/colorBackground"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        tools:ignore="UseAppTint" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/text_appearanceSettings_SystemTheme"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="20dp"-->
-<!--                        android:fontFamily="@font/tt_interphases_pro_extrabold"-->
-<!--                        android:text="Choose System Theme"-->
-<!--                        android:textColor="@color/colorBackground"-->
-<!--                        android:textSize="12sp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@+id/image_appearanceSettings_SystemTheme"-->
-<!--                        app:layout_constraintStart_toEndOf="@id/image_appearanceSettings_SystemTheme"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/image_appearanceSettings_SystemTheme" />-->
-
-<!--                    <Switch-->
-<!--                        android:id="@+id/switch_lightDark"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginEnd="25dp"-->
-<!--                        android:thumb="@drawable/switch_theme_thumb"-->
-<!--                        android:track="@drawable/switch_theme_track"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        tools:ignore="UseSwitchCompatOrMaterialXml" />-->
-
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 <TextView
                     android:id="@+id/tv_notificationSettingsFrame_header"
@@ -318,10 +251,11 @@
                         android:id="@+id/image_notifications_TrafficAlerts"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_marginVertical="20dp"
                         android:layout_marginStart="25dp"
-                        android:layout_marginTop="20dp"
                         android:src="@drawable/icon_bell"
                         android:tint="@color/colorBackground"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/divider2"
                         app:tint="@color/colorIcons"
@@ -352,17 +286,6 @@
                         app:layout_constraintTop_toTopOf="@+id/text_notifications_TrafficAlerts"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-                    <View
-                        android:id="@+id/divider3"
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@color/colorBackground"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/image_notifications_TrafficAlerts" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -388,8 +311,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/corner_radius_large"
                     android:backgroundTint="@color/colorPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_aboutSettingsFrame_header"
-                    tools:layout_editor_absoluteX="30dp">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_aboutSettingsFrame_header" >
 
                     <ImageView
                         android:id="@+id/image_about_developersPage"
@@ -493,8 +415,7 @@
                     android:text="SIGN OUT"
                     android:textColor="@color/colorFontLight"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/aboutSettingsFrame"
-                    tools:layout_editor_absoluteX="30dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/aboutSettingsFrame"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>

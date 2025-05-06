@@ -19,7 +19,7 @@ class NavigationActivity : AppCompatActivity() {
 
     private var onlineMode: Boolean = true
     private lateinit var binding: ActivityNavigationBinding
-    private var currentFragmentId: Int = R.id.home // Use menu item IDs
+    private var currentFragmentId: Int = R.id.home
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,37 +30,38 @@ class NavigationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         onlineMode = intent.getBooleanExtra("online_mode", true)
-
         if (!onlineMode) OfflineMode.show(this)
 
         currentFragmentId = R.id.home
         switchFragment(LandingFragment())
-        updateStatusBarColor(R.id.home)
         binding.bubbleTabBar.setSelectedWithId(R.id.home, false)
 
         updateTabBarForOnlineMode()
 
-        binding.bubbleTabBar.addBubbleListener { id ->
-            if (!onlineMode && id != R.id.home) {
-                toast("Offline mode: Only landing page is accessible.")
-                binding.bubbleTabBar.setSelectedWithId(R.id.home, true)
-                return@addBubbleListener
+        if (!onlineMode) {
+            binding.bubbleTabBar.isEnabled = false
+            for (i in 0 until binding.bubbleTabBar.childCount) {
+                val tab = binding.bubbleTabBar.getChildAt(i)
+                if (tab.id != R.id.home) {
+                    tab.isEnabled = false
+                    tab.alpha = 0.5f
+                }
             }
-            when (id) {
-                R.id.home -> {
-                    currentFragmentId = R.id.home
-                    switchFragment(LandingFragment())
-                    updateStatusBarColor(R.id.home)
-                }
-                R.id.bookmarks -> {
-                    currentFragmentId = R.id.bookmarks
-                    switchFragment(BookmarkFragment())
-                    updateStatusBarColor(R.id.bookmarks)
-                }
-                R.id.settings -> {
-                    currentFragmentId = R.id.settings
-                    switchFragment(SettingsFragment())
-                    updateStatusBarColor(R.id.settings)
+        } else {
+            binding.bubbleTabBar.addBubbleListener { id ->
+                when (id) {
+                    R.id.home -> {
+                        currentFragmentId = R.id.home
+                        switchFragment(LandingFragment())
+                    }
+                    R.id.bookmarks -> {
+                        currentFragmentId = R.id.bookmarks
+                        switchFragment(BookmarkFragment())
+                    }
+                    R.id.settings -> {
+                        currentFragmentId = R.id.settings
+                        switchFragment(SettingsFragment())
+                    }
                 }
             }
         }
@@ -71,10 +72,6 @@ class NavigationActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-    }
-
-    private fun updateStatusBarColor(fragmentId: Int) {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 
     private fun updateTabBarForOnlineMode() {
@@ -94,13 +91,18 @@ class NavigationActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceType")
     private fun switchFragment(fragment: Fragment) {
+        if (fragment is LandingFragment) {
+            val args = Bundle()
+            args.putBoolean("online_mode", onlineMode)
+            fragment.arguments = args
+        }
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.fade_depth_in,
                 R.anim.slide_out_down
             )
             .replace(R.id.fl_fragment, fragment)
-            .commit()
+            .commitAllowingStateLoss()
     }
 
     @SuppressLint("MissingSuperCall")
@@ -110,9 +112,7 @@ class NavigationActivity : AppCompatActivity() {
         } else {
             currentFragmentId = R.id.home
             switchFragment(LandingFragment())
-            updateStatusBarColor(R.id.home)
             binding.bubbleTabBar.setSelectedWithId(R.id.home, true)
         }
     }
-
 }

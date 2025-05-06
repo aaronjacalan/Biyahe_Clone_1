@@ -82,7 +82,7 @@ class DestinationAdapter(
             title.text = destination.title
 
             level.setBackgroundColor(
-                ContextCompat.getColor(level.context, if (position % 2 == 0) R.color.colorPrimary else R.color.colorSecondary)
+                ContextCompat.getColor(level.context, R.color.colorSecondary)
             )
 
             icon.setImageResource(destination.type)

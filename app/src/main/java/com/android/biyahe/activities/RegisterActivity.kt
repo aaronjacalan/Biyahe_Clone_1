@@ -20,7 +20,6 @@ import com.android.biyahe.dialogs.TermsOfService
 import com.android.biyahe.utils.isEmpty
 import com.android.biyahe.utils.getPasswordValidationError
 import com.android.biyahe.utils.toast
-import com.google.firebase.auth.FirebaseAuth // <-- ADD THIS IMPORT
 
 class RegisterActivity : Activity() {
 
@@ -179,43 +178,27 @@ class RegisterActivity : Activity() {
                 buttonRegister.isEnabled = true
                 return@setOnClickListener
             }
-
-            // If FirebaseManager.addUser does NOT create a FirebaseAuth user,
-            // you must FIRST create the user with FirebaseAuth, THEN add to Firestore
-            FirebaseAuth.getInstance()
-                .createUserWithEmailAndPassword(
-                    username.text.toString(),
-                    password.text.toString()
-                ).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Now add user data to Firestore or your database as needed
-                        FirebaseManager.addUser(
-                            username.text.toString(),
-                            password.text.toString(),
-                            mutableListOf(),
-                            "",
-                            this
-                        ) { success ->
-                            if (success) {
-                                val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
-                                saveUserCredentials(uid)
-                                toast("Registration Successful!")
-                                animateCardLoginOut {
-                                    navigateTo(NavigationActivity::class.java, finishCurrent = true)
-                                }
-                            } else {
-                                toast("Registration failed. Please try again.")
-                            }
-                            progressBar.visibility = View.INVISIBLE
-                            buttonRegister.isEnabled = true
-                        }
-                    } else {
-                        toast("Firebase Auth registration failed: ${task.exception?.message}")
-                        progressBar.visibility = View.INVISIBLE
-                        buttonRegister.isEnabled = true
+            val inputUsername = username.text.toString()
+            val inputPassword = password.text.toString()
+            FirebaseManager.addUser(
+                inputUsername,
+                inputPassword,
+                mutableListOf(),
+                "",
+                this
+            ) { success ->
+                if (success) {
+                    saveUserCredentials(inputUsername)
+                    toast("Registration Successful!")
+                    animateCardLoginOut {
+                        navigateTo(NavigationActivity::class.java, finishCurrent = true)
                     }
                 }
+                progressBar.visibility = View.INVISIBLE
+                buttonRegister.isEnabled = true
+            }
         }
+
     }
 
     private fun navigateTo(activityClass: Class<*>, finishCurrent: Boolean = false) {

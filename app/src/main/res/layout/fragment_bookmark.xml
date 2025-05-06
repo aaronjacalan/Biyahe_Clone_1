@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToOutline="true"
-    tools:context=".BookmarkActivity">
-
-    <ImageView
-        android:id="@+id/iv_bookmark"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:src="@drawable/background_bookmark"
-        android:scaleType="centerCrop"
-        app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintTop_toTopOf="parent"/>
+    android:background="@drawable/background_grainy"
+    tools:context=".fragments.LandingFragment">
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_bookmarksHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BOOKMARKS"
-        android:fontFamily="@font/jb_mono_xtrabold"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/blue_theme"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_bookmark"/>
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/tt_interphases_pro_black"
+        android:text="Bookmarks"
+        android:textColor="@color/colorFontLight"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- contentBackground comes BEFORE ListView for proper z-ordering -->
+    <View
+        android:id="@+id/contentBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/top_rounded_bg"
+        android:backgroundTint="@color/colorBackground"
+        app:layout_constraintTop_toBottomOf="@id/tv_bookmarksHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ListView
         android:id="@+id/lv_route_bookmarks"
         android:layout_width="0dp"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginVertical="25dp"
         android:scrollbars="none"
         app:layout_constraintWidth_percent="0.9"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/contentBackground"
+        app:layout_constraintBottom_toBottomOf="@id/contentBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

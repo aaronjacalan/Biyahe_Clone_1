@@ -104,7 +104,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginVertical="5dp"
                 app:layout_constraintTop_toBottomOf="@id/et_confirmPassword"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,12 +122,12 @@
 
                 <ImageView
                     android:id="@+id/iv_showPassword"
-                    android:layout_width="30dp"
-                    android:layout_height="28dp"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
                     android:src="@drawable/icon_show"
                     android:tint="@color/colorSecondary"
                     android:contentDescription="Show/Hide Password"
-                    android:padding="2dp"
+                    android:padding="7dp"
                     android:clickable="true"
                     android:focusable="true"
                     tools:ignore="UseAppTint" />
@@ -138,7 +137,7 @@
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/colorButtons"
                 android:fontFamily="@font/tt_interphases_pro_black"

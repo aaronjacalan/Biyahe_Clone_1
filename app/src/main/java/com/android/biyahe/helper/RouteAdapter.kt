@@ -1,7 +1,5 @@
 package com.android.biyahe.helper
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -15,13 +13,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.android.biyahe.R
 import com.android.biyahe.data.Route
+import com.android.biyahe.database.FirebaseManager // <-- import this
 
 class RouteAdapter(
-    private val context : Context,
-    var routeList : List<Route>,
-    private val bookmarkList : MutableList<Route>,
-    private val onClick : (Route) -> Unit
-    ) : BaseAdapter() {
+    private val context: Context,
+    var routeList: List<Route>,
+    private val bookmarkList: MutableList<Route>,
+    private val onClick: (Route) -> Unit
+) : BaseAdapter() {
     override fun getCount(): Int = routeList.size
 
     override fun getItem(position: Int): Any = routeList[position]
@@ -29,35 +28,46 @@ class RouteAdapter(
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: LayoutInflater.from(context)
-            .inflate(R.layout.list_view_route, parent, false)
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.list_view_route, parent, false)
 
-        val iv_route = view.findViewById<ImageView>(R.id.iv_route)
-        val tv_route_code = view.findViewById<TextView>(R.id.tv_route_code)
-        val v_bookmark = view.findViewById<View>(R.id.v_bookmark)
-        val ib_bookmark = view.findViewById<ImageButton>(R.id.ib_bookmark)
+        val ivRoute = view.findViewById<ImageView>(R.id.iv_route)
+        val tvRouteCode = view.findViewById<TextView>(R.id.tv_route_code)
+        val vBookmark = view.findViewById<View>(R.id.v_bookmark)
+        val ibBookmark = view.findViewById<ImageButton>(R.id.ib_bookmark)
+        val tvFrom = view.findViewById<TextView>(R.id.tv_from)
+        val tvTo = view.findViewById<TextView>(R.id.tv_to)
 
         val route = routeList[position]
-        iv_route.setImageResource(route.profile)
-        tv_route_code.setText("${route.code}")
+        ivRoute.setImageResource(route.profile)
+        tvRouteCode.text = route.code
+
+        if (route.destinations_to.isNotEmpty()) {
+            tvFrom.text = route.destinations_to.first().title
+            tvTo.text = route.destinations_to.last().title
+        } else {
+            tvFrom.text = "ORIGIN"
+            tvTo.text = "DESTINATION"
+        }
 
         val isBookmarked = bookmarkList.contains(route)
-        ib_bookmark.setImageResource(
+        ibBookmark.setImageResource(
             if (isBookmarked) R.drawable.icon_star else R.drawable.icon_star_not
         )
 
         val bookmarkListener = View.OnClickListener {
             if (isBookmarked) {
-                animateBookmark(ib_bookmark)
+                animateBookmark(ibBookmark)
                 bookmarkList.remove(route)
             } else {
-                animateBookmark(ib_bookmark)
+                animateBookmark(ibBookmark)
                 bookmarkList.add(route)
             }
+            FirebaseManager.updateBookmark(bookmarkList)
+            FirebaseManager.remoteSaveUserInstance()
             notifyDataSetChanged()
         }
-        v_bookmark.setOnClickListener(bookmarkListener)
-        ib_bookmark.setOnClickListener(bookmarkListener)
+        vBookmark.setOnClickListener(bookmarkListener)
+        ibBookmark.setOnClickListener(bookmarkListener)
 
         view.setOnClickListener {
             onClick(route)
@@ -88,7 +98,6 @@ class RouteAdapter(
         fadeOut.duration = 150
         fadeIn.duration = 150
 
-        // Combine animations into a set
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(scaleUpX, scaleUpY, rotate, fadeOut)
         animatorSet.play(scaleDownX).with(scaleDownY).with(fadeIn).after(scaleUpX)

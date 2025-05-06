@@ -33,7 +33,7 @@ class RouteActivity : Activity() {
 
         val route = intent.getParcelableExtra<Route>("route") ?: return
 
-        binding.tvRouteCode.text = route.code
+        binding.tvRouteCode.text = "${route.code} - Forwards"
         binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
         binding.btnBack.setOnClickListener {
             finish()
@@ -55,8 +55,10 @@ class RouteActivity : Activity() {
                     isTo = !isTo
                     if (isTo) {
                         binding.pvRouteDisplay.setImageResource(route.routeTo_resource)
+                        binding.tvRouteCode.text = "${route.code} - Backwards"
                     } else {
                         binding.pvRouteDisplay.setImageResource(route.routeBack_resource)
+                        binding.tvRouteCode.text = "${route.code} - Forwards"
                     }
                     adapter.updateData()
                     setLottieDirection(isTo)
