@@ -17,8 +17,8 @@
     <View
         android:id="@+id/bubbleTabBarTopLine"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#C0C0C0"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/bubbleTabBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -26,8 +26,8 @@
     <io.ak1.BubbleTabBar
         android:id="@+id/bubbleTabBar"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@color/colorButtons"
+        android:layout_height="70dp"
+        android:background="@color/white"
         android:elevation="16dp"
         android:paddingHorizontal="5dp"
         android:paddingBottom="10dp"

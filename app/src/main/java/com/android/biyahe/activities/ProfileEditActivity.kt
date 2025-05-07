@@ -35,9 +35,13 @@ class ProfileEditActivity : Activity() {
     private lateinit var listViewLinkedAccountsEdit: ListView
     private var accountAdapter: AccountAdapter? = null
     private lateinit var userIcon: ShapeableImageView
+    private lateinit var accounts: MutableList<Account>
 
     private var accountsAddedThisSession = 0
     private lateinit var originalAccountsSnapshot: MutableList<Account>
+    private var originalUsername: String = ""
+    private var originalPassword: String = ""
+    private var originalShortDesc: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +69,9 @@ class ProfileEditActivity : Activity() {
         loadProfileDataAndSetupAccountsList()
 
         originalAccountsSnapshot = AccountsList.listOfAccounts.map { it.copy() }.toMutableList()
+        originalUsername = usernameTextView.text.toString()
+        originalPassword = passwordTextView.text.toString()
+        originalShortDesc = shortDescTextView.text.toString()
 
         val buttonCancelEdit = findViewById<ImageView>(R.id.editProfile_goBack)
         buttonCancelEdit.setOnClickListener {
@@ -74,10 +81,17 @@ class ProfileEditActivity : Activity() {
 
         val buttonSaveChanges = findViewById<ImageView>(R.id.editProfile_saveChanges)
         buttonSaveChanges.setOnClickListener {
+            if (!hasChanges()) {
+                finish()
+                return@setOnClickListener
+            }
             if (validateInputFields()) {
                 saveUserChanges()
                 accountsAddedThisSession = 0
                 originalAccountsSnapshot = AccountsList.listOfAccounts.map { it.copy() }.toMutableList()
+                originalUsername = usernameTextView.text.toString()
+                originalPassword = passwordTextView.text.toString()
+                originalShortDesc = shortDescTextView.text.toString()
             }
         }
 
@@ -90,6 +104,25 @@ class ProfileEditActivity : Activity() {
                 }
             }
         }
+    }
+
+    private fun hasChanges(): Boolean {
+        val currentUsername = usernameTextView.text.toString()
+        val currentPassword = passwordTextView.text.toString()
+        val currentShortDesc = shortDescTextView.text.toString()
+
+        if (currentUsername != originalUsername) return true
+        if (currentPassword != originalPassword) return true
+        if (currentShortDesc != originalShortDesc) return true
+
+        if (originalAccountsSnapshot.size != AccountsList.listOfAccounts.size) return true
+        for (i in originalAccountsSnapshot.indices) {
+            if (originalAccountsSnapshot[i] != AccountsList.listOfAccounts[i]) {
+                return true
+            }
+        }
+
+        return false
     }
 
     private fun validateInputFields(): Boolean {
@@ -153,7 +186,7 @@ class ProfileEditActivity : Activity() {
     }
 
     private fun loadProfileDataAndSetupAccountsList() {
-        val accounts: MutableList<Account> = try {
+        accounts = try {
             if (!FirebaseManager.isUserInitialized) {
                 throw IllegalStateException("User not initialized")
             }
@@ -185,7 +218,11 @@ class ProfileEditActivity : Activity() {
             accounts,
             onClick = { },
             getIconResId = { iconType -> getIconResId(iconType) }
-        )
+        ) { account ->
+            accounts.remove(account)
+            AccountsList.listOfAccounts.remove(account)
+            refreshAccountsList()
+        }
         listViewLinkedAccountsEdit.adapter = accountAdapter
         setListViewHeightBasedOnChildren(listViewLinkedAccountsEdit)
     }

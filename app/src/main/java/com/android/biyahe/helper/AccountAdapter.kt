@@ -9,12 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.android.biyahe.R
 import com.android.biyahe.data.Account
+import com.android.biyahe.dialogs.DeleteLinkedAccount
+import com.android.biyahe.activities.ProfileEditActivity
 
 class AccountAdapter(
     private val context: Context,
-    private val accountList: List<Account>,
+    private val accountList: MutableList<Account>,
     private val onClick: (Account) -> Unit,
-    private val getIconResId: (String) -> Int
+    private val getIconResId: (String) -> Int,
+    private val onDelete: ((Account) -> Unit)?
 ) : BaseAdapter() {
 
     override fun getCount(): Int = accountList.size
@@ -30,11 +33,22 @@ class AccountAdapter(
 
         val account = accountList[position]
 
+        accountName.text = account.link
+        accountLink.text = account.displayName
         accountIcon.setImageResource(getIconResId(account.iconType))
-        accountName.text = account.displayName
-        accountLink.text = account.link
 
         view.setOnClickListener { onClick(account) }
+
+        view.setOnLongClickListener {
+            if (context is ProfileEditActivity && onDelete != null) {
+                DeleteLinkedAccount.show(context, account.link) {
+                    onDelete?.let { it1 -> it1(account) }
+                }
+                true
+            } else {
+                false
+            }
+        }
 
         return view
     }

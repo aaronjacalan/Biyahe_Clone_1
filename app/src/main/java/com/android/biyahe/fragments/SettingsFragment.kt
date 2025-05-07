@@ -25,6 +25,12 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     private val TAG = "SettingsFragment"
 
+    companion object {
+        var notificationsAreBeingSent: Boolean = true
+        var routeNotificationsAreBeingSent: Boolean = true
+        var trafficNotificationsAreBeingSent: Boolean = true
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
@@ -51,22 +57,69 @@ class SettingsFragment : Fragment() {
 
         val prefs = requireContext().getSharedPreferences("notification_settings", Context.MODE_PRIVATE)
         val masterEnabled = prefs.getBoolean("master_notifications_enabled", true)
+        val routeEnabled = prefs.getBoolean("route_notifications_enabled", true)
+        val trafficEnabled = prefs.getBoolean("traffic_notifications_enabled", true)
+
         masterSwitch.isChecked = masterEnabled
+        routeSwitch.isChecked = routeEnabled
+        trafficSwitch.isChecked = trafficEnabled
+
         setSubSwitchesEnabled(masterEnabled, routeSwitch, trafficSwitch)
         setSubSwitchesOpacity(masterEnabled, routeSwitch, trafficSwitch)
+
+        notificationsAreBeingSent = prefs.getBoolean("notificationsAreBeingSent", true)
+        routeNotificationsAreBeingSent = prefs.getBoolean("routeNotificationsAreBeingSent", true)
+        trafficNotificationsAreBeingSent = prefs.getBoolean("trafficNotificationsAreBeingSent", true)
 
         masterSwitch.setOnCheckedChangeListener { _, isChecked ->
             setSubSwitchesEnabled(isChecked, routeSwitch, trafficSwitch)
             setSubSwitchesOpacity(isChecked, routeSwitch, trafficSwitch)
             prefs.edit().putBoolean("master_notifications_enabled", isChecked).apply()
+
+            notificationsAreBeingSent = isChecked
+            prefs.edit().putBoolean("notificationsAreBeingSent", notificationsAreBeingSent).apply()
+
+            if (!isChecked) {
+                routeNotificationsAreBeingSent = false
+                prefs.edit().putBoolean("routeNotificationsAreBeingSent", false).apply()
+                routeSwitch.isChecked = false
+
+                trafficNotificationsAreBeingSent = false
+                prefs.edit().putBoolean("trafficNotificationsAreBeingSent", false).apply()
+                trafficSwitch.isChecked = false
+            } else {
+                routeNotificationsAreBeingSent = routeSwitch.isChecked
+                prefs.edit().putBoolean("routeNotificationsAreBeingSent", routeNotificationsAreBeingSent).apply()
+                trafficNotificationsAreBeingSent = trafficSwitch.isChecked
+                prefs.edit().putBoolean("trafficNotificationsAreBeingSent", trafficNotificationsAreBeingSent).apply()
+            }
+
+            Log.d(TAG, "Notifications are now ${if (notificationsAreBeingSent) "ENABLED" else "DISABLED"} for master, route: $routeNotificationsAreBeingSent, traffic: $trafficNotificationsAreBeingSent")
         }
 
-        val subSwitches = listOf(routeSwitch, trafficSwitch)
-        subSwitches.forEach { subSwitch ->
-            subSwitch.setOnCheckedChangeListener { _, _ ->
-                if (!masterSwitch.isChecked) {
-                    subSwitch.isChecked = false
-                }
+        routeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (masterSwitch.isChecked) {
+                routeNotificationsAreBeingSent = isChecked
+                prefs.edit().putBoolean("route_notifications_enabled", isChecked).apply()
+                prefs.edit().putBoolean("routeNotificationsAreBeingSent", isChecked).apply()
+                Log.d(TAG, "Route notifications are now ${if (routeNotificationsAreBeingSent) "ENABLED" else "DISABLED"}")
+            } else {
+                routeSwitch.isChecked = false
+                routeNotificationsAreBeingSent = false
+                prefs.edit().putBoolean("routeNotificationsAreBeingSent", false).apply()
+            }
+        }
+
+        trafficSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (masterSwitch.isChecked) {
+                trafficNotificationsAreBeingSent = isChecked
+                prefs.edit().putBoolean("traffic_notifications_enabled", isChecked).apply()
+                prefs.edit().putBoolean("trafficNotificationsAreBeingSent", isChecked).apply()
+                Log.d(TAG, "Traffic notifications are now ${if (trafficNotificationsAreBeingSent) "ENABLED" else "DISABLED"}")
+            } else {
+                trafficSwitch.isChecked = false
+                trafficNotificationsAreBeingSent = false
+                prefs.edit().putBoolean("trafficNotificationsAreBeingSent", false).apply()
             }
         }
     }

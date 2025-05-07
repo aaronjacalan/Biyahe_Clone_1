@@ -1,9 +1,7 @@
 package com.android.biyahe.activities
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -87,12 +85,13 @@ class ProfileActivity : Activity() {
             this,
             accounts,
             onClick = { account ->
-                val link = account.link
+                val link = account.displayName
                 OpenLinkActivity.show(this, link)
             },
             getIconResId = { iconType ->
                 getIconResId(iconType)
-            }
+            },
+            onDelete = null
         )
         listViewLinkedAccounts.adapter = accountAdapter
 
